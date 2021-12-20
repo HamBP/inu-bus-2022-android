@@ -19,5 +19,5 @@
         android:id="@+id/memo"
         android:name="org.algosketch.inubus.feature.memo.MemoFragment"
         android:label="memo"
-        tools:layout="@layout/fragment_memo"/>
+        tools:layout="@layout/fragment_detail"/>
 </navigation>

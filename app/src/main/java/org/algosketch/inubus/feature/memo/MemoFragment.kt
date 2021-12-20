@@ -11,7 +11,7 @@ import org.algosketch.inubus.databinding.FragmentMemoBinding
 import org.algosketch.inubus.global.base.BaseFragment
 
 class MemoFragment : BaseFragment<FragmentMemoBinding>() {
-    override val layoutResourceId = R.layout.fragment_memo
+    override val layoutResourceId = R.layout.fragment_detail
     private val viewModel: MemoViewModel by viewModels()
 
     override fun initState() {
