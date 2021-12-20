@@ -11,13 +11,13 @@
         android:label="home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_home_to_memo"
-            app:destination="@id/memo" />
+            android:id="@+id/action_home_to_detail"
+            app:destination="@id/detail" />
     </fragment>
 
     <fragment
-        android:id="@+id/memo"
-        android:name="org.algosketch.inubus.feature.memo.MemoFragment"
-        android:label="memo"
+        android:id="@+id/detail"
+        android:name="org.algosketch.inubus.feature.detail.DetailFragment"
+        android:label="detail"
         tools:layout="@layout/fragment_detail"/>
 </navigation>

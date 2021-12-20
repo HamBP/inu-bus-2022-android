@@ -15,7 +15,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.viewModel = viewModel
 
         viewModel.startNextFragment.observe(this, Observer {
-            findNavController().navigate(R.id.action_home_to_memo)
+            findNavController().navigate(R.id.action_home_to_detail)
         })
     }
 }

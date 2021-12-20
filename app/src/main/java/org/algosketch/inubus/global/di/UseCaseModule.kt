@@ -6,6 +6,6 @@ import org.algosketch.inubus.global.usecase.WriteMemoUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
-    factory { GetMemoUseCase(Store.repository.value) }
-    factory { WriteMemoUseCase(Store.repository.value) }
+//    factory { GetMemoUseCase(Store.repository.value) }
+//    factory { WriteMemoUseCase(Store.repository.value) }
 }

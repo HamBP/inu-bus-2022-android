@@ -8,12 +8,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val repositoryModule = module {
-    single { LocalRepository() }
-    single { RemoteRepository() }
-    single<MemoService> { Retrofit.Builder()
-        .baseUrl(ServerConfigs.baseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-        .create(MemoService::class.java)
-    }
+//    single { LocalRepository() }
+//    single { RemoteRepository() }
+//    single<MemoService> { Retrofit.Builder()
+//        .baseUrl(ServerConfigs.baseUrl)
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .build()
+//        .create(MemoService::class.java)
+//    }
 }
