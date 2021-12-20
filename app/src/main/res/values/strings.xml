@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Android Template</string>
+
+    <!-- home -->
+    <string name="home_title">어떤 메모를 남겨 두었을까요?</string>
+    <string name="load_from_local">로컬에 저장한 내용이 궁금해요!</string>
+    <string name="load_from_server">로컬에 저장한 내용이 궁금해요!</string>
+
+    <!-- memo -->
+    <string name="memo_last">지난 번에 저장했던 내용이에요.</string>
+    <string name="to_save_content">이번엔 어떤 내용을 저장할까요?</string>
+</resources>

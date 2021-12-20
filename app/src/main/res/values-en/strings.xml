@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android Template</string>
+
+    <!-- home -->
+    <string name="home_title">What kind of memo did they leave?</string>
+    <string name="load_from_local">Import stored values from local</string>
+    <string name="load_from_server">Import stored values from the server</string>
+
+    <!-- memo -->
+    <string name="memo_last">I saved it last time.</string>
+    <string name="to_save_content">What should I save this time?</string>
+</resources>
