@@ -39,6 +39,7 @@
         android:textSize="12sp"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_detail"
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintTop_toTopOf="parent"
