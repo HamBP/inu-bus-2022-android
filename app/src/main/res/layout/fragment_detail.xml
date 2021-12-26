@@ -21,7 +21,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/ic_button_undo"
-            android:backgroundTint="@color/black_3"/>
+            android:backgroundTint="@color/black_3"
+            android:onClick="@{()->viewModel.undo()}"/>
 
         <TextView
             android:layout_width="wrap_content"

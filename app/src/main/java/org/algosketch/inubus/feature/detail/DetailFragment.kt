@@ -1,6 +1,7 @@
 package org.algosketch.inubus.feature.detail
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentDetailBinding
 import org.algosketch.inubus.global.base.BaseFragment
@@ -10,6 +11,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private val viewModel: DetailViewModel by viewModels()
 
     override fun initDataBinding() {
-        //binding.viewModel = viewModel
+        binding.viewModel = viewModel
+        viewModel.shouldUndo.observe(this, {
+            findNavController().popBackStack()
+        })
     }
 }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.algosketch.inubus.R
 import org.algosketch.inubus.data.model.BusArrival
@@ -20,6 +21,10 @@ class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListA
         holder.busNumber.text = "${list[position].busNumber}"
         holder.estimatedTime.text = "정류장에서 ${list[position].estimatedTime}분 정도 걸려요."
         holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
+        holder.view.setOnClickListener {
+            val navController = holder.view.findNavController()
+            navController.navigate(R.id.action_home_to_detail)
+        }
     }
 
     override fun getItemCount() = list.size
