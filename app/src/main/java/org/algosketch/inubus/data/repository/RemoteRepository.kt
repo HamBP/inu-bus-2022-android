@@ -1,29 +1,26 @@
 package org.algosketch.inubus.data.repository
 
+import android.util.Log
+import org.algosketch.inubus.data.model.BusArrival
+import org.algosketch.inubus.data.model.BusArrivalResponse
+import org.algosketch.inubus.global.di.BusArrivalService
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import retrofit2.Response
+import java.lang.Exception
 
 class RemoteRepository : Repository, KoinComponent {
-//    private val service: MemoService by inject()
-//
-//    override suspend fun getMemo(): Memo {
-//        val result = service.getMemo()
-//        Log.d("요청", "status : ${result.code()}, ${result.body()}")
-//
-//        if(result.isSuccessful) {
-//            return result.body()!!
-//        }
-//        else {
-//            throw Exception("UNKNOWN ERROR")
-//        }
-//    }
-//
-//    override suspend fun writeMemo(content: String) {
-//        val requestBody = Memo(content)
-//        val result = service.writeMemo(requestBody)
-//        Log.d("요청", "status : ${result.code()}")
-//
-//        if(!result.isSuccessful) {
-//            throw Exception("UNKNOWN ERROR")
-//        }
-//    }
+    val service: BusArrivalService by inject()
+
+    override suspend fun getArrivalBusTime() : BusArrival {
+        val result = service.getBusArrivalTime()
+        Log.d("네트워크 요청", "status : ${result.code()}, ${result.body()}")
+
+        try {
+            return BusArrival("5", 5, 5)!!
+        }
+        catch (err: Exception) {
+            throw Exception("UNKNOWN ERROR!!")
+        }
+    }
 }

@@ -1,6 +1,8 @@
 package org.algosketch.inubus.data.repository
 
+import org.algosketch.inubus.data.model.BusArrival
+import org.algosketch.inubus.data.model.BusArrivalResponse
+
 interface Repository {
-//    suspend fun getMemo(): Memo
-//    suspend fun writeMemo(content: String)
+    suspend fun getArrivalBusTime() : BusArrival
 }
