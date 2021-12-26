@@ -17,9 +17,9 @@ class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListA
     }
 
     override fun onBindViewHolder(holder: BusListViewHolder, position: Int) {
-        holder.busNumber.text = "16"
-        holder.estimatedTime.text = "15"
-        holder.busArrivalTime.text = "8"
+        holder.busNumber.text = "${list[position].busNumber}"
+        holder.estimatedTime.text = "정류장에서 ${list[position].estimatedTime}분 정도 걸려요."
+        holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
     }
 
     override fun getItemCount() = list.size

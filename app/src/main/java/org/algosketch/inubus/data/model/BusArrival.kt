@@ -1,3 +1,6 @@
 package org.algosketch.inubus.data.model
 
-data class BusArrival(val rest: Int = 10)
+data class BusArrival(
+    val busNumber: String,
+    val restTime: Int,
+    val estimatedTime: Int)
