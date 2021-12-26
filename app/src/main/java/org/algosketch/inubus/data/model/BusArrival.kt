@@ -1,3 +1,3 @@
 package org.algosketch.inubus.data.model
 
-data class Memo(var content: String?)
+data class BusArrival(val rest: Int = 10)

@@ -1,11 +1,6 @@
 package org.algosketch.inubus.data.repository
 
-import android.util.Log
-import org.algosketch.inubus.data.model.Memo
-import org.algosketch.inubus.global.di.MemoService
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-import java.lang.Exception
 
 class RemoteRepository : Repository, KoinComponent {
 //    private val service: MemoService by inject()
