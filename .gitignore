@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+app/src/main/java/org/algosketch/inubus/global/configs/ApiTokens.kt
