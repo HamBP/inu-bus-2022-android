@@ -10,6 +10,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private val viewModel: DetailViewModel by viewModels()
 
     override fun initDataBinding() {
-        binding.viewModel = viewModel
+        //binding.viewModel = viewModel
     }
 }

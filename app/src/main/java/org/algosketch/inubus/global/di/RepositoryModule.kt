@@ -1,6 +1,5 @@
 package org.algosketch.inubus.global.di
 
-import org.algosketch.inubus.data.repository.LocalRepository
 import org.algosketch.inubus.data.repository.RemoteRepository
 import org.algosketch.inubus.global.configs.ServerConfigs
 import org.koin.dsl.module
