@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="bus_stop">
+        <item>164000396</item>
+    </array>
+
+    <array name="route_id">
+        <item>165000012</item>
+    </array>
+</resources>
