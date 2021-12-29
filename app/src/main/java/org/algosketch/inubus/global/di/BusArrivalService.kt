@@ -7,12 +7,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface BusArrivalService {
-    @GET("getBusArrivalList")
+    @GET("getAllRouteBusArrivalList")
     suspend fun getBusArrivalTime(
         @Query("serviceKey", encoded = true)serviceKey: String = ApiTokens.arrivalServiceToken,
         @Query("pageNo")pageNo: Int = 1,
-        @Query("numOfRows")numOfRows: Int = 1,
-        @Query("bstopId")bstopId: Int = 164000396,
-        @Query("routeId")routedId: Int = 165000020,
+        @Query("numOfRows")numOfRows: Int = 10,
+        @Query("bstopId")bstopId: Int = 165000111,
     ): Response<BusArrivalResponse>
 }

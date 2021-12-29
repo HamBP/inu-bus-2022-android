@@ -1,6 +1,7 @@
 package org.algosketch.inubus.feature.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -35,7 +36,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         CoroutineScope(Dispatchers.Main).launch {
             val busArrival = getBusArrivalTimeUseCase.run()
-
         }
 
         val busList = view.findViewById<RecyclerView>(R.id.bus_list)

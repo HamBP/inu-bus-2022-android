@@ -14,7 +14,7 @@ class RemoteRepository : Repository, KoinComponent {
 
     override suspend fun getArrivalBusTime() : BusArrival {
         val result = service.getBusArrivalTime()
-        Log.d("네트워크 요청", "status : ${result.code()}, ${result.body()}")
+        Log.d("네트워크 요청", "url : ${result.raw().request().url()} status : ${result.code()}, ${result.body()}")
 
         try {
             return BusArrival("5", 5, 5)!!
