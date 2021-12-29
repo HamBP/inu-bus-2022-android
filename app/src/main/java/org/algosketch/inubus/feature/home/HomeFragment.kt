@@ -15,6 +15,7 @@ import org.algosketch.inubus.data.model.BusArrival
 import org.algosketch.inubus.databinding.FragmentHomeBinding
 import org.algosketch.inubus.global.base.BaseFragment
 import org.algosketch.inubus.global.usecase.GetBusArrivalTimeUseCase
+import org.algosketch.inubus.global.util.BusInformationUtil
 import org.koin.android.ext.android.inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -36,9 +37,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         CoroutineScope(Dispatchers.Main).launch {
             val busArrival = getBusArrivalTimeUseCase.run()
-        }
+            val list = BusInformationUtil.transferBusData(busArrival)
 
-        val busList = view.findViewById<RecyclerView>(R.id.bus_list)
-        busList.adapter = BusListAdapter(listOf())
+            val busList = view.findViewById<RecyclerView>(R.id.bus_list)
+            busList.adapter = BusListAdapter(list)
+        }
     }
 }
