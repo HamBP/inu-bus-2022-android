@@ -4,11 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.algosketch.inubus.R
-import org.algosketch.inubus.data.model.BusArrival
 import org.algosketch.inubus.data.model.BusInformation
+import androidx.core.graphics.drawable.DrawableCompat
+
+import android.graphics.drawable.Drawable
+
+
+
 
 class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusListAdapter.BusListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusListViewHolder {
@@ -19,7 +25,8 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
     }
 
     override fun onBindViewHolder(holder: BusListViewHolder, position: Int) {
-        holder.busNumber.text = "${list[position].busNumber}"
+        setBusNumber(holder.busNumber, position)
+
         holder.estimatedTime.text = "정류장에서 ${list[position].restTime}분 정도 걸려요."
         holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
         holder.view.setOnClickListener {
@@ -34,5 +41,16 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
         val busNumber = view.findViewById<TextView>(R.id.bus_number)
         val estimatedTime = view.findViewById<TextView>(R.id.estimated_time)
         val busArrivalTime = view.findViewById<TextView>(R.id.bus_arrival_time)
+    }
+
+    fun setBusNumber(busNumber: TextView, position: Int) {
+        busNumber.text = "${list[position].busNumber}"
+
+        var buttonDrawable: Drawable? = busNumber.background
+        buttonDrawable = DrawableCompat.wrap(buttonDrawable!!)
+        when (list[position].busColor) {
+            "blue" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.blue_bus))
+            else -> throw Exception("unknown bus color")
+        }
     }
 }
