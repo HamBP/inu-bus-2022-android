@@ -42,5 +42,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             val busList = view.findViewById<RecyclerView>(R.id.bus_list)
             busList.adapter = BusListAdapter(list)
         }
+
+        viewModel.refresh()
     }
 }
