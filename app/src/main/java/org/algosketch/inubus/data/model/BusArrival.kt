@@ -34,8 +34,8 @@ data class MsgBody(
 @Xml(name = "itemList")
 data class ItemList(
     @PropertyElement val ARRIVALESTIMATETIME: Int,
-    @PropertyElement val BSTOPID: Int,
-    @PropertyElement val ROUTEID: Int,
+    @PropertyElement val BSTOPID: String,
+    @PropertyElement val ROUTEID: String,
     @PropertyElement val REST_STOP_COUNT: Int,
     @PropertyElement val LATEST_STOP_NAME: String,
     @PropertyElement val DIRCD: Int // 0 상행, 1 하행, 2 순환

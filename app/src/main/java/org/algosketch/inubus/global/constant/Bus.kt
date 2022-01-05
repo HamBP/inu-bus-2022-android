@@ -28,4 +28,23 @@ object Bus {
         "6-1" to "164000403", // 지정단 3출
         "99" to "164000380" // 지정단 4출
     )
+
+    val busNumbers = mapOf(
+        "165000515" to "42",
+        "165000516" to "43",
+        "165000012" to "8",
+        "164000001" to "98",
+        "161000008" to "99",
+        "161000007" to "58",
+        "165000020" to "16",
+        "165000008" to "6-1",
+        "161000008" to "99"
+    )
+
+    fun getRouteIdsByBusStop(busStop: String) : List<String> {
+        return when(busStop) {
+            "164000395" -> listOf("165000012", "164000001", "161000008", "161000007", "165000020")
+            else -> throw Exception("UNKNOWN ERROR")
+        }
+    }
 }
