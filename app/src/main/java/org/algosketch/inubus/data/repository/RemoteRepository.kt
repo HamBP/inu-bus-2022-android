@@ -12,7 +12,7 @@ class RemoteRepository : Repository, KoinComponent {
     val service: BusArrivalService by inject()
 
     override suspend fun getArrivalBusTime() : BusArrival {
-        val result = service.getBusArrivalTime()
+        val result = service.getBusArrivalTime(bstopId = "164000396")
         Log.d("네트워크 요청", "url : ${result.raw().request().url()} status : ${result.code()}, ${result.body()}")
 
         try {

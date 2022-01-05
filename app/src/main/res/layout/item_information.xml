@@ -20,21 +20,21 @@
         android:backgroundTint="@color/blue_bus"/>
 
     <TextView
-        android:id="@+id/estimated_time"
+        android:id="@+id/exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/bus_number"
         android:layout_marginStart="8dp"
-        android:text="인천대입구역에서 12분정도 걸려요."
+        android:text="인천대입구역 2번 출구"
         android:textColor="@color/black_3"
-        android:textSize="14sp"/>
+        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/bus_arrival_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/bus_number"
         android:layout_marginStart="8dp"
         android:text="버스가 5분 뒤 도착해요."

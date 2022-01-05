@@ -27,7 +27,7 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
     override fun onBindViewHolder(holder: BusListViewHolder, position: Int) {
         setBusNumber(holder.busNumber, position)
 
-        holder.estimatedTime.text = ""//"정류장에서 ${list[position].restTime}분 정도 걸려요."
+        holder.exit.text = "인천대입구역 ${list[position].exit}번 출구"
         holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
         holder.view.setOnClickListener {
             val navController = holder.view.findNavController()
@@ -39,7 +39,7 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
 
     inner class BusListViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val busNumber = view.findViewById<TextView>(R.id.bus_number)
-        val estimatedTime = view.findViewById<TextView>(R.id.estimated_time)
+        val exit = view.findViewById<TextView>(R.id.exit)
         val busArrivalTime = view.findViewById<TextView>(R.id.bus_arrival_time)
     }
 

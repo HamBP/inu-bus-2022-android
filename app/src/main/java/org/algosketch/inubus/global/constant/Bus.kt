@@ -43,8 +43,9 @@ object Bus {
 
     fun getRouteIdsByBusStop(busStop: String) : List<String> {
         return when(busStop) {
+            "164000396" -> listOf("165000515", "165000516")
             "164000395" -> listOf("165000012", "164000001", "161000008", "161000007", "165000020")
-            else -> throw Exception("UNKNOWN ERROR")
+            else -> throw Exception("no bus stop id")
         }
     }
 
@@ -54,6 +55,16 @@ object Bus {
             "99" -> "purple"
             "41", "42", "43" -> "green"
             else -> "unknown"
+        }
+    }
+
+    fun getExit(busStop: String) : Int {
+        return when(busStop) {
+            "164000396" -> 1
+            "164000395" -> 2
+            "164000403" -> 3
+            "164000380" -> 4
+            else -> 0
         }
     }
 }

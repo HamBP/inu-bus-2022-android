@@ -16,7 +16,8 @@ object BusInformationUtil {
                 BusInformation(
                     restTime = (it.ARRIVALESTIMATETIME / 60),
                     busNumber = busNumber,
-                    busColor = Bus.getBusColorByBusNumber(busNumber)
+                    busColor = Bus.getBusColorByBusNumber(busNumber),
+                    exit = Bus.getExit(it.BSTOPID)
             ) }
 
         return result
