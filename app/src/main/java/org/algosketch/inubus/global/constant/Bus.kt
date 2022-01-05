@@ -47,4 +47,13 @@ object Bus {
             else -> throw Exception("UNKNOWN ERROR")
         }
     }
+
+    fun getBusColorByBusNumber(busNumber: String) : String {
+        return when(busNumber) {
+            "8", "16", "58", "6-1", "98" -> "blue"
+            "99" -> "purple"
+            "41", "42", "43" -> "green"
+            else -> "unknown"
+        }
+    }
 }

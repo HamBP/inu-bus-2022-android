@@ -12,10 +12,11 @@ object BusInformationUtil {
         val result = itemList
             .filter { Bus.getRouteIdsByBusStop(itemList[0].BSTOPID).contains(it.ROUTEID) }
             .map {
+                val busNumber = Bus.busNumbers[it.ROUTEID] ?: "?"
                 BusInformation(
                     restTime = (it.ARRIVALESTIMATETIME / 60),
-                    busNumber = Bus.busNumbers[it.ROUTEID] ?: "?",
-                    busColor = "blue"
+                    busNumber = busNumber,
+                    busColor = Bus.getBusColorByBusNumber(busNumber)
             ) }
 
         return result

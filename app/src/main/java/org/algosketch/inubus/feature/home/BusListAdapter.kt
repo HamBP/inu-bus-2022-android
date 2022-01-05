@@ -27,7 +27,7 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
     override fun onBindViewHolder(holder: BusListViewHolder, position: Int) {
         setBusNumber(holder.busNumber, position)
 
-        holder.estimatedTime.text = "정류장에서 ${list[position].restTime}분 정도 걸려요."
+        holder.estimatedTime.text = ""//"정류장에서 ${list[position].restTime}분 정도 걸려요."
         holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
         holder.view.setOnClickListener {
             val navController = holder.view.findNavController()
@@ -49,8 +49,11 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
         var buttonDrawable: Drawable? = busNumber.background
         buttonDrawable = DrawableCompat.wrap(buttonDrawable!!)
         when (list[position].busColor) {
+            "red" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.red_bus))
             "blue" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.blue_bus))
-            else -> throw Exception("unknown bus color")
+            "green" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.green_bus))
+            "purple" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.purple_bus))
+            else -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.black_3))
         }
     }
 }
