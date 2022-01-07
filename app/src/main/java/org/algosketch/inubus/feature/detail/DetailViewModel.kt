@@ -7,6 +7,7 @@ import org.algosketch.inubus.global.util.SingleLiveEvent
 class DetailViewModel : BaseViewModel() {
     val shouldUndo = SingleLiveEvent<Any>()
     val information = MutableLiveData("???")
+    val busNumber = MutableLiveData("???")
 
     fun undo() {
         shouldUndo.call()

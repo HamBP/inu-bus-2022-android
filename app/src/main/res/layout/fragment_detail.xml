@@ -31,7 +31,7 @@
             app:layout_constraintBottom_toBottomOf="@id/divider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="16"
+            android:text="@{viewModel.busNumber}"
             android:textSize="20sp"
             android:textColor="@color/black_3" />
 
