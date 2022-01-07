@@ -51,8 +51,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
-            android:text="인천대입구역에서 12분정도 걸려요."
-            android:textSize="14sp"/>
+            android:text=""
+            android:textSize="14sp"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -60,9 +61,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginHorizontal="20dp"
             app:layout_constraintTop_toBottomOf="@id/information"
-            android:text="정류장은 인천대입구역 2번출구에서 10m 걸어가야 해요.\n내려서..." />
-
-
+            android:text="@{viewModel.information}" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

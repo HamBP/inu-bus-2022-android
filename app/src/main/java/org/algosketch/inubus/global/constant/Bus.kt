@@ -44,7 +44,7 @@ object Bus {
     fun getRouteIdsByBusStop(busStop: String) : List<String> {
         return when(busStop) {
             "164000396" -> listOf("165000515", "165000516")
-            "164000395" -> listOf("165000012", "164000001", "161000008", "161000007", "165000020")
+            "164000395" -> listOf("165000012", "164000001", "161000008", "165000020")
             "164000403" -> listOf("165000008")
             "164000380" -> listOf("161000008")
             else -> throw Exception("no bus stop id")

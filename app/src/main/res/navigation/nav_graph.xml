@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_wrap" >
         <action
             android:id="@+id/action_wrap_to_detail"
-            app:destination="@id/detail" />
+            app:destination="@id/detail">
+            <argument
+                android:name="amount"
+                app:argType="integer"
+                android:defaultValue="1"/>
+        </action>
     </fragment>
 
     <fragment
@@ -20,14 +25,16 @@
         android:name="org.algosketch.inubus.feature.home.HomeFragment"
         android:label="home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_home_to_detail"
-            app:destination="@id/detail" />
     </fragment>
 
     <fragment
         android:id="@+id/detail"
         android:name="org.algosketch.inubus.feature.detail.DetailFragment"
         android:label="detail"
-        tools:layout="@layout/fragment_detail"/>
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="amount"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </fragment>
 </navigation>

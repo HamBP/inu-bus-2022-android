@@ -3,6 +3,7 @@ package org.algosketch.inubus.feature.home
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 import org.algosketch.inubus.R
 import org.algosketch.inubus.data.model.BusArrival
 import org.algosketch.inubus.databinding.FragmentHomeBinding
+import org.algosketch.inubus.feature.wrap.WrapFragmentDirections
 import org.algosketch.inubus.global.base.BaseFragment
 import org.algosketch.inubus.global.store.Store
 import org.algosketch.inubus.global.usecase.GetBusArrivalTimeUseCase
@@ -29,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.viewModel = viewModel
 
         viewModel.startNextFragment.observe(this, Observer {
-            findNavController().navigate(R.id.action_home_to_detail)
+            findNavController().navigate(R.id.action_wrap_to_detail)
         })
     }
 

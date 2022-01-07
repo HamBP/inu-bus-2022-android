@@ -5,4 +5,6 @@ import org.algosketch.inubus.data.repository.Repository
 
 object Store {
     var where = MutableLiveData("인천대입구")
+    var exit = 0
+    var meter = 0
 }
