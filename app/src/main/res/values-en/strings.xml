@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Android Template</string>
+    <string name="app_name">INU RUN</string>
 
     <!-- home -->
     <string name="home_title">What kind of memo did they leave?</string>
