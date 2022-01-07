@@ -29,10 +29,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun initDataBinding() {
         binding.viewModel = viewModel
-
-        viewModel.startNextFragment.observe(this, Observer {
-            findNavController().navigate(R.id.action_wrap_to_detail)
-        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

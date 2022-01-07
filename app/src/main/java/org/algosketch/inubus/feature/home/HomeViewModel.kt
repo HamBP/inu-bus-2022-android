@@ -13,15 +13,10 @@ import org.koin.core.component.inject
 import java.time.LocalDateTime
 
 class HomeViewModel : BaseViewModel() {
-    val startNextFragment = SingleLiveEvent<Any>()
     val currentTime = MutableLiveData<String>()
     val busList = MutableLiveData<List<BusInformation>>()
 
     private val getBusArrivalTimeUseCase: GetBusArrivalTimeUseCase by inject()
-
-    fun startDetail() {
-        startNextFragment.call()
-    }
 
     fun refreshTime() {
         val dateTime = LocalDateTime.now().plusHours(9)
