@@ -41,7 +41,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         })
 
         CoroutineScope(Dispatchers.Main).launch {
-            viewModel.updateBusList()
+            viewModel.updateBusList(1)
         }
 
         viewModel.refresh()
