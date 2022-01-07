@@ -17,20 +17,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/refresh_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="24dp"
             android:text="@{viewModel.currentTime}"
             tools:text="08:42 기준"
             android:textColor="#616161"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/refresh_button"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            app:layout_constraintTop_toTopOf="@id/refreshed_time"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="20dp"
-            android:visibility="invisible"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bus_list"

@@ -10,6 +10,9 @@
         android:name="org.algosketch.inubus.feature.wrap.WrapFragment"
         android:label="wrap"
         tools:layout="@layout/fragment_wrap" >
+        <action
+            android:id="@+id/action_wrap_to_detail"
+            app:destination="@id/detail" />
     </fragment>
 
     <fragment

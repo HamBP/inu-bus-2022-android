@@ -46,7 +46,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 viewModel.updateBusList(it)
             }
         })
-
-        viewModel.refresh()
     }
 }

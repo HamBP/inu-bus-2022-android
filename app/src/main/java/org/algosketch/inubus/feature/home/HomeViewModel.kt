@@ -23,7 +23,7 @@ class HomeViewModel : BaseViewModel() {
         startNextFragment.call()
     }
 
-    fun refresh() {
+    fun refreshTime() {
         val dateTime = LocalDateTime.now().plusHours(9)
         val dateString = "${dateTime.hour}:${dateTime.minute}"
         currentTime.postValue("${dateString} 기준")
@@ -32,6 +32,7 @@ class HomeViewModel : BaseViewModel() {
     suspend fun updateBusList(where: String) { // 1 : 인입, 2 : 지정단
         val list = if(where == "인천대입구") fetchINU() else fetchBIT()
         busList.postValue(list)
+        refreshTime()
     }
 
     suspend fun fetchINU() = coroutineScope {

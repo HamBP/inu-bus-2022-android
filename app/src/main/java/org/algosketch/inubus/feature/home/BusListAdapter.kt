@@ -30,7 +30,7 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
         holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
         holder.view.setOnClickListener {
             val navController = holder.view.findNavController()
-            navController.navigate(R.id.action_home_to_detail)
+            navController.navigate(R.id.action_wrap_to_detail)
         }
     }
 
