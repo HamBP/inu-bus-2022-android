@@ -11,7 +11,7 @@ interface BusArrivalService {
     suspend fun getBusArrivalTime(
         @Query("serviceKey", encoded = true)serviceKey: String = ApiTokens.arrivalServiceToken,
         @Query("pageNo")pageNo: Int = 1,
-        @Query("numOfRows")numOfRows: Int = 10,
+        @Query("numOfRows")numOfRows: Int = 20,
         @Query("bstopId")bstopId: String = "164000395",
     ): Response<BusArrival>
 }

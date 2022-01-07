@@ -35,16 +35,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        CoroutineScope(Dispatchers.Main).launch {
-            val busArrival1 = getBusArrivalTimeUseCase.run("164000395")
-            val list1 = BusInformationUtil.transferBusData(busArrival1)
-            val busArrival2 = getBusArrivalTimeUseCase.run("164000396")
-            val list2 = BusInformationUtil.transferBusData(busArrival2)
-            val list = list1 + list2
-
-            Log.d("aaa", list.toString())
+        viewModel.busList.observe(this, {
             val busList = view.findViewById<RecyclerView>(R.id.bus_list)
-            busList.adapter = BusListAdapter(list)
+            busList.adapter = BusListAdapter(it)
+        })
+
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.updateBusList()
         }
 
         viewModel.refresh()
