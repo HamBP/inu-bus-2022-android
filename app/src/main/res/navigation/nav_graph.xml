@@ -3,7 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/home">
+    app:startDestination="@id/wrap">
+
+    <fragment
+        android:id="@+id/wrap"
+        android:name="org.algosketch.inubus.feature.wrap.WrapFragment"
+        android:label="wrap"
+        tools:layout="@layout/fragment_wrap" >
+    </fragment>
 
     <fragment
         android:id="@+id/home"

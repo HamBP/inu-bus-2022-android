@@ -12,42 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:elevation="2dp"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/filter_incheon_station"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/filter_bio_information_station"
-            android:text="인천대입구"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:background="@color/white" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/filter_bio_information_station"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            app:layout_constraintTop_toTopOf="@id/filter_incheon_station"
-            app:layout_constraintStart_toEndOf="@id/filter_incheon_station"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="지식정보단지"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:background="@color/white" />
-
         <TextView
             android:id="@+id/refreshed_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/filter_incheon_station"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/refresh_button"
             android:layout_marginTop="24dp"
             android:text="@{viewModel.currentTime}"
