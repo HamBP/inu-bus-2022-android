@@ -22,7 +22,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     override fun initState() {
         viewModel.information.postValue(
-            "버스 정류장이 ${arguments?.getString("exit")}역 ${arguments?.getInt("exit")}번 출구에서 ${arguments?.getInt("distance")}m 떨어져 있어요."
+            "버스 정류장이 ${arguments?.getString("where")}역 ${arguments?.getInt("exit")}번 출구에서 ${arguments?.getInt("distance")}m 떨어져 있어요."
         )
         viewModel.busNumber.postValue(arguments?.getString("busNumber"))
     }

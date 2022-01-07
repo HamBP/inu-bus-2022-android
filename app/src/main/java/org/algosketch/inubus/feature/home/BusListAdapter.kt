@@ -13,6 +13,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 
 import android.graphics.drawable.Drawable
 import androidx.core.os.bundleOf
+import org.algosketch.inubus.global.constant.Bus
 import org.algosketch.inubus.global.store.Store
 
 
@@ -31,7 +32,12 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
         holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
         holder.view.setOnClickListener {
             val navController = holder.view.findNavController()
-            val bundle = bundleOf("exit" to list[position].exit, "where" to Store.where.value!!)
+            val bundle = bundleOf(
+                "exit" to list[position].exit,
+                "where" to Store.where.value!!,
+                "busNumber" to list[position].busNumber,
+                "distance" to Bus.getDistance(Store.where.value!!, list[position].busNumber)
+            )
             navController.navigate(R.id.action_wrap_to_detail, bundle)
         }
     }
