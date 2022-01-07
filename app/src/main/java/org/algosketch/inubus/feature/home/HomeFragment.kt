@@ -36,9 +36,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         CoroutineScope(Dispatchers.Main).launch {
-            val busArrival = getBusArrivalTimeUseCase.run()
-            val list = BusInformationUtil.transferBusData(busArrival)
+            val busArrival1 = getBusArrivalTimeUseCase.run("164000395")
+            val list1 = BusInformationUtil.transferBusData(busArrival1)
+            val busArrival2 = getBusArrivalTimeUseCase.run("164000396")
+            val list2 = BusInformationUtil.transferBusData(busArrival2)
+            val list = list1 + list2
 
+            Log.d("aaa", list.toString())
             val busList = view.findViewById<RecyclerView>(R.id.bus_list)
             busList.adapter = BusListAdapter(list)
         }
