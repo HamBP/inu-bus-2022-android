@@ -12,8 +12,7 @@ import org.algosketch.inubus.data.model.BusInformation
 import androidx.core.graphics.drawable.DrawableCompat
 
 import android.graphics.drawable.Drawable
-
-
+import org.algosketch.inubus.global.store.Store
 
 
 class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusListAdapter.BusListViewHolder>() {
@@ -27,7 +26,7 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
     override fun onBindViewHolder(holder: BusListViewHolder, position: Int) {
         setBusNumber(holder.busNumber, position)
 
-        holder.exit.text = "인천대입구역 ${list[position].exit}번 출구"
+        holder.exit.text = "${Store.where.value!!}역 ${list[position].exit}번 출구"
         holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
         holder.view.setOnClickListener {
             val navController = holder.view.findNavController()

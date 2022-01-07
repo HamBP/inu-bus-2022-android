@@ -3,6 +3,7 @@ package org.algosketch.inubus.feature.wrap
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import org.algosketch.inubus.feature.home.HomeFragment
+import org.algosketch.inubus.global.store.Store
 import java.lang.Exception
 
 class HomePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {

@@ -29,8 +29,8 @@ class HomeViewModel : BaseViewModel() {
         currentTime.postValue("${dateString} 기준")
     }
 
-    suspend fun updateBusList(type: Int) { // 1 : 인입, 2 : 지정단
-        val list = fetchBIT()
+    suspend fun updateBusList(where: String) { // 1 : 인입, 2 : 지정단
+        val list = if(where == "인천대입구") fetchINU() else fetchBIT()
         busList.postValue(list)
     }
 

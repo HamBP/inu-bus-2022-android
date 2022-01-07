@@ -14,6 +14,7 @@ import org.algosketch.inubus.R
 import org.algosketch.inubus.data.model.BusArrival
 import org.algosketch.inubus.databinding.FragmentHomeBinding
 import org.algosketch.inubus.global.base.BaseFragment
+import org.algosketch.inubus.global.store.Store
 import org.algosketch.inubus.global.usecase.GetBusArrivalTimeUseCase
 import org.algosketch.inubus.global.util.BusInformationUtil
 import org.koin.android.ext.android.inject
@@ -40,9 +41,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             busList.adapter = BusListAdapter(it)
         })
 
-        CoroutineScope(Dispatchers.Main).launch {
-            viewModel.updateBusList(1)
-        }
+        Store.where.observe(this, {
+            CoroutineScope(Dispatchers.Main).launch {
+                viewModel.updateBusList(it)
+            }
+        })
 
         viewModel.refresh()
     }
