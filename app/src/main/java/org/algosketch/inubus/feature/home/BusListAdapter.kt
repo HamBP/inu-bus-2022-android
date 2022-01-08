@@ -12,6 +12,7 @@ import org.algosketch.inubus.data.model.BusInformation
 import androidx.core.graphics.drawable.DrawableCompat
 
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import androidx.core.os.bundleOf
 import org.algosketch.inubus.global.util.Bus
 import org.algosketch.inubus.global.store.Store
@@ -34,16 +35,22 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
         holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
         holder.view.setOnClickListener {
             val navController = holder.view.findNavController()
-            val bundle = bundleOf(
-                "exit" to list[position].exit,
-                "where" to Store.where.value!!,
-                "busNumber" to busNumber,
-                "distance" to Bus.getDistance(Store.where.value!!, busNumber),
-                "restTime" to list[position].restTime
-            )
+            val bundle = getBundle(list[position].exit, Store.where.value!!, busNumber, Bus.getDistance(Store.where.value!!, busNumber), list[position].restTime)
             navController.navigate(R.id.action_wrap_to_detail, bundle)
         }
         holder.tagRecyclerView.adapter = TagAdapter(Bus.getBusStopsByBusNumber(busNumber))
+    }
+
+    fun getBundle(exit: Int, where: String, busNumber: String, distance: Int, restTime: Int) : Bundle {
+        val bundle = bundleOf(
+            "exit" to exit,
+            "where" to where,
+            "busNumber" to busNumber,
+            "distance" to distance,
+            "restTime" to restTime
+        )
+
+        return bundle
     }
 
     override fun getItemCount() = list.size
