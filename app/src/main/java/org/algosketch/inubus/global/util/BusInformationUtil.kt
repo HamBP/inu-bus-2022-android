@@ -1,9 +1,7 @@
 package org.algosketch.inubus.global.util
 
-import android.util.Log
 import org.algosketch.inubus.data.model.BusArrival
 import org.algosketch.inubus.data.model.BusInformation
-import org.algosketch.inubus.global.constant.Bus
 
 object BusInformationUtil {
     fun transferBusData(busArrival: BusArrival) : List<BusInformation> {

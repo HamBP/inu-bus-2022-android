@@ -1,4 +1,4 @@
-package org.algosketch.inubus.global.constant
+package org.algosketch.inubus.global.util
 
 object Bus {
     val routeIds = mapOf(
