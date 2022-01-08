@@ -3,6 +3,7 @@ package org.algosketch.inubus.feature.detail
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.viewModels
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentDetailBinding
 import org.algosketch.inubus.global.base.BaseFragment
+import org.algosketch.inubus.global.util.Bus
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     override val layoutResourceId = R.layout.fragment_detail
@@ -41,6 +43,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
         val toolbarBackground = view.findViewById<View>(R.id.toolbar_background)
         setBackgroundTint(toolbarBackground, colorMap[arguments?.getString("busColor")] ?: R.color.black_3)
+
+        val mapImage = view.findViewById<ImageView>(R.id.map_image)
+        mapImage.setImageDrawable(ContextCompat.getDrawable(view.context, Bus.getMapImageIdByBusNumber(arguments?.getString("busNumber"))))
     }
 
     fun setBackgroundTint(view: View, colorId: Int) {
