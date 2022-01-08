@@ -7,7 +7,7 @@ import org.algosketch.inubus.global.constant.Bus
 
 object BusInformationUtil {
     fun transferBusData(busArrival: BusArrival) : List<BusInformation> {
-        val itemList = busArrival.msgBody!!.itemList!!
+        val itemList = busArrival.msgBody?.itemList ?: return arrayListOf()
 
         val result = itemList
             .filter { Bus.getRouteIdsByBusStop(itemList[0].BSTOPID).contains(it.ROUTEID) }
