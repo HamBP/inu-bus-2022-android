@@ -26,9 +26,9 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
     }
 
     override fun onBindViewHolder(holder: BusListViewHolder, position: Int) {
-        setBusNumber(holder.busNumber, position)
-
         val busNumber = list[position].busNumber
+
+        setBusNumber(holder.busNumber, busNumber)
 
         holder.exit.text = "${Store.where.value!!}역 ${list[position].exit}번 출구"
         holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
@@ -55,17 +55,17 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
         val tagRecyclerView: RecyclerView = view.findViewWithTag(R.id.tag_recycler_view)
     }
 
-    fun setBusNumber(busNumber: TextView, position: Int) {
-        busNumber.text = "${list[position].busNumber}"
+    fun setBusNumber(view: TextView, busNumber: String) {
+        view.text = "$busNumber"
 
-        var buttonDrawable: Drawable? = busNumber.background
+        var buttonDrawable: Drawable? = view.background
         buttonDrawable = DrawableCompat.wrap(buttonDrawable!!)
-        when (list[position].busColor) {
-            "red" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.red_bus))
-            "blue" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.blue_bus))
-            "green" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.green_bus))
-            "purple" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.purple_bus))
-            else -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(busNumber.context, R.color.black_3))
+        when (Bus.getBusColorByBusNumber(busNumber)) {
+            "red" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, R.color.red_bus))
+            "blue" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, R.color.blue_bus))
+            "green" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, R.color.green_bus))
+            "purple" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, R.color.purple_bus))
+            else -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, R.color.black_3))
         }
     }
 }
