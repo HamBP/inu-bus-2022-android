@@ -56,16 +56,21 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
     }
 
     fun setBusNumber(view: TextView, busNumber: String) {
-        view.text = "$busNumber"
+        view.text = busNumber
 
+        when (Bus.getBusColorByBusNumber(busNumber)) {
+            "red" -> setBackgroundTint(view, R.color.red_bus)
+            "blue" -> setBackgroundTint(view, R.color.blue_bus)
+            "green" -> setBackgroundTint(view, R.color.green_bus)
+            "purple" -> setBackgroundTint(view, R.color.purple_bus)
+            else -> setBackgroundTint(view, R.color.black_3)
+        }
+    }
+
+    fun setBackgroundTint(view: View, colorId: Int) {
         var buttonDrawable: Drawable? = view.background
         buttonDrawable = DrawableCompat.wrap(buttonDrawable!!)
-        when (Bus.getBusColorByBusNumber(busNumber)) {
-            "red" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, R.color.red_bus))
-            "blue" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, R.color.blue_bus))
-            "green" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, R.color.green_bus))
-            "purple" -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, R.color.purple_bus))
-            else -> DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, R.color.black_3))
-        }
+
+        DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, colorId))
     }
 }
