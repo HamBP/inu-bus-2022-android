@@ -4,10 +4,11 @@
     <color name="blue_bus">#FF386DE8</color>
     <color name="green_bus">#FF3CC344</color>
     <color name="red_bus">#FFE94E53</color>
+    <color name="purple_bus">#FF8841D2</color>
     <color name="background_blue_bus">#20386DE8</color>
     <color name="background_green_bus">#203CC344</color>
     <color name="background_red_bus">#20E94E53</color>
-    <color name="purple_bus">#FF8841D2</color>
+    <color name="background_purple_bus">#208841D2</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>

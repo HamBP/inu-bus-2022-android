@@ -32,6 +32,7 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
         val restTime = list[position].restTime
         val busNumber = list[position].busNumber
         val distance = Bus.getDistance(where, busNumber)
+        val busColor = Bus.getBusColorByBusNumber(busNumber)
 
         setBusNumber(holder.busNumber, busNumber)
 
@@ -39,19 +40,20 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
         holder.busArrivalTime.text = "버스가 ${restTime}분 뒤 도착해요."
         holder.view.setOnClickListener {
             val navController = holder.view.findNavController()
-            val bundle = getBundle(exit, where, busNumber, distance, restTime)
+            val bundle = getBundle(exit, where, busNumber, distance, restTime, busColor)
             navController.navigate(R.id.action_wrap_to_detail, bundle)
         }
         holder.tagRecyclerView.adapter = TagAdapter(Bus.getBusStopsByBusNumber(busNumber))
     }
 
-    fun getBundle(exit: Int, where: String, busNumber: String, distance: Int, restTime: Int) : Bundle {
+    fun getBundle(exit: Int, where: String, busNumber: String, distance: Int, restTime: Int, busColor: String) : Bundle {
         val bundle = bundleOf(
             "exit" to exit,
             "where" to where,
             "busNumber" to busNumber,
             "distance" to distance,
-            "restTime" to restTime
+            "restTime" to restTime,
+            "busColor" to busColor
         )
 
         return bundle
@@ -81,9 +83,9 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
     }
 
     fun setBackgroundTint(view: View, colorId: Int) {
-        var buttonDrawable: Drawable? = view.background
-        buttonDrawable = DrawableCompat.wrap(buttonDrawable!!)
+        var drawable: Drawable? = view.background
+        drawable = DrawableCompat.wrap(drawable!!)
 
-        DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(view.context, colorId))
+        DrawableCompat.setTint(drawable, ContextCompat.getColor(view.context, colorId))
     }
 }
