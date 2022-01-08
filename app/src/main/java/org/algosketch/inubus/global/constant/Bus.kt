@@ -78,9 +78,18 @@ object Bus {
         return when(busNumber) {
             "42", "43" -> 11
             "8", "98", "58", "16" -> 21
-            "6", "41" -> 87;
-            "6-1" -> 83;
+            "6", "41" -> 87
+            "6-1" -> 83
             else -> 999
+        }
+    }
+
+    fun getBusStopsByBusNumber(busNumber: String) : List<String> {
+        return when(busNumber) {
+            "8", "98" -> listOf("정문", "자대", "공대")
+            "16", "99" -> listOf("정문")
+            "41", "42", "43", "6", "6-1" -> listOf("자대", "공대")
+            else -> throw Exception("UNKNOWN BUS NUMBER")
         }
     }
 }
