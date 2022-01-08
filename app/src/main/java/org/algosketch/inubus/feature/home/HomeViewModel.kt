@@ -1,9 +1,7 @@
 package org.algosketch.inubus.feature.home
 
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.algosketch.inubus.data.model.BusInformation
 import org.algosketch.inubus.global.base.BaseViewModel
 import org.algosketch.inubus.global.usecase.GetBusArrivalTimeUseCase
