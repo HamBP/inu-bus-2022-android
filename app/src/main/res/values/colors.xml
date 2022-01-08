@@ -15,5 +15,6 @@
     <color name="black_1">#FF191919</color>
     <color name="black_3">#FF303030</color>
     <color name="gray_8">#FF808080</color>
+    <color name="gray_f">#FFF2F2F2</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
