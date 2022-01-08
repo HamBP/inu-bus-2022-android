@@ -27,15 +27,19 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
     }
 
     override fun onBindViewHolder(holder: BusListViewHolder, position: Int) {
+        val where = Store.where.value!!
+        val exit = list[position].exit
+        val restTime = list[position].restTime
         val busNumber = list[position].busNumber
+        val distance = Bus.getDistance(where, busNumber)
 
         setBusNumber(holder.busNumber, busNumber)
 
-        holder.exit.text = "${Store.where.value!!}역 ${list[position].exit}번 출구"
-        holder.busArrivalTime.text = "버스가 ${list[position].restTime}분 뒤 도착해요."
+        holder.exit.text = "${where}역 ${exit}번 출구"
+        holder.busArrivalTime.text = "버스가 ${restTime}분 뒤 도착해요."
         holder.view.setOnClickListener {
             val navController = holder.view.findNavController()
-            val bundle = getBundle(list[position].exit, Store.where.value!!, busNumber, Bus.getDistance(Store.where.value!!, busNumber), list[position].restTime)
+            val bundle = getBundle(exit, where, busNumber, distance, restTime)
             navController.navigate(R.id.action_wrap_to_detail, bundle)
         }
         holder.tagRecyclerView.adapter = TagAdapter(Bus.getBusStopsByBusNumber(busNumber))
