@@ -52,19 +52,47 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="24dp"
             android:layout_marginHorizontal="16dp"
-            android:text="@{viewModel.information}"
+            android:text="@{viewModel.restTime}"
             tools:text='"버스 12분 뒤에 와요"'
             android:textColor="@color/black_1"
             android:textSize="16sp"
             android:gravity="center"/>
 
         <TextView
+            android:id="@+id/detail_exit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginHorizontal="20dp"
             app:layout_constraintTop_toBottomOf="@id/bus_rest_time"
-            android:text="" />
+            android:text="@{viewModel.exit}"
+            tools:text="정류장은 인천대입구연 2번 출구에서"
+            android:gravity="center"
+            android:textColor="@color/gray_8"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/detail_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintTop_toBottomOf="@id/detail_exit"
+            android:text="@{viewModel.distance}"
+            tools:text="189m"
+            android:gravity="center"
+            android:textColor="@color/black_1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/detail_walk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintTop_toBottomOf="@id/detail_distance"
+            android:text="걸어가야 해요"
+            android:gravity="center"
+            android:textColor="@color/gray_8"
+            android:textSize="14sp"/>
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -36,7 +36,8 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
                 "exit" to list[position].exit,
                 "where" to Store.where.value!!,
                 "busNumber" to list[position].busNumber,
-                "distance" to Bus.getDistance(Store.where.value!!, list[position].busNumber)
+                "distance" to Bus.getDistance(Store.where.value!!, list[position].busNumber),
+                "restTime" to list[position].restTime
             )
             navController.navigate(R.id.action_wrap_to_detail, bundle)
         }
