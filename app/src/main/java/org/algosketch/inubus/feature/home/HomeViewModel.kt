@@ -19,7 +19,7 @@ class HomeViewModel : BaseViewModel() {
     private val getBusArrivalTimeUseCase: GetBusArrivalTimeUseCase by inject()
 
     fun refreshTime() {
-        val dateTime = LocalDateTime.now().plusHours(9)
+        val dateTime = LocalDateTime.now()
         val dateString = "${dateTime.hour}:${dateTime.minute}"
         currentTime.postValue("${dateString} 기준")
     }
