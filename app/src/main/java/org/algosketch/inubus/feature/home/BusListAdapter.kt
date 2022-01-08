@@ -42,7 +42,7 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
             val bundle = getBundle(exit, where, busNumber, distance, restTime)
             navController.navigate(R.id.action_wrap_to_detail, bundle)
         }
-        //holder.tagRecyclerView.adapter = TagAdapter(Bus.getBusStopsByBusNumber(busNumber))
+        holder.tagRecyclerView.adapter = TagAdapter(Bus.getBusStopsByBusNumber(busNumber))
     }
 
     fun getBundle(exit: Int, where: String, busNumber: String, distance: Int, restTime: Int) : Bundle {
@@ -63,7 +63,7 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
         val busNumber: TextView = view.findViewById(R.id.bus_number)
         val exit: TextView = view.findViewById(R.id.exit)
         val busArrivalTime: TextView = view.findViewById(R.id.bus_arrival_time)
-        //val tagRecyclerView: RecyclerView = view.findViewWithTag(R.id.tag_recycler_view)
+        val tagRecyclerView: RecyclerView = view.findViewById(R.id.tag_recycler_view)
     }
 
     fun setBusNumber(view: TextView, busNumber: String) {
