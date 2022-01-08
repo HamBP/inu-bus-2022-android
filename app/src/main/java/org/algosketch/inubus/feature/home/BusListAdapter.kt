@@ -58,13 +58,15 @@ class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusL
     fun setBusNumber(view: TextView, busNumber: String) {
         view.text = busNumber
 
-        when (Bus.getBusColorByBusNumber(busNumber)) {
-            "red" -> setBackgroundTint(view, R.color.red_bus)
-            "blue" -> setBackgroundTint(view, R.color.blue_bus)
-            "green" -> setBackgroundTint(view, R.color.green_bus)
-            "purple" -> setBackgroundTint(view, R.color.purple_bus)
-            else -> setBackgroundTint(view, R.color.black_3)
-        }
+        val busColor = Bus.getBusColorByBusNumber(busNumber)
+        val colorMap = mapOf(
+            "red" to R.color.red_bus,
+            "blue" to R.color.blue_bus,
+            "green" to R.color.green_bus,
+            "purple" to R.color.purple_bus
+        )
+
+        setBackgroundTint(view, colorMap[busColor] ?: R.color.black_3)
     }
 
     fun setBackgroundTint(view: View, colorId: Int) {
