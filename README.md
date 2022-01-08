@@ -1,10 +1,8 @@
-# 인입런 - alpha
+# 인입런
 
 ## 화면
 
-![image](https://user-images.githubusercontent.com/35232655/148637113-7432dcb5-b8c4-4be4-ae78-c4a18b1ae712.png)
-![image](https://user-images.githubusercontent.com/35232655/148637110-2f740662-02dd-458e-aadf-f42951207ecd.png)
-![image](https://user-images.githubusercontent.com/35232655/148637106-77e89956-672b-4157-9c82-f78caf317b7d.png)
+![image](https://user-images.githubusercontent.com/35232655/148663917-e31ada5f-89d5-4859-9718-d4d24ea85d8d.png)
 
 ## 기능
 
