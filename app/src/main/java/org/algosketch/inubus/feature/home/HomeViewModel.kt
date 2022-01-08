@@ -32,15 +32,17 @@ class HomeViewModel : BaseViewModel() {
 
     suspend fun fetchINU() = coroutineScope {
         withContext(Dispatchers.Default) {
-            BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000395")) +
-                    BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000396"))
+            val list1 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000395"))
+            val list2 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000396"))
+            list1 + list2
         }
     }
 
     suspend fun fetchBIT() = coroutineScope {
         withContext(Dispatchers.Default) {
-            BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000403")) +
-                    BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000380"))
+            val list1 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000403"))
+            val list2 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000380"))
+            list1 + list2
         }
     }
 }
