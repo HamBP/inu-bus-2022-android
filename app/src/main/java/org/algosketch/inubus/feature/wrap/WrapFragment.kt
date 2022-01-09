@@ -21,6 +21,7 @@ class WrapFragment : Fragment() {
 
         val viewPager = view.findViewById<ViewPager2>(R.id.home_viewpager)
         viewPager.adapter = HomePagerAdapter(this)
+        viewPager.isUserInputEnabled = false
 
         val tabs = view.findViewById<TabLayout>(R.id.tabs)
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
