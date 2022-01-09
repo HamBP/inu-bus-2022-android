@@ -18,8 +18,13 @@ class HomeViewModel : BaseViewModel() {
 
     fun refreshTime() {
         val dateTime = LocalDateTime.now()
-        val dateString = "${dateTime.hour}:${dateTime.minute}"
-        currentTime.postValue("${dateString} 기준")
+        currentTime.postValue("${getDateString(dateTime.hour, dateTime.minute)} 기준")
+    }
+
+    fun getDateString(hour: Int, minute: Int) : String {
+        val hourInString = if(hour > 9) hour.toString() else "0${hour}"
+        val minuteInString = if(minute > 9) minute.toString() else "0${minute}"
+        return "${hourInString}:${minuteInString}"
     }
 
     suspend fun updateBusList(where: String) { // 1 : 인입, 2 : 지정단
