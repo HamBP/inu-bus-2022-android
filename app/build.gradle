@@ -12,18 +12,18 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "org.algosketch.androidtemplate"
+        applicationId "org.algosketch.inubus"
         minSdkVersion 26
         targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "v0.0.2-beta"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
