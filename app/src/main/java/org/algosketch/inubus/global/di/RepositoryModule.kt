@@ -13,8 +13,8 @@ val repositoryModule = module {
     single { RemoteRepository() }
     single<BusArrivalService> { Retrofit.Builder()
         .baseUrl(ServerConfigs.baseUrl)
-        //.addConverterFactory(GsonConverterFactory.create())
         .addConverterFactory(TikXmlConverterFactory.create(TikXml.Builder().exceptionOnUnreadXml(false).build()))
+        .client(OkHttpClientFactory.create())
         .build()
         .create(BusArrivalService::class.java)
     }
