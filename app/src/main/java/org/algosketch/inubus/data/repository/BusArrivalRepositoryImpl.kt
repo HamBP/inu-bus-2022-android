@@ -16,8 +16,7 @@ class BusArrivalRepositoryImpl(
         val dateString = "${currentTime.dayOfMonth}:${currentTime.hour}:${currentTime.minute}"
 
         val result: BusArrival?
-        if(dateString == cachedDataSource.updatedAt[bstopId]){
-            Log.e("t", "cached")
+        if(cachedDataSource.isCached(bstopId)){
             result = cachedDataSource.getArrivalBusTime(bstopId)
         }
         else {
