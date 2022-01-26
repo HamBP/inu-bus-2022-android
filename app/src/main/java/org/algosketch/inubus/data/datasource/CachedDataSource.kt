@@ -13,14 +13,20 @@ class CachedDataSource : DataSource {
         return cachedBusArrival[bstopId] ?: BusArrival(null, null, null)
     }
 
-    fun storeData(bstopId: String, busArrival: BusArrival, dateString: String) {
+    fun storeData(bstopId: String, busArrival: BusArrival) {
+        val dateString = getDateString()
         cachedBusArrival[bstopId] = busArrival
         updatedAt[bstopId] = dateString
     }
 
     fun isCached(bstopId: String) : Boolean {
+        val dateString = getDateString()
+        return dateString == updatedAt[bstopId]
+    }
+
+    private fun getDateString(): String {
         val currentTime = LocalDateTime.now()
         val dateString = "${currentTime.dayOfMonth}:${currentTime.hour}:${currentTime.minute}"
-        return dateString == updatedAt[bstopId]
+        return dateString
     }
 }
