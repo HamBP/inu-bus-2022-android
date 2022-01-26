@@ -1,10 +1,10 @@
-package org.algosketch.inubus.feature.home
+package org.algosketch.inubus.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
 import org.algosketch.inubus.data.model.BusInformation
 import org.algosketch.inubus.global.base.BaseViewModel
-import org.algosketch.inubus.global.usecase.GetBusArrivalTimeUseCase
+import org.algosketch.inubus.domain.usecase.GetBusArrivalTimeUseCase
 import org.algosketch.inubus.global.util.BusInformationUtil
 import org.koin.core.component.inject
 import java.time.LocalDateTime

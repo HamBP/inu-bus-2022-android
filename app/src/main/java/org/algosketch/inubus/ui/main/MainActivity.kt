@@ -1,4 +1,4 @@
-package org.algosketch.inubus.feature.main
+package org.algosketch.inubus.ui.main
 
 import androidx.activity.viewModels
 import org.algosketch.inubus.R

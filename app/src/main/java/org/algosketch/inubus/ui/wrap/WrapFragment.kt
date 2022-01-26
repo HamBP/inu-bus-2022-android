@@ -1,4 +1,4 @@
-package org.algosketch.inubus.feature.wrap
+package org.algosketch.inubus.ui.wrap
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import org.algosketch.inubus.R
 import org.algosketch.inubus.global.store.Store
-import java.lang.Exception
 
 class WrapFragment : Fragment() {
     override fun onCreateView(

@@ -1,4 +1,4 @@
-package org.algosketch.inubus.feature.detail
+package org.algosketch.inubus.ui.detail
 
 import androidx.lifecycle.MutableLiveData
 import org.algosketch.inubus.global.base.BaseViewModel

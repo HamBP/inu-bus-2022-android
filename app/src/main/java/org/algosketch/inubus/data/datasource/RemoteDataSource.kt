@@ -1,7 +1,7 @@
 package org.algosketch.inubus.data.datasource
 
 import org.algosketch.inubus.data.model.BusArrival
-import org.algosketch.inubus.global.di.BusArrivalService
+import org.algosketch.inubus.di.BusArrivalService
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

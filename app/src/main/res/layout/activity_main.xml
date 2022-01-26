@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="org.algosketch.inubus.feature.main.MainViewModel" />
+            type="org.algosketch.inubus.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.main.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host"

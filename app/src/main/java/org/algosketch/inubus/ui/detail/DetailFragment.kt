@@ -1,4 +1,4 @@
-package org.algosketch.inubus.feature.detail
+package org.algosketch.inubus.ui.detail
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle

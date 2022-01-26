@@ -14,10 +14,10 @@
         android:theme="@style/Theme.AndroidTemplate"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".feature.error.ErrorActivity"
+            android:name=".ui.error.ErrorActivity"
             android:exported="false" />
         <activity
-            android:name=".feature.splash.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".feature.main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"></activity>
     </application>
 

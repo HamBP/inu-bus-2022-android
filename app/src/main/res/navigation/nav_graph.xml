@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/wrap"
-        android:name="org.algosketch.inubus.feature.wrap.WrapFragment"
+        android:name="org.algosketch.inubus.ui.wrap.WrapFragment"
         android:label="wrap"
         tools:layout="@layout/fragment_wrap" >
         <action
@@ -22,14 +22,14 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="org.algosketch.inubus.feature.home.HomeFragment"
+        android:name="org.algosketch.inubus.ui.home.HomeFragment"
         android:label="home"
         tools:layout="@layout/fragment_home" >
     </fragment>
 
     <fragment
         android:id="@+id/detail"
-        android:name="org.algosketch.inubus.feature.detail.DetailFragment"
+        android:name="org.algosketch.inubus.ui.detail.DetailFragment"
         android:label="detail"
         tools:layout="@layout/fragment_detail">
         <argument
