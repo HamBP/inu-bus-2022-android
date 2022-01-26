@@ -1,4 +1,4 @@
-package org.algosketch.inubus.global.di
+package org.algosketch.inubus.di
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

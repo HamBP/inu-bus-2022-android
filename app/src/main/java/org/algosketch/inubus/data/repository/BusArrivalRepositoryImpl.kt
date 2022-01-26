@@ -3,7 +3,7 @@ package org.algosketch.inubus.data.repository
 import org.algosketch.inubus.data.datasource.CachedDataSource
 import org.algosketch.inubus.data.datasource.RemoteDataSource
 import org.algosketch.inubus.data.model.BusArrival
-import org.algosketch.inubus.global.usecase.BusArrivalRepository
+import org.algosketch.inubus.domain.BusArrivalRepository
 
 class BusArrivalRepositoryImpl(
     private val cachedDataSource: CachedDataSource,

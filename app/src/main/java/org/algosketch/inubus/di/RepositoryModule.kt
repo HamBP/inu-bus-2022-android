@@ -1,4 +1,4 @@
-package org.algosketch.inubus.global.di
+package org.algosketch.inubus.di
 
 import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory

@@ -2,8 +2,8 @@ package org.algosketch.inubus.global.util
 
 import android.app.Application
 import android.content.Context
-import org.algosketch.inubus.global.di.repositoryModule
-import org.algosketch.inubus.global.di.useCaseModule
+import org.algosketch.inubus.di.repositoryModule
+import org.algosketch.inubus.di.useCaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger

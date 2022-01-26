@@ -1,4 +1,4 @@
-package org.algosketch.inubus.global.usecase
+package org.algosketch.inubus.domain
 
 import org.algosketch.inubus.data.model.BusArrival
 

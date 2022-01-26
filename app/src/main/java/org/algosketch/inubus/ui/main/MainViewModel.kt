@@ -1,4 +1,4 @@
-package org.algosketch.inubus.feature.main
+package org.algosketch.inubus.ui.main
 
 import org.algosketch.inubus.global.base.BaseViewModel
 

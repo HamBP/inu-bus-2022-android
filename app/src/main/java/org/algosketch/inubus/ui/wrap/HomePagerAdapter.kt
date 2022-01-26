@@ -1,10 +1,8 @@
-package org.algosketch.inubus.feature.wrap
+package org.algosketch.inubus.ui.wrap
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import org.algosketch.inubus.feature.home.HomeFragment
-import org.algosketch.inubus.global.store.Store
-import java.lang.Exception
+import org.algosketch.inubus.ui.home.HomeFragment
 
 class HomePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount() = 2

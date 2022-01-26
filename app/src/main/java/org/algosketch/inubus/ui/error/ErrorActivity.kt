@@ -1,4 +1,4 @@
-package org.algosketch.inubus.feature.error
+package org.algosketch.inubus.ui.error
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
