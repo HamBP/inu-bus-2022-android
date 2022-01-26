@@ -1,5 +1,6 @@
 package org.algosketch.inubus.data.repository
 
+import android.util.Log
 import org.algosketch.inubus.data.datasource.CachedDataSource
 import org.algosketch.inubus.data.datasource.DataSource
 import org.algosketch.inubus.data.datasource.RemoteDataSource
@@ -20,7 +21,10 @@ class BusArrivalRepositoryImpl(
         val dateString = "${currentTime.dayOfMonth}:${currentTime.hour}:${currentTime.minute}"
 
         val result: BusArrival?
-        if(dateString == updatedAt[bstopId]) result = cachedBusArrival[bstopId]!!
+        if(dateString == updatedAt[bstopId]){
+            result = cachedBusArrival[bstopId]!!
+            Log.d("bstopId - $bstopId", "캐시된 데이터를 반환합니다.")
+        }
         else {
             result = remoteDataSource.getArrivalBusTime(bstopId)
             cachedBusArrival[bstopId] = result
