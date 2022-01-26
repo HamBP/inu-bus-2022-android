@@ -1,7 +1,7 @@
-package org.algosketch.inubus.data.repository
+package org.algosketch.inubus.global.usecase
 
 import org.algosketch.inubus.data.model.BusArrival
 
-interface Repository {
+interface BusArrivalRepository {
     suspend fun getArrivalBusTime(bstopId: String) : BusArrival
 }
