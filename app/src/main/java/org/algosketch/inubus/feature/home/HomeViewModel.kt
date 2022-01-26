@@ -6,7 +6,6 @@ import org.algosketch.inubus.data.model.BusInformation
 import org.algosketch.inubus.global.base.BaseViewModel
 import org.algosketch.inubus.global.usecase.GetBusArrivalTimeUseCase
 import org.algosketch.inubus.global.util.BusInformationUtil
-import org.algosketch.inubus.global.util.SingleLiveEvent
 import org.koin.core.component.inject
 import java.time.LocalDateTime
 
@@ -35,16 +34,16 @@ class HomeViewModel : BaseViewModel() {
 
     suspend fun fetchINU() = coroutineScope {
         withContext(Dispatchers.Default) {
-            val list1 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000395"))
-            val list2 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000396"))
+            val list1 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase("164000395"))
+            val list2 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase("164000396"))
             list1 + list2
         }
     }
 
     suspend fun fetchBIT() = coroutineScope {
         withContext(Dispatchers.Default) {
-            val list1 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000403"))
-            val list2 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase.run("164000380"))
+            val list1 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase("164000403"))
+            val list2 = BusInformationUtil.transferBusData(getBusArrivalTimeUseCase("164000380"))
             list1 + list2
         }
     }
