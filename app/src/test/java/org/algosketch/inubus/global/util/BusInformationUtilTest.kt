@@ -10,8 +10,8 @@ class BusInformationUtilTest : TestCase() {
     val dummyData: BusArrival = BusArrival(null, null, MsgBody(
         itemList = listOf(ItemList(
             ARRIVALESTIMATETIME = 234,
-            BSTOPID = 164000395,
-            ROUTEID = 165000012,
+            BSTOPID = "164000395",
+            ROUTEID = "165000012",
             REST_STOP_COUNT = 3,
             LATEST_STOP_NAME = "test",
             DIRCD = 1)
