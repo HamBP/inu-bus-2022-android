@@ -1,6 +1,5 @@
 package org.algosketch.inubus.data.repository
 
-import android.util.Log
 import org.algosketch.inubus.data.datasource.CachedDataSource
 import org.algosketch.inubus.data.datasource.RemoteDataSource
 import org.algosketch.inubus.data.model.BusArrival
@@ -11,15 +10,14 @@ class BusArrivalRepositoryImpl(
     private val cachedDataSource: CachedDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : BusArrivalRepository {
-    override suspend fun getArrivalBusTime(bstopId: String) : BusArrival {
+    override suspend fun getArrivalBusTime(bstopId: String): BusArrival {
         val currentTime = LocalDateTime.now()
         val dateString = "${currentTime.dayOfMonth}:${currentTime.hour}:${currentTime.minute}"
 
         val result: BusArrival?
-        if(cachedDataSource.isCached(bstopId)){
+        if (cachedDataSource.isCached(bstopId)) {
             result = cachedDataSource.getArrivalBusTime(bstopId)
-        }
-        else {
+        } else {
             result = remoteDataSource.getArrivalBusTime(bstopId)
             cachedDataSource.storeData(bstopId, result, dateString)
         }
