@@ -1,2 +1,2 @@
-rootProject.name = "Android Template"
+rootProject.name = "INU bus"
 include ':app'
