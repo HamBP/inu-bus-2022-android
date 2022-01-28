@@ -15,8 +15,8 @@ android {
         applicationId "org.algosketch.inubus"
         minSdkVersion 26
         targetSdkVersion 31
-        versionCode 3
-        versionName "v0.0.4-beta"
+        versionCode 4
+        versionName "v0.0.5-beta"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
