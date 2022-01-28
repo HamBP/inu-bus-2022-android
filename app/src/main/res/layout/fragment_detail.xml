@@ -21,7 +21,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/ic_button_undo"
-            android:backgroundTint="@color/black_3"
+            android:backgroundTint="@color/black_1"
             android:onClick="@{()->viewModel.undo()}"/>
 
         <View
@@ -41,7 +41,7 @@
             android:text="@{viewModel.busNumber}"
             tools:text="16"
             android:textSize="24sp"
-            android:textColor="@color/black_3" />
+            android:textColor="@color/black_1" />
 
         <TextView
             android:id="@+id/bus_rest_time"
