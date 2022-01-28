@@ -22,7 +22,7 @@
         android:layout_marginStart="16dp"
         android:text="6-1"
         android:textSize="14sp"
-        android:textColor="@color/white"
+        android:textColor="#FFFFFFFF"
         android:gravity="center"
         android:background="@drawable/bus_number"
         android:backgroundTint="@color/blue_bus"/>
