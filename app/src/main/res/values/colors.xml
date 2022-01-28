@@ -16,7 +16,7 @@
     <color name="black_1">#FF191919</color>
     <color name="black_3">#FF303030</color>
     <color name="gray_8">#FF808080</color>
-    <color name="gray_2">#FF2D2D2D</color>
     <color name="gray_f">#FFF2F2F2</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="tab_layout">#FFFFFFFF</color>
 </resources>
