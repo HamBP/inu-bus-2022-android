@@ -5,7 +5,7 @@ import com.tickaroo.tikxml.annotation.PropertyElement
 import com.tickaroo.tikxml.annotation.Xml
 
 @Xml(name = "ServiceResult")
-data class BusArrival(
+data class BusArrivalResponse(
     @Element val comMsgHeader: ComMsgHeader?,
     @Element val msgHeader: MsgHeader?,
     @Element val msgBody: MsgBody?

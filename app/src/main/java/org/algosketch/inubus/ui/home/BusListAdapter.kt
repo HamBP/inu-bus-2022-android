@@ -8,17 +8,16 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.algosketch.inubus.R
-import org.algosketch.inubus.data.model.BusInformation
 import androidx.core.graphics.drawable.DrawableCompat
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import org.algosketch.inubus.global.util.Bus
 import org.algosketch.inubus.global.store.Store
+import org.algosketch.inubus.global.util.Bus
 
 
-class BusListAdapter(val list: List<BusInformation>) : RecyclerView.Adapter<BusListAdapter.BusListViewHolder>() {
+class BusListAdapter(val list: List<org.algosketch.inubus.domain.entity.BusArrival>) : RecyclerView.Adapter<BusListAdapter.BusListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusListViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_information, parent, false)

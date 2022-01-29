@@ -2,7 +2,7 @@ package org.algosketch.inubus.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
-import org.algosketch.inubus.data.model.BusInformation
+import org.algosketch.inubus.domain.entity.BusArrival
 import org.algosketch.inubus.global.base.BaseViewModel
 import org.algosketch.inubus.domain.usecase.GetBusArrivalTimeUseCase
 import org.algosketch.inubus.global.util.BusInformationUtil
@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 
 class HomeViewModel : BaseViewModel() {
     val currentTime = MutableLiveData<String>()
-    val busList = MutableLiveData<List<BusInformation>>()
+    val busList = MutableLiveData<List<BusArrival>>()
 
     private val getBusArrivalTimeUseCase: GetBusArrivalTimeUseCase by inject()
 

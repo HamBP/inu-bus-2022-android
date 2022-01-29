@@ -1,6 +1,6 @@
-package org.algosketch.inubus.data.model
+package org.algosketch.inubus.domain.entity
 
-data class BusInformation(
+data class BusArrival(
     val restTime: Int,
     val busNumber: String,
     val busColor: String,
