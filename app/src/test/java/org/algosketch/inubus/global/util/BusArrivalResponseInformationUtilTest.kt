@@ -1,13 +1,12 @@
 package org.algosketch.inubus.global.util
 
-import com.tickaroo.tikxml.annotation.PropertyElement
 import junit.framework.TestCase
-import org.algosketch.inubus.data.model.BusArrival
+import org.algosketch.inubus.data.model.BusArrivalResponse
 import org.algosketch.inubus.data.model.ItemList
 import org.algosketch.inubus.data.model.MsgBody
 
-class BusInformationUtilTest : TestCase() {
-    val dummyData: BusArrival = BusArrival(null, null, MsgBody(
+class BusArrivalResponseInformationUtilTest : TestCase() {
+    val dummyData: BusArrivalResponse = BusArrivalResponse(null, null, MsgBody(
         itemList = listOf(ItemList(
             ARRIVALESTIMATETIME = 234,
             BSTOPID = "164000395",

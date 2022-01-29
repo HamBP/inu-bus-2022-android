@@ -1,6 +1,6 @@
 package org.algosketch.inubus.di
 
-import org.algosketch.inubus.data.model.BusArrival
+import org.algosketch.inubus.data.model.BusArrivalResponse
 import org.algosketch.inubus.global.configs.ApiTokens
 import retrofit2.Response
 import retrofit2.http.GET
@@ -13,5 +13,5 @@ interface BusArrivalService {
         @Query("pageNo")pageNo: Int = 1,
         @Query("numOfRows")numOfRows: Int = 20,
         @Query("bstopId")bstopId: String = "164000395",
-    ): Response<BusArrival>
+    ): Response<BusArrivalResponse>
 }
