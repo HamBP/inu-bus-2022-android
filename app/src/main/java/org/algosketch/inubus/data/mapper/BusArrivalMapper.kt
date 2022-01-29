@@ -1,9 +1,10 @@
-package org.algosketch.inubus.global.util
+package org.algosketch.inubus.data.mapper
 
 import org.algosketch.inubus.data.model.BusArrivalResponse
+import org.algosketch.inubus.global.util.Bus
 
-object BusInformationUtil {
-    fun transferBusData(busArrivalResponse: BusArrivalResponse) : List<org.algosketch.inubus.domain.entity.BusArrival> {
+object BusArrivalMapper {
+    fun toBusArrival(busArrivalResponse: BusArrivalResponse) : List<org.algosketch.inubus.domain.entity.BusArrival> {
         val itemList = busArrivalResponse.msgBody?.itemList ?: return arrayListOf()
 
         val result = itemList

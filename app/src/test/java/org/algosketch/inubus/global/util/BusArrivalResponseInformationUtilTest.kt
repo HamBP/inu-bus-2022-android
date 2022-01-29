@@ -1,6 +1,7 @@
 package org.algosketch.inubus.global.util
 
 import junit.framework.TestCase
+import org.algosketch.inubus.data.mapper.BusArrivalMapper
 import org.algosketch.inubus.data.model.BusArrivalResponse
 import org.algosketch.inubus.data.model.ItemList
 import org.algosketch.inubus.data.model.MsgBody
@@ -18,7 +19,7 @@ class BusArrivalResponseInformationUtilTest : TestCase() {
     ))
 
     fun testTransferBusData() {
-        val result = BusInformationUtil.transferBusData(dummyData)
+        val result = BusArrivalMapper.toBusArrival(dummyData)
 
         assertEquals(result[0].restTime, 3)
         assertEquals(result[0].busNumber, "8")
