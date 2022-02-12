@@ -16,6 +16,7 @@ import androidx.core.os.bundleOf
 import org.algosketch.inubus.databinding.ItemInformationBinding
 import org.algosketch.inubus.domain.entity.BusArrival
 import org.algosketch.inubus.global.util.Bus
+import org.algosketch.inubus.global.util.BusNumberBackgroundTintUtil
 
 
 class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListAdapter.BusViewHolder>() {
@@ -29,7 +30,7 @@ class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListA
         fun bind(item: BusArrival) {
             binding.item = item
 
-            setBusNumber(binding.busNumber, item.busNumber)
+            BusNumberBackgroundTintUtil.setBusNumberBackgroundTint(binding.busNumber, item.busNumber)
 
             binding.root.setOnClickListener {
                 it.findNavController().navigate(R.id.action_wrap_to_detail, getBundle(item))
@@ -58,24 +59,6 @@ class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListA
 
                 return BusViewHolder(binding)
             }
-        }
-        fun setBusNumber(view: TextView, busNumber: String) {
-            val busColor = Bus.getBusColorByBusNumber(busNumber)
-            val colorMap = mapOf(
-                "red" to R.color.red_bus,
-                "blue" to R.color.blue_bus,
-                "green" to R.color.green_bus,
-                "purple" to R.color.purple_bus
-            )
-
-            setBackgroundTint(view, colorMap[busColor] ?: R.color.black_3)
-        }
-
-        fun setBackgroundTint(view: View, colorId: Int) {
-            var drawable: Drawable? = view.background
-            drawable = DrawableCompat.wrap(drawable!!)
-
-            DrawableCompat.setTint(drawable, ContextCompat.getColor(view.context, colorId))
         }
     }
 }

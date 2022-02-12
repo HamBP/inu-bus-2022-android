@@ -22,7 +22,7 @@ class DummyDataSource : DataSource, KoinComponent {
                     ItemList(
                         ARRIVALESTIMATETIME = 450,
                         BSTOPID = "164000395",
-                        ROUTEID = "164000001",
+                        ROUTEID = "161000008",
                         REST_STOP_COUNT = 5,
                         LATEST_STOP_NAME = "",
                         DIRCD = 0
