@@ -13,19 +13,15 @@ import androidx.core.graphics.drawable.DrawableCompat
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import org.algosketch.inubus.global.store.Store
 import org.algosketch.inubus.global.util.Bus
 
 
-class BusListAdapter(val list: List<org.algosketch.inubus.domain.entity.BusArrival>) : RecyclerView.Adapter<BusListAdapter.BusListViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusListViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_information, parent, false)
-
-        return BusListViewHolder(view)
+class BusListAdapter(val list: List<org.algosketch.inubus.domain.entity.BusArrival>) : RecyclerView.Adapter<BusListAdapter.BusViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusViewHolder {
+        return BusViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: BusListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BusViewHolder, position: Int) {
         val where = list[position].where
         val exit = list[position].exit
         val restTime = list[position].restTime
@@ -60,7 +56,16 @@ class BusListAdapter(val list: List<org.algosketch.inubus.domain.entity.BusArriv
 
     override fun getItemCount() = list.size
 
-    inner class BusListViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class BusViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        companion object {
+            fun from(parent: ViewGroup) : BusViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater.inflate(R.layout.item_information, parent, false)
+
+                return BusViewHolder(view)
+            }
+        }
+
         val busNumber: TextView = view.findViewById(R.id.bus_number)
         val exit: TextView = view.findViewById(R.id.exit)
         val busArrivalTime: TextView = view.findViewById(R.id.bus_arrival_time)
