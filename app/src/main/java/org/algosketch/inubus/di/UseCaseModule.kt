@@ -5,5 +5,5 @@ import org.algosketch.inubus.domain.usecase.GetBusArrivalTimeUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
-    factory { GetBusArrivalTimeUseCase(BusArrivalRepositoryImpl(get(), get())) }
+    single { GetBusArrivalTimeUseCase(BusArrivalRepositoryImpl(get(), get())) }
 }

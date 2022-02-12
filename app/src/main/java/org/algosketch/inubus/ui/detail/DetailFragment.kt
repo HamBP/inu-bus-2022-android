@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentDetailBinding
 import org.algosketch.inubus.global.base.BaseFragment
+import org.algosketch.inubus.global.constant.BusStop
+import org.algosketch.inubus.global.store.Store
 import org.algosketch.inubus.global.util.Bus
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
@@ -45,7 +47,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         setBackgroundTint(toolbarBackground, colorMap[arguments?.getString("busColor")] ?: R.color.black_3)
 
         val mapImage = view.findViewById<ImageView>(R.id.map_image)
-        mapImage.setImageDrawable(ContextCompat.getDrawable(view.context, Bus.getMapImageIdByBusNumber(arguments?.getString("busNumber"))))
+        mapImage.setImageDrawable(ContextCompat.getDrawable(view.context, Bus.getMapImageIdByBusNumber(
+            arguments?.getString("busNumber"), if(Store.where.value!! == "인천대입구") BusStop.INU else BusStop.BIT
+        )))
     }
 
     fun setBackgroundTint(view: View, colorId: Int) {
