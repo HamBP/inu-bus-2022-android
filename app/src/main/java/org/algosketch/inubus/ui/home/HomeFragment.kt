@@ -27,7 +27,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         Store.where.value = "인천대입구"
         Store.where.observe(this, {
-            println("호출!!")
             CoroutineScope(Dispatchers.Main).launch {
                 viewModel.updateBusList(it)
             }

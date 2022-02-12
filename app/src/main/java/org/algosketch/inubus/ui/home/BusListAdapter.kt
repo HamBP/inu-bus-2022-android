@@ -26,7 +26,7 @@ class BusListAdapter(val list: List<org.algosketch.inubus.domain.entity.BusArriv
     }
 
     override fun onBindViewHolder(holder: BusListViewHolder, position: Int) {
-        val where = Store.where.value!!
+        val where = list[position].where
         val exit = list[position].exit
         val restTime = list[position].restTime
         val busNumber = list[position].busNumber
