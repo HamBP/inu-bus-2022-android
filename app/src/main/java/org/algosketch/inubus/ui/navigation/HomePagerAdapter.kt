@@ -1,4 +1,4 @@
-package org.algosketch.inubus.ui.wrap
+package org.algosketch.inubus.ui.navigation
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/wrap"
-        android:name="org.algosketch.inubus.ui.wrap.WrapFragment"
+        android:name="org.algosketch.inubus.ui.navigation.NavigationFragment"
         android:label="wrap"
-        tools:layout="@layout/fragment_wrap" >
+        tools:layout="@layout/fragment_navigation" >
         <action
             android:id="@+id/action_wrap_to_detail"
             app:destination="@id/detail">
