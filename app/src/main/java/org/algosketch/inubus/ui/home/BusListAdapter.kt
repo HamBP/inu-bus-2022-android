@@ -29,14 +29,12 @@ class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListA
 
     override fun getItemCount() = list.size
 
-    class BusViewHolder private constructor(val view: View, val binding: ItemInformationBinding) : RecyclerView.ViewHolder(view) {
+    class BusViewHolder private constructor(val binding: ItemInformationBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: BusArrival) {
             binding.item = item
 
             setBusNumber(binding.busNumber, item.busNumber)
 
-            binding.exit.text = "${item.where}역 ${item.exit}번 출구"
-            binding.busArrivalTime.text = "버스가 ${item.restTime}분 뒤 도착해요."
             binding.root.setOnClickListener {
                 val navController = it.findNavController()
                 val bundle = getBundle(item)
@@ -63,7 +61,7 @@ class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListA
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemInformationBinding.inflate(layoutInflater, parent, false)
 
-                return BusViewHolder(binding.root, binding)
+                return BusViewHolder(binding)
             }
         }
         fun setBusNumber(view: TextView, busNumber: String) {
