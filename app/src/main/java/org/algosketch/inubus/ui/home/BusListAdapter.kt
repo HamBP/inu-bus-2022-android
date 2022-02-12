@@ -19,14 +19,10 @@ import org.algosketch.inubus.global.util.Bus
 
 
 class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListAdapter.BusViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusViewHolder {
-        return BusViewHolder.from(parent)
-    }
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BusViewHolder.from(parent)
     override fun onBindViewHolder(holder: BusViewHolder, position: Int) {
         holder.bind(list[position])
     }
-
     override fun getItemCount() = list.size
 
     class BusViewHolder private constructor(val binding: ItemInformationBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -36,9 +32,7 @@ class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListA
             setBusNumber(binding.busNumber, item.busNumber)
 
             binding.root.setOnClickListener {
-                val navController = it.findNavController()
-                val bundle = getBundle(item)
-                navController.navigate(R.id.action_wrap_to_detail, bundle)
+                it.findNavController().navigate(R.id.action_wrap_to_detail, getBundle(item))
             }
             binding.tagRecyclerView.adapter = TagAdapter(Bus.getBusStopsByBusNumber(item.busNumber))
         }
