@@ -26,10 +26,12 @@ class HomeViewModel : BaseViewModel() {
         return "${hourInString}:${minuteInString}"
     }
 
-    suspend fun updateBusList(where: String) { // 1 : 인입, 2 : 지정단
-        val list = if(where == "인천대입구") fetchINU() else fetchBIT()
-        busList.postValue(list)
-        refreshTime()
+    fun updateBusList(where: String) { // 1 : 인입, 2 : 지정단
+        CoroutineScope(Dispatchers.Main).launch {
+            val list = if(where == "인천대입구") fetchINU() else fetchBIT()
+            busList.value = list
+            refreshTime()
+        }
     }
 
     suspend fun fetchINU() = coroutineScope {
