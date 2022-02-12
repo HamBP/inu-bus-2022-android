@@ -97,6 +97,14 @@ object Bus {
         }
     }
 
+    fun getBusStopName(busStopId: String) : String {
+        return when(busStopId) {
+            "164000395", "164000396" -> "인천대입구"
+            "164000403", "164000380" -> "지식정보단지"
+            else -> throw Exception("알 수 없는 버스 정류장입니다.")
+        }
+    }
+
     fun getMapImageIdByBusNumber(busNumber: String?, busStop: BusStop) : Int {
         return when(busNumber) {
             "8", "98" -> R.drawable.inu_8

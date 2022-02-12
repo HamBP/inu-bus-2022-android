@@ -15,7 +15,8 @@ object BusArrivalMapper {
                     restTime = (it.ARRIVALESTIMATETIME / 60),
                     busNumber = busNumber,
                     busColor = Bus.getBusColorByBusNumber(busNumber),
-                    exit = Bus.getExit(it.BSTOPID)
+                    exit = Bus.getExit(it.BSTOPID),
+                    where = Bus.getBusStopName(it.BSTOPID)
                 )
             }
 

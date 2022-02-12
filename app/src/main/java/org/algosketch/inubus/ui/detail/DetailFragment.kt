@@ -48,11 +48,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
         val mapImage = view.findViewById<ImageView>(R.id.map_image)
         mapImage.setImageDrawable(ContextCompat.getDrawable(view.context, Bus.getMapImageIdByBusNumber(
-            arguments?.getString("busNumber"), if(Store.where.value!! == "인천대입구") BusStop.INU else BusStop.BIT
+            arguments?.getString("busNumber"), if(arguments?.getString("where") == "인천대입구") BusStop.INU else BusStop.BIT
         )))
     }
 
-    fun setBackgroundTint(view: View, colorId: Int) {
+    private fun setBackgroundTint(view: View, colorId: Int) {
         var drawable: Drawable? = DrawableCompat.wrap(view.background!!)
         drawable = DrawableCompat.wrap(drawable!!)
 

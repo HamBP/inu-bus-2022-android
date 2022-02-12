@@ -4,5 +4,6 @@ data class BusArrival(
     val restTime: Int,
     val busNumber: String,
     val busColor: String,
-    val exit: Int
+    val exit: Int,
+    val where: String
 )
