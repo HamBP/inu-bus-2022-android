@@ -19,10 +19,13 @@ class NavigationFragment : BaseFragment<FragmentNavigationBinding>() {
         binding.homeViewpager.run {
             adapter = HomePagerAdapter(this@NavigationFragment)
             isUserInputEnabled = false
+            println(viewModel.currentTab.value)
         }
 
         binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                viewModel.currentTab.value = tab?.position
+
                 if (tab?.position == 0) {
                     Store.where.postValue("인천대입구")
                 } else {

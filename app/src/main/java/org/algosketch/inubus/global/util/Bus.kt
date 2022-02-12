@@ -1,6 +1,7 @@
 package org.algosketch.inubus.global.util
 
 import org.algosketch.inubus.R
+import org.algosketch.inubus.global.constant.BusStop
 import org.algosketch.inubus.global.store.Store
 
 object Bus {
@@ -95,8 +96,8 @@ object Bus {
             else -> throw Exception("UNKNOWN BUS NUMBER")
         }
     }
-    
-    fun getMapImageIdByBusNumber(busNumber: String?) : Int {
+
+    fun getMapImageIdByBusNumber(busNumber: String?, busStop: BusStop) : Int {
         return when(busNumber) {
             "8", "98" -> R.drawable.inu_8
             "16" -> R.drawable.inu_16
@@ -104,7 +105,7 @@ object Bus {
             "6" -> R.drawable.bit6
             "6-1" -> R.drawable.bit6_1
             "41" -> R.drawable.bit41
-            "99" -> if(Store.where.value == "인천대입구") R.drawable.inu_16 else R.drawable.bit99
+            "99" -> if(busStop == BusStop.INU) R.drawable.inu_16 else R.drawable.bit99
             else -> throw Exception("UNKNOWN BUS NUMBER")
         }
     }

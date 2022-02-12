@@ -4,5 +4,5 @@ import androidx.lifecycle.MutableLiveData
 
 // TODO : 프레그먼트간 데이터 전송으로 삭제해야 한다.
 object Store {
-    var where = MutableLiveData("인천대입구")
+    val where = MutableLiveData("인천대입구")
 }
