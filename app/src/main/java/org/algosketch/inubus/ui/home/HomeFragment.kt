@@ -25,11 +25,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             binding.busList.adapter = BusListAdapter(it)
         })
 
-        Store.where.value = "인천대입구"
         Store.where.observe(this, {
-            CoroutineScope(Dispatchers.Main).launch {
-                viewModel.updateBusList(it)
-            }
+            viewModel.updateBusList(it)
         })
     }
 }
