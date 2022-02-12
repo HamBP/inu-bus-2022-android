@@ -35,6 +35,7 @@ class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListA
                 it.findNavController().navigate(R.id.action_wrap_to_detail, getBundle(item))
             }
             binding.tagRecyclerView.adapter = TagAdapter(Bus.getBusStopsByBusNumber(item.busNumber))
+            binding.executePendingBindings()
         }
 
         fun getBundle(busArrival: BusArrival) : Bundle {

@@ -21,8 +21,8 @@ object BusArrivalMapper {
                     busColor = Bus.getBusColorByBusNumber(busNumber),
                     exit = Bus.getExit(it.BSTOPID),
                     where = where,
-                    restTimeInformationText = MutableLiveData("${where}역 ${exit}번 출구"),
-                    exitInformationText = MutableLiveData("버스가 ${restTime}분 뒤 도착해요.")
+                    restTimeInformationText = "${where}역 ${exit}번 출구",
+                    exitInformationText = "버스가 ${restTime}분 뒤 도착해요."
                 )
             }
 
