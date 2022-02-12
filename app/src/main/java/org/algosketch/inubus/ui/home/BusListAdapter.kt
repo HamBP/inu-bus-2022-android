@@ -35,30 +35,24 @@ class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListA
 
             setBusNumber(binding.busNumber, item.busNumber)
 
-            val where = item.where
-            val exit = item.exit
-            val restTime = item.restTime
-            val distance = Bus.getDistance(where, item.busNumber)
-            val busColor = Bus.getBusColorByBusNumber(item.busNumber)
-
-            binding.exit.text = "${where}역 ${exit}번 출구"
-            binding.busArrivalTime.text = "버스가 ${restTime}분 뒤 도착해요."
+            binding.exit.text = "${item.where}역 ${item.exit}번 출구"
+            binding.busArrivalTime.text = "버스가 ${item.restTime}분 뒤 도착해요."
             binding.root.setOnClickListener {
                 val navController = it.findNavController()
-                val bundle = getBundle(exit, where, item.busNumber, distance, restTime, busColor)
+                val bundle = getBundle(item)
                 navController.navigate(R.id.action_wrap_to_detail, bundle)
             }
             binding.tagRecyclerView.adapter = TagAdapter(Bus.getBusStopsByBusNumber(item.busNumber))
         }
 
-        fun getBundle(exit: Int, where: String, busNumber: String, distance: Int, restTime: Int, busColor: String) : Bundle {
+        fun getBundle(busArrival: BusArrival) : Bundle {
             val bundle = bundleOf(
-                "exit" to exit,
-                "where" to where,
-                "busNumber" to busNumber,
-                "distance" to distance,
-                "restTime" to restTime,
-                "busColor" to busColor
+                "exit" to busArrival.exit,
+                "where" to busArrival.where,
+                "busNumber" to busArrival.busNumber,
+                "distance" to Bus.getDistance(busArrival.where, busArrival.busNumber),
+                "restTime" to busArrival.restTime,
+                "busColor" to Bus.getBusColorByBusNumber(busArrival.busNumber)
             )
 
             return bundle
