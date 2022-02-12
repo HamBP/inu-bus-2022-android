@@ -42,7 +42,8 @@
             app:layout_constraintTop_toTopOf="@id/bus_number"
             app:layout_constraintStart_toEndOf="@id/bus_number"
             android:layout_marginStart="8dp"
-            android:text="버스가 5분 뒤 도착해요."
+            android:text="@{item.restTimeInformationText}"
+            tools:text="버스가 5분 뒤 도착해요."
             android:textColor="@color/black_1"
             android:textSize="14sp"/>
 
@@ -53,7 +54,8 @@
             app:layout_constraintBottom_toBottomOf="@id/bus_number"
             app:layout_constraintStart_toEndOf="@id/bus_number"
             android:layout_marginStart="8dp"
-            android:text="인천대입구역 2번 출구"
+            android:text="@{item.exitInformationText}"
+            tools:text="인천대입구역 2번 출구"
             android:textColor="@color/black_1"
             android:textSize="12sp"/>
 

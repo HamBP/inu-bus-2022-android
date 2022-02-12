@@ -6,8 +6,8 @@ import com.tickaroo.tikxml.annotation.Xml
 
 @Xml(name = "ServiceResult")
 data class BusArrivalResponse(
-    @Element val comMsgHeader: ComMsgHeader?,
-    @Element val msgHeader: MsgHeader?,
+    @Element val comMsgHeader: ComMsgHeader? = null,
+    @Element val msgHeader: MsgHeader? = null,
     @Element val msgBody: MsgBody?
 )
 
