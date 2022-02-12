@@ -20,12 +20,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.viewModel = viewModel
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initState() {
         viewModel.busList.observe(this, {
-            val busList = view.findViewById<RecyclerView>(R.id.bus_list)
-            busList.adapter = BusListAdapter(it)
+            binding.busList.adapter = BusListAdapter(it)
         })
 
         Store.where.postValue("인천대입구")
