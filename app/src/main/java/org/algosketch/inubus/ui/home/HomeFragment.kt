@@ -1,18 +1,22 @@
 package org.algosketch.inubus.ui.home
 
-import android.os.Bundle
-import android.view.View
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
+import okhttp3.internal.notify
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentHomeBinding
 import org.algosketch.inubus.global.base.BaseFragment
 import org.algosketch.inubus.global.store.Store
+import org.algosketch.inubus.ui.error.ErrorActivity
+import org.algosketch.inubus.ui.main.MainActivity
+import java.time.LocalDateTime
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment() : BaseFragment<FragmentHomeBinding>() {
     override val layoutResourceId = R.layout.fragment_home
     private val viewModel: HomeViewModel by viewModels()
 
@@ -21,12 +25,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initState() {
-        viewModel.busList.observe(this, {
-            binding.busList.adapter = BusListAdapter(it)
-        })
+        binding.busList.adapter = BusListAdapter()
 
-        Store.where.observe(this, {
+        Store.where.observe(this) {
             viewModel.updateBusList(it)
-        })
+            Handler(Looper.getMainLooper()).postDelayed({
+                (binding.busList.adapter as BusListAdapter).notifyDataSetChanged()
+            }, 500)
+        }
     }
 }

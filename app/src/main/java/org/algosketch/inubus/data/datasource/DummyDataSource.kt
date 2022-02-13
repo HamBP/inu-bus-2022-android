@@ -7,8 +7,22 @@ import org.algosketch.inubus.data.model.MsgBody
 import org.koin.core.component.KoinComponent
 
 class DummyDataSource : DataSource, KoinComponent {
-    val dummyData = listOf(
-        BusArrivalResponse(
+    private val dummyData = hashMapOf(
+        "164000396" to BusArrivalResponse(
+            msgBody = MsgBody(
+                itemList = listOf(
+                    ItemList(
+                        ARRIVALESTIMATETIME = 350,
+                        BSTOPID = "164000396",
+                        ROUTEID = "165000515",
+                        REST_STOP_COUNT = 5,
+                        LATEST_STOP_NAME = "",
+                        DIRCD = 0
+                    )
+                )
+            )
+        ),
+        "164000395" to BusArrivalResponse(
             msgBody = MsgBody(
                 itemList = listOf(
                     ItemList(
@@ -30,7 +44,7 @@ class DummyDataSource : DataSource, KoinComponent {
                 )
             )
         ),
-        BusArrivalResponse(
+        "164000403" to BusArrivalResponse(
             msgBody = MsgBody(
                 itemList = listOf(
                     ItemList(
@@ -40,7 +54,13 @@ class DummyDataSource : DataSource, KoinComponent {
                         REST_STOP_COUNT = 5,
                         LATEST_STOP_NAME = "",
                         DIRCD = 0
-                    ),
+                    )
+                )
+            )
+        ),
+        "164000380" to BusArrivalResponse(
+            msgBody = MsgBody(
+                itemList = listOf(
                     ItemList(
                         ARRIVALESTIMATETIME = 450,
                         BSTOPID = "164000380",
@@ -57,12 +77,6 @@ class DummyDataSource : DataSource, KoinComponent {
     override suspend fun getArrivalBusTime(bstopId: String): BusArrivalResponse {
         Log.w("더미데이터 요청", "배포 버전에 올라가면 안 됩니다.")
 
-        val result = if(bstopId == "164000395" || bstopId == "164000396") dummyData[0] else dummyData[1]
-
-        try {
-            return result
-        } catch (err: Exception) {
-            throw Exception("UNKNOWN ERROR!!")
-        }
+        return dummyData[bstopId]!!
     }
 }
