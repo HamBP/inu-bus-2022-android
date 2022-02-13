@@ -11,6 +11,6 @@ fun busLists(recyclerView: RecyclerView?, items: MutableLiveData<List<BusArrival
     println("리사이클러뷰 : $recyclerView")
     println("아이템 : $items")
     items?.let {
-        (recyclerView?.adapter as BusListAdapter).submitList(items)
+        (recyclerView?.adapter as BusListAdapter).submitList(items.value)
     }
 }
