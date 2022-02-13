@@ -13,18 +13,25 @@ import androidx.core.graphics.drawable.DrawableCompat
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import androidx.lifecycle.MutableLiveData
 import org.algosketch.inubus.databinding.ItemInformationBinding
 import org.algosketch.inubus.domain.entity.BusArrival
 import org.algosketch.inubus.global.util.Bus
 import org.algosketch.inubus.global.util.BusNumberBackgroundTintUtil
 
 
-class BusListAdapter(val list: List<BusArrival>) : RecyclerView.Adapter<BusListAdapter.BusViewHolder>() {
+class BusListAdapter : RecyclerView.Adapter<BusListAdapter.BusViewHolder>() {
+    private var list: MutableLiveData<List<BusArrival>>? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BusViewHolder.from(parent)
     override fun onBindViewHolder(holder: BusViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list!!.value!![position])
     }
-    override fun getItemCount() = list.size
+    override fun getItemCount() = list?.value?.size ?: 0
+
+    fun submitList(items: MutableLiveData<List<BusArrival>>) {
+        list = items
+    }
 
     class BusViewHolder private constructor(val binding: ItemInformationBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: BusArrival) {
