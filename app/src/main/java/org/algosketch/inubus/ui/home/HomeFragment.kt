@@ -29,9 +29,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>() {
 
         Store.where.observe(this) {
             viewModel.updateBusList(it)
-            Handler(Looper.getMainLooper()).postDelayed({
-                (binding.busList.adapter as BusListAdapter).notifyDataSetChanged()
-            }, 500)
         }
     }
 }

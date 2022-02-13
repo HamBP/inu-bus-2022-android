@@ -14,23 +14,17 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import org.algosketch.inubus.databinding.ItemInformationBinding
 import org.algosketch.inubus.domain.entity.BusArrival
 import org.algosketch.inubus.global.util.Bus
 import org.algosketch.inubus.global.util.BusNumberBackgroundTintUtil
 
-
-class BusListAdapter : RecyclerView.Adapter<BusListAdapter.BusViewHolder>() {
-    private var list: MutableLiveData<List<BusArrival>>? = null
-
+class BusListAdapter : ListAdapter<BusArrival, BusListAdapter.BusViewHolder>(BusListDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BusViewHolder.from(parent)
     override fun onBindViewHolder(holder: BusViewHolder, position: Int) {
-        holder.bind(list!!.value!![position])
-    }
-    override fun getItemCount() = list?.value?.size ?: 0
-
-    fun submitList(items: MutableLiveData<List<BusArrival>>) {
-        list = items
+        holder.bind(getItem(position))
     }
 
     class BusViewHolder private constructor(val binding: ItemInformationBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -67,5 +61,15 @@ class BusListAdapter : RecyclerView.Adapter<BusListAdapter.BusViewHolder>() {
                 return BusViewHolder(binding)
             }
         }
+    }
+}
+
+class BusListDiffUtil : DiffUtil.ItemCallback<BusArrival>() {
+    override fun areItemsTheSame(oldItem: BusArrival, newItem: BusArrival): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: BusArrival, newItem: BusArrival): Boolean {
+        return oldItem == newItem
     }
 }
