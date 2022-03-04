@@ -30,5 +30,9 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>() {
         Store.where.observe(this) {
             viewModel.updateBusList(it)
         }
+
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.refresh(binding.refreshLayout, Store.where.value!!)
+        }
     }
 }
