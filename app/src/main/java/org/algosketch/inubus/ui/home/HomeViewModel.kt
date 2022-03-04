@@ -1,6 +1,7 @@
 package org.algosketch.inubus.ui.home
 
 import androidx.lifecycle.MutableLiveData
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.*
 import org.algosketch.inubus.data.datasource.DummyDataSource
 import org.algosketch.inubus.domain.entity.BusArrival
@@ -48,6 +49,13 @@ class HomeViewModel : BaseViewModel() {
             val list1 = BusArrivalMapper.toBusArrival(getBusArrivalTimeUseCase("164000403"))
             val list2 = BusArrivalMapper.toBusArrival(getBusArrivalTimeUseCase("164000380"))
             list1 + list2
+        }
+    }
+
+    fun refresh(refreshLayout: SwipeRefreshLayout, where: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            updateBusList(where)
+            refreshLayout.isRefreshing = false
         }
     }
 }
