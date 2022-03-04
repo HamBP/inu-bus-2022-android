@@ -26,6 +26,10 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>() {
 
     override fun initState() {
         binding.busList.adapter = BusListAdapter()
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         Store.where.observe(this) {
             viewModel.updateBusList(it)
