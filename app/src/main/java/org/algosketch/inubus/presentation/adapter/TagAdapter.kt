@@ -1,4 +1,4 @@
-package org.algosketch.inubus.ui.home
+package org.algosketch.inubus.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View

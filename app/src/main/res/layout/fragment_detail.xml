@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="org.algosketch.inubus.ui.detail.DetailViewModel" />
+            type="org.algosketch.inubus.presentation.ui.detail.DetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

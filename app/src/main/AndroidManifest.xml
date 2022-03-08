@@ -14,10 +14,10 @@
         android:theme="@style/Theme.AndroidTemplate"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.error.ErrorActivity"
+            android:name="org.algosketch.inubus.presentation.ui.error.ErrorActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name="org.algosketch.inubus.presentation.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true"></activity>
     </application>
 

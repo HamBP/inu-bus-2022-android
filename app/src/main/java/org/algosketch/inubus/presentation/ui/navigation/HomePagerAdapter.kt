@@ -1,8 +1,8 @@
-package org.algosketch.inubus.ui.navigation
+package org.algosketch.inubus.presentation.ui.navigation
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import org.algosketch.inubus.ui.home.HomeFragment
+import org.algosketch.inubus.presentation.ui.home.HomeFragment
 import java.lang.Exception
 
 class HomePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="org.algosketch.inubus.ui.navigation.NavigationViewModel" />
+            type="org.algosketch.inubus.presentation.ui.navigation.NavigationViewModel" />
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
