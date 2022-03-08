@@ -66,7 +66,7 @@ class BusListAdapter : ListAdapter<BusArrival, BusListAdapter.BusViewHolder>(Bus
 
 class BusListDiffUtil : DiffUtil.ItemCallback<BusArrival>() {
     override fun areItemsTheSame(oldItem: BusArrival, newItem: BusArrival): Boolean {
-        return oldItem == newItem
+        return oldItem === newItem
     }
 
     override fun areContentsTheSame(oldItem: BusArrival, newItem: BusArrival): Boolean {

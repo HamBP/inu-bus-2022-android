@@ -12,7 +12,6 @@ import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentDetailBinding
 import org.algosketch.inubus.global.base.BaseFragment
 import org.algosketch.inubus.global.constant.BusStop
-import org.algosketch.inubus.global.store.Store
 import org.algosketch.inubus.global.util.Bus
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {

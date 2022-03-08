@@ -10,8 +10,8 @@ class HomePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> HomeFragment()
-            1 -> HomeFragment()
+            0 -> HomeFragment("인천대입구")
+            1 -> HomeFragment("지식정보단지")
             else -> throw Exception("UNKNOWN VIEWPAGER2 POSITION")
         }
     }
