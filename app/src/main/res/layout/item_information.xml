@@ -3,7 +3,7 @@
     <data>
         <variable
             name="item"
-            type="org.algosketch.inubus.domain.entity.BusArrival" />
+            type="org.algosketch.inubus.domain.entity.BusArrivalInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

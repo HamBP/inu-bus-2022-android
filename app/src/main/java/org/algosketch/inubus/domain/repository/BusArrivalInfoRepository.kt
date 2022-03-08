@@ -2,6 +2,6 @@ package org.algosketch.inubus.domain.repository
 
 import org.algosketch.inubus.data.model.BusArrivalResponse
 
-interface BusArrivalRepository {
+interface BusArrivalInfoRepository {
     suspend fun getArrivalBusTime(bstopId: String) : BusArrivalResponse
 }
