@@ -1,4 +1,4 @@
-package org.algosketch.inubus.domain
+package org.algosketch.inubus.domain.repository
 
 import org.algosketch.inubus.data.model.BusArrivalResponse
 

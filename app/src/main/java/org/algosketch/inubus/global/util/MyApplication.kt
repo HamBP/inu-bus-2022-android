@@ -2,6 +2,7 @@ package org.algosketch.inubus.global.util
 
 import android.app.Application
 import android.content.Context
+import org.algosketch.inubus.di.dataSourceModule
 import org.algosketch.inubus.di.repositoryModule
 import org.algosketch.inubus.di.useCaseModule
 import org.koin.android.ext.koin.androidContext
@@ -31,6 +32,7 @@ class MyApplication : Application() {
 
             androidFileProperties()
 
+            modules(dataSourceModule)
             modules(repositoryModule)
             modules(useCaseModule)
         }

@@ -21,4 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class org.algosketch.inubus.data.model.*
--keep interface org.algosketch.inubus.di.BusArrivalService
+-keep interface org.algosketch.inubus.data.api.BusArrivalService
