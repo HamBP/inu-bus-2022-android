@@ -3,10 +3,10 @@ package org.algosketch.inubus.domain.usecase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.algosketch.inubus.data.model.BusArrivalResponse
-import org.algosketch.inubus.domain.repository.BusArrivalRepository
+import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 
-class GetBusArrivalTimeUseCase(private val repository: BusArrivalRepository) {
+class GetBusArrivalInfoUseCase(private val infoRepository: BusArrivalInfoRepository) {
     suspend operator fun invoke(bstop: String): BusArrivalResponse = withContext(Dispatchers.IO) {
-        repository.getArrivalBusTime(bstop)
+        infoRepository.getArrivalBusTime(bstop)
     }
 }

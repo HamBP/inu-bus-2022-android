@@ -11,19 +11,19 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import org.algosketch.inubus.databinding.ItemInformationBinding
-import org.algosketch.inubus.domain.entity.BusArrival
+import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.global.util.Bus
 import org.algosketch.inubus.global.util.BusNumberBackgroundTintUtil
 import org.algosketch.inubus.presentation.adapter.TagAdapter
 
-class BusListAdapter : ListAdapter<BusArrival, BusListAdapter.BusViewHolder>(BusListDiffUtil()) {
+class BusListAdapter : ListAdapter<BusArrivalInfo, BusListAdapter.BusViewHolder>(BusListDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BusViewHolder.from(parent)
     override fun onBindViewHolder(holder: BusViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
     class BusViewHolder private constructor(val binding: ItemInformationBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: BusArrival) {
+        fun bind(item: BusArrivalInfo) {
             binding.item = item
 
             BusNumberBackgroundTintUtil.setBusNumberBackgroundTint(binding.busNumber, item.busNumber)
@@ -35,14 +35,14 @@ class BusListAdapter : ListAdapter<BusArrival, BusListAdapter.BusViewHolder>(Bus
             binding.executePendingBindings()
         }
 
-        fun getBundle(busArrival: BusArrival) : Bundle {
+        fun getBundle(busArrivalInfo: BusArrivalInfo) : Bundle {
             val bundle = bundleOf(
-                "exit" to busArrival.exit,
-                "where" to busArrival.where,
-                "busNumber" to busArrival.busNumber,
-                "distance" to Bus.getDistance(busArrival.where, busArrival.busNumber),
-                "restTime" to busArrival.restTime,
-                "busColor" to Bus.getBusColorByBusNumber(busArrival.busNumber)
+                "exit" to busArrivalInfo.exit,
+                "where" to busArrivalInfo.where,
+                "busNumber" to busArrivalInfo.busNumber,
+                "distance" to Bus.getDistance(busArrivalInfo.where, busArrivalInfo.busNumber),
+                "restTime" to busArrivalInfo.restTime,
+                "busColor" to Bus.getBusColorByBusNumber(busArrivalInfo.busNumber)
             )
 
             return bundle
@@ -59,12 +59,12 @@ class BusListAdapter : ListAdapter<BusArrival, BusListAdapter.BusViewHolder>(Bus
     }
 }
 
-class BusListDiffUtil : DiffUtil.ItemCallback<BusArrival>() {
-    override fun areItemsTheSame(oldItem: BusArrival, newItem: BusArrival): Boolean {
+class BusListDiffUtil : DiffUtil.ItemCallback<BusArrivalInfo>() {
+    override fun areItemsTheSame(oldItem: BusArrivalInfo, newItem: BusArrivalInfo): Boolean {
         return oldItem === newItem
     }
 
-    override fun areContentsTheSame(oldItem: BusArrival, newItem: BusArrival): Boolean {
+    override fun areContentsTheSame(oldItem: BusArrivalInfo, newItem: BusArrivalInfo): Boolean {
         return oldItem == newItem
     }
 }

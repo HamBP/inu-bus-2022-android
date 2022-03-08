@@ -1,11 +1,11 @@
 package org.algosketch.inubus.data.mapper
 
-import androidx.lifecycle.MutableLiveData
 import org.algosketch.inubus.data.model.BusArrivalResponse
+import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.global.util.Bus
 
-object BusArrivalMapper {
-    fun toBusArrival(busArrivalResponse: BusArrivalResponse) : List<org.algosketch.inubus.domain.entity.BusArrival> {
+object BusArrivalInfoMapper {
+    fun toBusArrival(busArrivalResponse: BusArrivalResponse) : List<BusArrivalInfo> {
         val itemList = busArrivalResponse.msgBody?.itemList ?: return arrayListOf()
 
         val result = itemList
@@ -15,7 +15,7 @@ object BusArrivalMapper {
                 val restTime = it.ARRIVALESTIMATETIME / 60
                 val where = Bus.getBusStopName(it.BSTOPID)
                 val exit = Bus.getExit(it.BSTOPID)
-                org.algosketch.inubus.domain.entity.BusArrival(
+                BusArrivalInfo(
                     restTime = restTime,
                     busNumber = busNumber,
                     busColor = Bus.getBusColorByBusNumber(busNumber),

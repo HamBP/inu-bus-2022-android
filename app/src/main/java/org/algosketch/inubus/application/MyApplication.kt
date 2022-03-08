@@ -1,4 +1,4 @@
-package org.algosketch.inubus.global.util
+package org.algosketch.inubus.application
 
 import android.app.Application
 import android.content.Context

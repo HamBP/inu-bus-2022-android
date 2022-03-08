@@ -3,18 +3,18 @@ package org.algosketch.inubus.presentation.ui.home
 import androidx.lifecycle.MutableLiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.*
-import org.algosketch.inubus.domain.entity.BusArrival
+import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.global.base.BaseViewModel
-import org.algosketch.inubus.domain.usecase.GetBusArrivalTimeUseCase
-import org.algosketch.inubus.data.mapper.BusArrivalMapper
+import org.algosketch.inubus.domain.usecase.GetBusArrivalInfoUseCase
+import org.algosketch.inubus.data.mapper.BusArrivalInfoMapper
 import org.koin.core.component.inject
 import java.time.LocalDateTime
 
 class HomeViewModel : BaseViewModel() {
     val currentTime = MutableLiveData<String>()
-    val busList = MutableLiveData<List<BusArrival>>()
+    val busList = MutableLiveData<List<BusArrivalInfo>>()
 
-    private val getBusArrivalTimeUseCase: GetBusArrivalTimeUseCase by inject()
+    private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase by inject()
 
     fun refreshTime() {
         val dateTime = LocalDateTime.now()
@@ -37,16 +37,16 @@ class HomeViewModel : BaseViewModel() {
 
     suspend fun fetchINU() = coroutineScope {
         withContext(Dispatchers.Default) {
-            val list1 = BusArrivalMapper.toBusArrival(getBusArrivalTimeUseCase("164000395"))
-            val list2 = BusArrivalMapper.toBusArrival(getBusArrivalTimeUseCase("164000396"))
+            val list1 = BusArrivalInfoMapper.toBusArrival(getBusArrivalInfoUseCase("164000395"))
+            val list2 = BusArrivalInfoMapper.toBusArrival(getBusArrivalInfoUseCase("164000396"))
             list1 + list2
         }
     }
 
     suspend fun fetchBIT() = coroutineScope {
         withContext(Dispatchers.Default) {
-            val list1 = BusArrivalMapper.toBusArrival(getBusArrivalTimeUseCase("164000403"))
-            val list2 = BusArrivalMapper.toBusArrival(getBusArrivalTimeUseCase("164000380"))
+            val list1 = BusArrivalInfoMapper.toBusArrival(getBusArrivalInfoUseCase("164000403"))
+            val list2 = BusArrivalInfoMapper.toBusArrival(getBusArrivalInfoUseCase("164000380"))
             list1 + list2
         }
     }

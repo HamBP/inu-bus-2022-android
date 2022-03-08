@@ -3,12 +3,12 @@ package org.algosketch.inubus.data.repository
 import org.algosketch.inubus.data.datasource.CachedDataSource
 import org.algosketch.inubus.data.datasource.RemoteDataSource
 import org.algosketch.inubus.data.model.BusArrivalResponse
-import org.algosketch.inubus.domain.repository.BusArrivalRepository
+import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 
-class BusArrivalRepositoryImpl(
+class BusArrivalInfoRepositoryImpl(
     private val cachedDataSource: CachedDataSource,
     private val remoteDataSource: RemoteDataSource
-) : BusArrivalRepository {
+) : BusArrivalInfoRepository {
     override suspend fun getArrivalBusTime(bstopId: String): BusArrivalResponse {
         if (cachedDataSource.isCached(bstopId))
             return cachedDataSource.getArrivalBusTime(bstopId)
