@@ -6,6 +6,6 @@ import org.algosketch.inubus.domain.usecase.GetBusArrivalTimeUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
-//    single { GetBusArrivalTimeUseCase(BusArrivalRepositoryImpl(get(), get())) } // 실서버
-    single { GetBusArrivalTimeUseCase(BusArrivalDummyRepository()) } // mocking 서버
+    single { GetBusArrivalTimeUseCase(BusArrivalRepositoryImpl(get(), get())) } // 실서버
+//    single { GetBusArrivalTimeUseCase(BusArrivalDummyRepository()) } // mocking 서버
 }
