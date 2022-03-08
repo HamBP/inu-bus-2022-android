@@ -1,25 +1,20 @@
-package org.algosketch.inubus.ui.home
+package org.algosketch.inubus.presentation.ui.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.algosketch.inubus.R
-import androidx.core.graphics.drawable.DrawableCompat
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.lifecycle.MutableLiveData
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import org.algosketch.inubus.databinding.ItemInformationBinding
 import org.algosketch.inubus.domain.entity.BusArrival
 import org.algosketch.inubus.global.util.Bus
 import org.algosketch.inubus.global.util.BusNumberBackgroundTintUtil
+import org.algosketch.inubus.presentation.adapter.TagAdapter
 
 class BusListAdapter : ListAdapter<BusArrival, BusListAdapter.BusViewHolder>(BusListDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BusViewHolder.from(parent)

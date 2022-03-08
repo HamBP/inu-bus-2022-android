@@ -1,4 +1,4 @@
-package org.algosketch.inubus.ui.navigation
+package org.algosketch.inubus.presentation.ui.navigation
 
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayout

@@ -1,4 +1,4 @@
-package org.algosketch.inubus.ui.home
+package org.algosketch.inubus.presentation.ui.home
 
 import androidx.fragment.app.viewModels
 import org.algosketch.inubus.R

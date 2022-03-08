@@ -1,4 +1,4 @@
-package org.algosketch.inubus.ui.home
+package org.algosketch.inubus.presentation.ui.home
 
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData

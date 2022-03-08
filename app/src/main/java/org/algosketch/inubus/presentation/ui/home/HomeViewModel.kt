@@ -1,9 +1,8 @@
-package org.algosketch.inubus.ui.home
+package org.algosketch.inubus.presentation.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.*
-import org.algosketch.inubus.data.datasource.DummyDataSource
 import org.algosketch.inubus.domain.entity.BusArrival
 import org.algosketch.inubus.global.base.BaseViewModel
 import org.algosketch.inubus.domain.usecase.GetBusArrivalTimeUseCase
