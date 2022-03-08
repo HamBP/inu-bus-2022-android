@@ -1,4 +1,4 @@
-package org.algosketch.inubus.di
+package org.algosketch.inubus.data.api
 
 import org.algosketch.inubus.data.model.BusArrivalResponse
 import org.algosketch.inubus.global.configs.ApiTokens
