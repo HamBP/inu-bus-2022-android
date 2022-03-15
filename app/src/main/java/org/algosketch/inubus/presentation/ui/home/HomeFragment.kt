@@ -1,6 +1,7 @@
 package org.algosketch.inubus.presentation.ui.home
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentHomeBinding
 import org.algosketch.inubus.global.base.BaseFragment
@@ -14,6 +15,8 @@ class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding
     }
 
     override fun initState() {
+        setupObserver()
+
         binding.busList.adapter = BusListAdapter()
         viewModel.updateBusList(where)
     }
@@ -23,6 +26,12 @@ class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding
 
         binding.refreshLayout.setOnRefreshListener {
             viewModel.refresh(binding.refreshLayout, where)
+        }
+    }
+
+    private fun setupObserver() {
+        viewModel.timeEvent.observe(this) {
+            findNavController().navigate(R.id.action_wrap_to_timeout)
         }
     }
 }

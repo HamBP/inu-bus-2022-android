@@ -1,18 +1,21 @@
 package org.algosketch.inubus.presentation.ui.home
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.*
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.global.base.BaseViewModel
 import org.algosketch.inubus.domain.usecase.GetBusArrivalInfoUseCase
 import org.algosketch.inubus.data.mapper.BusArrivalInfoMapper
+import org.algosketch.inubus.global.util.SingleLiveEvent
 import org.koin.core.component.inject
 import java.time.LocalDateTime
 
 class HomeViewModel : BaseViewModel() {
     val currentTime = MutableLiveData<String>()
     val busList = MutableLiveData<List<BusArrivalInfo>>()
+    val timeEvent = SingleLiveEvent<Any>()
 
     private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase by inject()
 
@@ -28,7 +31,12 @@ class HomeViewModel : BaseViewModel() {
     }
 
     fun updateBusList(where: String) { // 1 : 인입, 2 : 지정단
-        CoroutineScope(Dispatchers.Main).launch {
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            timeEvent.call()
+            throwable.printStackTrace()
+        }
+
+        viewModelScope.launch(coroutineExceptionHandler) {
             val list = if(where == "인천대입구") fetchINU() else fetchBIT()
             busList.value = list
             refreshTime()

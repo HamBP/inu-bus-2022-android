@@ -18,13 +18,9 @@
                 app:argType="integer"
                 android:defaultValue="1"/>
         </action>
-    </fragment>
-
-    <fragment
-        android:id="@+id/home"
-        android:name="org.algosketch.inubus.presentation.ui.home.HomeFragment"
-        android:label="home"
-        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_wrap_to_timeout"
+            app:destination="@id/timeout" />
     </fragment>
 
     <fragment
@@ -36,5 +32,12 @@
             android:name="amount"
             app:argType="integer"
             android:defaultValue="0"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/timeout"
+        android:name="org.algosketch.inubus.presentation.ui.timeout.TimeoutFragment"
+        android:label="timeout"
+        tools:layout="@layout/fragment_timeout">
     </fragment>
 </navigation>
