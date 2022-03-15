@@ -18,8 +18,6 @@ class NavigationFragment : BaseFragment<FragmentNavigationBinding>() {
     }
 
     override fun initState() {
-        setupObserver()
-
         binding.homeViewpager.run {
             adapter = HomePagerAdapter(this@NavigationFragment)
             isUserInputEnabled = false
@@ -33,12 +31,5 @@ class NavigationFragment : BaseFragment<FragmentNavigationBinding>() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-    }
-
-    private fun setupObserver() {
-        viewModel.currentTab.observe(this) {
-            binding.tabs.getTabAt(it)?.select()
-            binding.homeViewpager.currentItem = it
-        }
     }
 }
