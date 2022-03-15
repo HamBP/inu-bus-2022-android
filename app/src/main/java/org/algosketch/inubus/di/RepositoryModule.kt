@@ -12,5 +12,5 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 val repositoryModule = module {
-    single { RetrofitServiceFactory.create(BusArrivalService::class.java) }
+    single<BusArrivalService> { RetrofitServiceFactory.create() }
 }
