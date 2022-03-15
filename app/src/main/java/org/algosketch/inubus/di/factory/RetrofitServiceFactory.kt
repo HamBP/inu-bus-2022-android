@@ -8,13 +8,13 @@ import retrofit2.Retrofit
 
 class RetrofitServiceFactory {
     companion object {
-        fun <Service> create(service: Class<Service>): Service {
+        inline fun <reified Service> create(): Service {
             return Retrofit.Builder()
                 .baseUrl(ServerConfigs.baseUrl)
                 .addConverterFactory(TikXmlConverterFactory.create(TikXml.Builder().exceptionOnUnreadXml(false).build()))
                 .client(OkHttpClientFactory.create())
                 .build()
-                .create(service)
+                .create(Service::class.java)
         }
     }
 }
