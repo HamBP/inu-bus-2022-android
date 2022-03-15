@@ -1,10 +1,13 @@
 package org.algosketch.inubus.presentation.ui.navigation
 
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayout
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentNavigationBinding
 import org.algosketch.inubus.global.base.BaseFragment
+import org.algosketch.inubus.presentation.adapter.HomePagerAdapter
 
 class NavigationFragment : BaseFragment<FragmentNavigationBinding>() {
     override val layoutResourceId = R.layout.fragment_navigation
@@ -15,6 +18,8 @@ class NavigationFragment : BaseFragment<FragmentNavigationBinding>() {
     }
 
     override fun initState() {
+        setupObserver()
+
         binding.homeViewpager.run {
             adapter = HomePagerAdapter(this@NavigationFragment)
             isUserInputEnabled = false
@@ -28,5 +33,12 @@ class NavigationFragment : BaseFragment<FragmentNavigationBinding>() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+    }
+
+    private fun setupObserver() {
+        viewModel.currentTab.observe(this) {
+            binding.tabs.getTabAt(it)?.select()
+            binding.homeViewpager.currentItem = it
+        }
     }
 }
