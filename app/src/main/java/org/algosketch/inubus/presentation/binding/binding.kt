@@ -4,6 +4,7 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 
 @BindingAdapter("app:items")
@@ -16,4 +17,9 @@ fun busLists(recyclerView: RecyclerView?, items: MutableLiveData<List<BusArrival
 @BindingAdapter("app:currentTab")
 fun bindTab(viewPager: ViewPager2, tab: MutableLiveData<Int>) {
     viewPager.currentItem = tab.value!!
+}
+
+@BindingAdapter("app:tabSelection")
+fun setTab(view: TabLayout, currentItem: Int) {
+    view.getTabAt(currentItem)?.select()
 }
