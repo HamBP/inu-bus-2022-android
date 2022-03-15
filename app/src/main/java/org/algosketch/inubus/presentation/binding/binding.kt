@@ -19,7 +19,13 @@ fun bindTab(viewPager: ViewPager2, tab: MutableLiveData<Int>) {
     viewPager.currentItem = tab.value!!
 }
 
-@BindingAdapter("app:tabSelection")
-fun setTab(view: TabLayout, currentItem: Int) {
+@BindingAdapter("app:tabSelection", "android:onTabSelected", requireAll = false)
+fun setTab(view: TabLayout, currentItem: Int, onTabSelectedListener: TabLayout.OnTabSelectedListener) {
     view.getTabAt(currentItem)?.select()
+    view.addOnTabSelectedListener(onTabSelectedListener)
+}
+
+@BindingAdapter("app:isUserInputEnabled")
+fun setUserInputEnabled(view: ViewPager2, isUserInputEnabled: Boolean) {
+    view.isUserInputEnabled = isUserInputEnabled
 }
