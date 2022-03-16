@@ -37,25 +37,8 @@ class HomeViewModel : BaseViewModel() {
         }
 
         viewModelScope.launch(coroutineExceptionHandler) {
-            val list = if(where == "인천대입구") fetchINU() else fetchBIT()
-            busList.value = list
+            busList.value = getBusArrivalInfoUseCase(where)
             refreshTime()
-        }
-    }
-
-    suspend fun fetchINU() = coroutineScope {
-        withContext(Dispatchers.Default) {
-            val list1 = BusArrivalInfoMapper.toBusArrival(getBusArrivalInfoUseCase("164000395"))
-            val list2 = BusArrivalInfoMapper.toBusArrival(getBusArrivalInfoUseCase("164000396"))
-            list1 + list2
-        }
-    }
-
-    suspend fun fetchBIT() = coroutineScope {
-        withContext(Dispatchers.Default) {
-            val list1 = BusArrivalInfoMapper.toBusArrival(getBusArrivalInfoUseCase("164000403"))
-            val list2 = BusArrivalInfoMapper.toBusArrival(getBusArrivalInfoUseCase("164000380"))
-            list1 + list2
         }
     }
 
