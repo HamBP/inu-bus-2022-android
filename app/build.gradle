@@ -6,6 +6,7 @@ plugins {
 
 apply plugin: 'kotlin-kapt'
 apply plugin: 'koin'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 31
@@ -98,4 +99,8 @@ dependencies {
 
     // swipe refresh layout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // google analytics
+    implementation platform('com.google.firebase:firebase-bom:29.2.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }
