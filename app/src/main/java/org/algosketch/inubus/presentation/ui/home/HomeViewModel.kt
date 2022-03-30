@@ -19,12 +19,12 @@ class HomeViewModel : BaseViewModel() {
 
     private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase by inject()
 
-    fun refreshTime() {
+    private fun refreshTime() {
         val dateTime = LocalDateTime.now()
         currentTime.postValue("${getDateString(dateTime.hour, dateTime.minute)} 기준")
     }
 
-    fun getDateString(hour: Int, minute: Int) : String {
+    private fun getDateString(hour: Int, minute: Int) : String {
         val hourInString = if(hour > 9) hour.toString() else "0${hour}"
         val minuteInString = if(minute > 9) minute.toString() else "0${minute}"
         return "${hourInString}:${minuteInString}"
@@ -37,7 +37,7 @@ class HomeViewModel : BaseViewModel() {
         }
 
         viewModelScope.launch(coroutineExceptionHandler) {
-            busList.value = getBusArrivalInfoUseCase(where)
+            busList.value = getBusArrivalInfoUseCase(where)!!
             refreshTime()
         }
     }
