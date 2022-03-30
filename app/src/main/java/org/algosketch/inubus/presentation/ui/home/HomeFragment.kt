@@ -1,7 +1,9 @@
 package org.algosketch.inubus.presentation.ui.home
 
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.analytics.FirebaseAnalytics
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentHomeBinding
 import org.algosketch.inubus.global.base.BaseFragment
@@ -26,6 +28,11 @@ class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding
 
         binding.refreshLayout.setOnRefreshListener {
             viewModel.refresh(binding.refreshLayout, where)
+            val analytics = FirebaseAnalytics.getInstance(requireContext())
+            val bundle = Bundle()
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, "pull to refresh")
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "HomeFragment")
+            analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle)
         }
     }
 

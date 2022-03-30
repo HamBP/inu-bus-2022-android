@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "118205894368",
+    "project_id": "inu-bus",
+    "storage_bucket": "inu-bus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118205894368:android:b99714cc08f35104574a85",
+        "android_client_info": {
+          "package_name": "org.algosketch.inubus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118205894368-p9ocr0le6mecmdqf4rarf97veis3sbh9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.algosketch.inubus",
+            "certificate_hash": "cb58883cdbf07690dc5b7301755f715c2d0bb8be"
+          }
+        },
+        {
+          "client_id": "118205894368-gii0dr50abbnoiph2i6g2f9ud67t8e7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFE6MMAK87-X0fGVz2ln3BrAsWyM-_mXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118205894368-gii0dr50abbnoiph2i6g2f9ud67t8e7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
