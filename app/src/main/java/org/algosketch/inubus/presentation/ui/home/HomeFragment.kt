@@ -28,11 +28,7 @@ class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding
 
         binding.refreshLayout.setOnRefreshListener {
             viewModel.refresh(binding.refreshLayout, where)
-            val analytics = FirebaseAnalytics.getInstance(requireContext())
-            val bundle = Bundle()
-            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, "pull to refresh")
-            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "HomeFragment")
-            analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle)
+            sendLogToFirebase()
         }
     }
 
@@ -40,5 +36,13 @@ class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding
         viewModel.timeEvent.observe(this) {
             findNavController().navigate(R.id.action_wrap_to_timeout)
         }
+    }
+
+    private fun sendLogToFirebase() {
+        val analytics = FirebaseAnalytics.getInstance(requireContext())
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, "pull to refresh")
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "HomeFragment")
+        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle)
     }
 }
