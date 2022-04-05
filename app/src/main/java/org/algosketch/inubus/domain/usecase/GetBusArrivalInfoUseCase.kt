@@ -19,21 +19,24 @@ class GetBusArrivalInfoUseCase(private val infoRepository: BusArrivalInfoReposit
 
     private suspend fun fetchINU() : List<BusArrivalInfo> {
         return withContext(Dispatchers.Default) {
-            val list1 = BusArrivalInfoMapper.toBusArrival(request("164000395"))
-            val list2 = BusArrivalInfoMapper.toBusArrival(request("164000396"))
+            val list1 = request("164000395")
+            val list2 = request("164000396")
             list1 + list2
         }
     }
 
     private suspend fun fetchBIT() : List<BusArrivalInfo> {
         return withContext(Dispatchers.Default) {
-            val list1 = BusArrivalInfoMapper.toBusArrival(request("164000403"))
-            val list2 = BusArrivalInfoMapper.toBusArrival(request("164000380"))
+            val list1 = request("164000403")
+            val list2 = request("164000380")
             list1 + list2
         }
     }
 
-    private suspend fun request(bstop: String): BusArrivalResponse = withContext(Dispatchers.IO) {
-        infoRepository.getArrivalBusTime(bstop)
+    private suspend fun request(bstop: String): List<BusArrivalInfo> {
+        return withContext(Dispatchers.IO) {
+            BusArrivalInfoMapper.toBusArrival(infoRepository.getArrivalBusTime(bstop))
+        }
     }
+
 }
