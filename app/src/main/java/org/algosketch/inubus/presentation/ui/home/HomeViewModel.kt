@@ -43,7 +43,7 @@ class HomeViewModel : BaseViewModel() {
     }
 
     fun refresh(refreshLayout: SwipeRefreshLayout, where: String) {
-        CoroutineScope(Dispatchers.Main).launch {
+        viewModelScope.launch {
             updateBusList(where)
             refreshLayout.isRefreshing = false
         }
