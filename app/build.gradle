@@ -8,6 +8,9 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'koin'
 apply plugin: 'com.google.gms.google-services'
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
@@ -20,6 +23,8 @@ android {
         versionName "0.0.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "API_KEY", properties['api_key']
     }
 
     buildTypes {
