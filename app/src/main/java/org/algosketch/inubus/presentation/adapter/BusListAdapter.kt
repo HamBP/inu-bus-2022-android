@@ -35,8 +35,9 @@ class BusListAdapter : ListAdapter<BusArrivalInfo, BusListAdapter.BusViewHolder>
             binding.executePendingBindings()
         }
 
-        fun getBundle(busArrivalInfo: BusArrivalInfo) : Bundle {
-            val bundle = bundleOf(
+        private fun getBundle(busArrivalInfo: BusArrivalInfo): Bundle {
+
+            return bundleOf(
                 "exit" to busArrivalInfo.exit,
                 "where" to busArrivalInfo.where,
                 "busNumber" to busArrivalInfo.busNumber,
@@ -44,8 +45,6 @@ class BusListAdapter : ListAdapter<BusArrivalInfo, BusListAdapter.BusViewHolder>
                 "restTime" to busArrivalInfo.restTime,
                 "busColor" to Bus.getBusColorByBusNumber(busArrivalInfo.busNumber)
             )
-
-            return bundle
         }
 
         companion object {
