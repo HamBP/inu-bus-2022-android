@@ -8,12 +8,4 @@ data class BusArrivalInfo(
     val where: String,
     val restTimeInformationText: String,
     val exitInformationText: String
-) {
-    override fun equals(other: Any?): Boolean {
-        return if (other is BusArrivalInfo) ( restTime == other.restTime &&
-                        busNumber == other.busNumber &&
-                        exit == other.exit &&
-                        where == other.where
-                ) else false
-    }
-}
+)
