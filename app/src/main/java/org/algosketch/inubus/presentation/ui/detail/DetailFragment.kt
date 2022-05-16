@@ -3,16 +3,14 @@ package org.algosketch.inubus.presentation.ui.detail
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import org.algosketch.inubus.R
-import org.algosketch.inubus.databinding.FragmentDetailBinding
 import org.algosketch.inubus.common.base.BaseFragment
 import org.algosketch.inubus.common.constant.BusStop
 import org.algosketch.inubus.common.util.Bus
+import org.algosketch.inubus.databinding.FragmentDetailBinding
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     override val layoutResourceId = R.layout.fragment_detail
@@ -39,13 +37,21 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             "purple" to R.color.purple_bus
         )
 
-        val toolbarBackground = view.findViewById<View>(R.id.toolbar_background)
-        setBackgroundTint(toolbarBackground, colorMap[arguments?.getString("busColor")] ?: R.color.black_3)
+        setBackgroundTint(
+            binding.toolbarBackground,
+            colorMap[arguments?.getString("busColor")] ?: R.color.black_3
+        )
 
-        val mapImage = view.findViewById<ImageView>(R.id.map_image)
-        mapImage.setImageDrawable(ContextCompat.getDrawable(view.context, Bus.getMapImageIdByBusNumber(
-            arguments?.getString("busNumber"), if(arguments?.getString("where") == "인천대입구") BusStop.INU else BusStop.BIT
-        )))
+        binding.mapImage.run {
+            setImageDrawable(
+                ContextCompat.getDrawable(
+                    view.context, Bus.getMapImageIdByBusNumber(
+                        arguments?.getString("busNumber"),
+                        if (arguments?.getString("where") == "인천대입구") BusStop.INU else BusStop.BIT
+                    )
+                )
+            )
+        }
     }
 
     private fun setBackgroundTint(view: View, colorId: Int) {
