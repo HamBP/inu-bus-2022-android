@@ -5,10 +5,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.*
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
-import org.algosketch.inubus.global.base.BaseViewModel
+import org.algosketch.inubus.common.base.BaseViewModel
 import org.algosketch.inubus.domain.usecase.GetBusArrivalInfoUseCase
-import org.algosketch.inubus.data.mapper.BusArrivalInfoMapper
-import org.algosketch.inubus.global.util.SingleLiveEvent
+import org.algosketch.inubus.common.util.SingleLiveEvent
 import org.koin.core.component.inject
 import java.time.LocalDateTime
 

@@ -1,7 +1,7 @@
 package org.algosketch.inubus.data.api
 
 import org.algosketch.inubus.data.model.BusArrivalResponse
-import org.algosketch.inubus.global.configs.ApiTokens
+import org.algosketch.inubus.common.configs.ApiTokens
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

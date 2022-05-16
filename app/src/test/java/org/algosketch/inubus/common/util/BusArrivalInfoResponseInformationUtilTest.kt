@@ -1,7 +1,7 @@
-package org.algosketch.inubus.global.util
+package org.algosketch.inubus.common.util
 
 import junit.framework.TestCase
-import org.algosketch.inubus.data.mapper.BusArrivalInfoMapper
+import org.algosketch.inubus.common.mapper.BusArrivalInfoMapper
 import org.algosketch.inubus.data.model.BusArrivalResponse
 import org.algosketch.inubus.data.model.ItemList
 import org.algosketch.inubus.data.model.MsgBody

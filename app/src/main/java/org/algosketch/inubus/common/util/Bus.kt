@@ -1,7 +1,7 @@
-package org.algosketch.inubus.global.util
+package org.algosketch.inubus.common.util
 
 import org.algosketch.inubus.R
-import org.algosketch.inubus.global.constant.BusStop
+import org.algosketch.inubus.common.constant.BusStop
 
 object Bus {
     val routeIds = mapOf(

@@ -1,4 +1,4 @@
-package org.algosketch.inubus.global.base
+package org.algosketch.inubus.common.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

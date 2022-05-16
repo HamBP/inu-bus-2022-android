@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import org.algosketch.inubus.databinding.ItemInformationBinding
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
-import org.algosketch.inubus.global.util.Bus
-import org.algosketch.inubus.global.util.BusNumberBackgroundTintUtil
+import org.algosketch.inubus.common.util.Bus
+import org.algosketch.inubus.common.util.BusNumberBackgroundTintUtil
 import org.algosketch.inubus.presentation.adapter.TagAdapter
 
 class BusListAdapter : ListAdapter<BusArrivalInfo, BusListAdapter.BusViewHolder>(BusListDiffUtil()) {
