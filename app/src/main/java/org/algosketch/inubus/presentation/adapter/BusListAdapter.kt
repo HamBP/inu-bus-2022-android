@@ -29,22 +29,10 @@ class BusListAdapter : ListAdapter<BusArrivalInfo, BusListAdapter.BusViewHolder>
             BusNumberBackgroundTintUtil.setBusNumberBackgroundTint(binding.busNumber, item.busNumber)
 
             binding.root.setOnClickListener {
-                it.findNavController().navigate(R.id.action_wrap_to_detail, getBundle(item))
+                it.findNavController().navigate(R.id.action_wrap_to_detail, item.toBundle())
             }
             binding.tagRecyclerView.adapter = TagAdapter(Bus.getBusStopsByBusNumber(item.busNumber))
             binding.executePendingBindings()
-        }
-
-        private fun getBundle(busArrivalInfo: BusArrivalInfo): Bundle {
-
-            return bundleOf(
-                "exit" to busArrivalInfo.exit,
-                "where" to busArrivalInfo.where,
-                "busNumber" to busArrivalInfo.busNumber,
-                "distance" to Bus.getDistance(busArrivalInfo.where, busArrivalInfo.busNumber),
-                "restTime" to busArrivalInfo.restTime,
-                "busColor" to Bus.getBusColorByBusNumber(busArrivalInfo.busNumber)
-            )
         }
 
         companion object {
