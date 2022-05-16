@@ -20,9 +20,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     override fun initDataBinding() {
         binding.viewModel = viewModel
-        viewModel.shouldUndo.observe(this, {
-            findNavController().popBackStack()
-        })
     }
 
     override fun initState() {
