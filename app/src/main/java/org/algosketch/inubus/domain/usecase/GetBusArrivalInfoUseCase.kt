@@ -1,10 +1,8 @@
 package org.algosketch.inubus.domain.usecase
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
-import org.algosketch.inubus.data.mapper.BusArrivalInfoMapper
-import org.algosketch.inubus.data.model.BusArrivalResponse
+import org.algosketch.inubus.common.mapper.BusArrivalInfoMapper
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 

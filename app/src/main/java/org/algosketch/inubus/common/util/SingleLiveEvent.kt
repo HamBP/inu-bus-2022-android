@@ -1,4 +1,4 @@
-package org.algosketch.inubus.global.util
+package org.algosketch.inubus.common.util
 
 import android.util.Log
 import androidx.annotation.MainThread

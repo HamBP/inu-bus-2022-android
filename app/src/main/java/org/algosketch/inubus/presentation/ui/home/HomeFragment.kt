@@ -6,7 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentHomeBinding
-import org.algosketch.inubus.global.base.BaseFragment
+import org.algosketch.inubus.common.base.BaseFragment
 
 class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding>() {
     override val layoutResourceId = R.layout.fragment_home

@@ -1,8 +1,8 @@
 package org.algosketch.inubus.presentation.ui.detail
 
 import androidx.lifecycle.MutableLiveData
-import org.algosketch.inubus.global.base.BaseViewModel
-import org.algosketch.inubus.global.util.SingleLiveEvent
+import org.algosketch.inubus.common.base.BaseViewModel
+import org.algosketch.inubus.common.util.SingleLiveEvent
 
 class DetailViewModel : BaseViewModel() {
     val shouldUndo = SingleLiveEvent<Any>()

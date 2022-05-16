@@ -10,9 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentDetailBinding
-import org.algosketch.inubus.global.base.BaseFragment
-import org.algosketch.inubus.global.constant.BusStop
-import org.algosketch.inubus.global.util.Bus
+import org.algosketch.inubus.common.base.BaseFragment
+import org.algosketch.inubus.common.constant.BusStop
+import org.algosketch.inubus.common.util.Bus
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     override val layoutResourceId = R.layout.fragment_detail

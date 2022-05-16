@@ -1,8 +1,8 @@
-package org.algosketch.inubus.data.mapper
+package org.algosketch.inubus.common.mapper
 
 import org.algosketch.inubus.data.model.BusArrivalResponse
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
-import org.algosketch.inubus.global.util.Bus
+import org.algosketch.inubus.common.util.Bus
 
 object BusArrivalInfoMapper {
     fun toBusArrival(busArrivalResponse: BusArrivalResponse) : List<BusArrivalInfo> {
