@@ -23,14 +23,20 @@ class BusListAdapter : ListAdapter<BusArrivalInfo, BusListAdapter.BusViewHolder>
     }
 
     class BusViewHolder private constructor(val binding: ItemInformationBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener { view ->
+                binding.item?.let { item ->
+                    item.navigateDetail(view)
+                }
+            }
+        }
+
         fun bind(item: BusArrivalInfo) {
             binding.item = item
 
             BusNumberBackgroundTintUtil.setBusNumberBackgroundTint(binding.busNumber, item.busNumber)
 
-            binding.root.setOnClickListener {
-                it.findNavController().navigate(R.id.action_wrap_to_detail, item.toBundle())
-            }
             binding.tagRecyclerView.adapter = TagAdapter(Bus.getBusStopsByBusNumber(item.busNumber))
             binding.executePendingBindings()
         }

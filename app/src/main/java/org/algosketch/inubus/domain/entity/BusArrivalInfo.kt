@@ -1,6 +1,7 @@
 package org.algosketch.inubus.domain.entity
 
 import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
 import org.algosketch.inubus.common.util.Bus
 
@@ -11,7 +12,8 @@ data class BusArrivalInfo(
     val exit: Int,
     val where: String,
     val restTimeInformationText: String,
-    val exitInformationText: String
+    val exitInformationText: String,
+    val navigateDetail: (View) -> Unit
 ) {
     fun toBundle(): Bundle {
         return bundleOf(
