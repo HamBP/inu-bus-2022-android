@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.base.BaseFragment
 import org.algosketch.inubus.common.constant.BusStop
@@ -52,6 +53,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 )
             )
         }
+
+        setupEvents()
     }
 
     private fun setBackgroundTint(view: View, colorId: Int) {
@@ -59,5 +62,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         drawable = DrawableCompat.wrap(drawable!!)
 
         DrawableCompat.setTint(drawable, ContextCompat.getColor(view.context, colorId))
+    }
+
+    private fun setupEvents() {
+        viewModel.undoEvent.observe(this) {
+            findNavController().navigateUp()
+        }
     }
 }
