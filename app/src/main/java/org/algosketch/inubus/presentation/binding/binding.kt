@@ -1,5 +1,7 @@
 package org.algosketch.inubus.presentation.ui.home
 
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +22,11 @@ fun bindTab(viewPager: ViewPager2, tab: MutableLiveData<Int>) {
 }
 
 @BindingAdapter("app:tabSelection", "android:onTabSelected", requireAll = false)
-fun setTab(view: TabLayout, currentItem: Int, onTabSelectedListener: TabLayout.OnTabSelectedListener) {
+fun setTab(
+    view: TabLayout,
+    currentItem: Int,
+    onTabSelectedListener: TabLayout.OnTabSelectedListener
+) {
     view.getTabAt(currentItem)?.select()
     view.addOnTabSelectedListener(onTabSelectedListener)
 }
@@ -28,4 +34,15 @@ fun setTab(view: TabLayout, currentItem: Int, onTabSelectedListener: TabLayout.O
 @BindingAdapter("app:isUserInputEnabled")
 fun setUserInputEnabled(view: ViewPager2, isUserInputEnabled: Boolean) {
     view.isUserInputEnabled = isUserInputEnabled
+}
+
+@BindingAdapter("app:mapImage")
+fun bindMapImage(view: ImageView, resId: Int) {
+    view.run {
+        setImageDrawable(
+            ContextCompat.getDrawable(
+                view.context, resId
+            )
+        )
+    }
 }

@@ -65,7 +65,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun setupEvents() {
-        viewModel.undoEvent.observe(this) {
+        viewModel.undoEvent.observe(viewLifecycleOwner) {
             findNavController().navigateUp()
         }
     }
