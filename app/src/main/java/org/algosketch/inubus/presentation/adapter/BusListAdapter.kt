@@ -26,9 +26,7 @@ class BusListAdapter : ListAdapter<BusArrivalInfo, BusListAdapter.BusViewHolder>
 
         init {
             binding.root.setOnClickListener { view ->
-                binding.item?.let { item ->
-                    item.navigateDetail(view)
-                }
+                binding.item!!.navigateDetail(view)
             }
         }
 
