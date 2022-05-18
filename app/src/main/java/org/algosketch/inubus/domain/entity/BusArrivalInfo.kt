@@ -13,7 +13,7 @@ data class BusArrivalInfo(
     val where: String,
     val restTimeInformationText: String,
     val exitInformationText: String,
-    val navigateDetail: (View) -> Unit
+    val navigateDetail: (View) -> Unit = {}
 ) {
     fun toBundle(): Bundle {
         return bundleOf(

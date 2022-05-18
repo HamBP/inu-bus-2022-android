@@ -22,7 +22,7 @@
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/ic_button_undo"
             android:backgroundTint="@color/black_1"
-            android:onClick="@{()->viewModel.undo()}"/>
+            android:onClick="@{(view)->viewModel.undo(view)}"/>
 
         <View
             android:id="@+id/toolbar_background"
