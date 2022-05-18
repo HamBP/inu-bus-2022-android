@@ -9,7 +9,7 @@ class DetailViewModel : BaseViewModel() {
     val restTime = MutableLiveData("???")
     val exit = MutableLiveData("???")
     val distance = MutableLiveData("???")
-    //val imageId = MutableLiveData<Int>() TODO : 사진 bindingAdapter 로 변경
+    val imageId = MutableLiveData<Int>()
     val undoEvent = SingleLiveEvent<Any>()
 
     fun undo() {
