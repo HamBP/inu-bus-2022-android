@@ -26,6 +26,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         viewModel.busNumber.postValue(arguments?.getString("busNumber"))
         viewModel.exit.postValue("정류장은 ${arguments?.getString("where")}역 ${arguments?.getInt("exit")}번 출구에서")
         viewModel.distance.postValue("${arguments?.getInt("distance")}m")
+        viewModel.imageId.postValue(
+            Bus.getMapImageIdByBusNumber(
+                arguments?.getString("busNumber"),
+                if (arguments?.getString("where") == "인천대입구") BusStop.INU else BusStop.BIT
+            )
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,17 +48,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             binding.toolbarBackground,
             colorMap[arguments?.getString("busColor")] ?: R.color.black_3
         )
-
-        binding.mapImage.run {
-            setImageDrawable(
-                ContextCompat.getDrawable(
-                    view.context, Bus.getMapImageIdByBusNumber(
-                        arguments?.getString("busNumber"),
-                        if (arguments?.getString("where") == "인천대입구") BusStop.INU else BusStop.BIT
-                    )
-                )
-            )
-        }
 
         setupEvents()
     }

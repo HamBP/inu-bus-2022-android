@@ -37,9 +37,9 @@ fun setUserInputEnabled(view: ViewPager2, isUserInputEnabled: Boolean) {
 }
 
 @BindingAdapter("app:mapImage")
-fun bindMapImage(view: ImageView, resId: Int) {
-    view.run {
-        setImageDrawable(
+fun bindMapImage(view: ImageView, resId: Int?) {
+    resId?.let {
+        view.setImageDrawable(
             ContextCompat.getDrawable(
                 view.context, resId
             )

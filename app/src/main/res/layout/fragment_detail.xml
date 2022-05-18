@@ -105,7 +105,8 @@
             android:layout_marginHorizontal="24dp"
             tools:src="@drawable/inu_8"
             android:src="@drawable/inu_8"
-            app:layout_constraintDimensionRatio="1:1"/>
+            app:layout_constraintDimensionRatio="1:1"
+            app:mapImage="@{viewModel.imageId}"/>
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
