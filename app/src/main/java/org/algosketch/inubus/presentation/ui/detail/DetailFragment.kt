@@ -6,7 +6,9 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.launch
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.base.BaseFragment
 import org.algosketch.inubus.common.constant.BusStop
@@ -22,10 +24,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     override fun initState() {
-        viewModel.restTime.postValue("\"버스 ${arguments?.getInt("restTime")}분 뒤에 와요\"")
-        viewModel.busNumber.postValue(arguments?.getString("busNumber"))
-        viewModel.exit.postValue("정류장은 ${arguments?.getString("where")}역 ${arguments?.getInt("exit")}번 출구에서")
-        viewModel.distance.postValue("${arguments?.getInt("distance")}m")
+        lifecycleScope.launch {
+            viewModel.restTime.emit("\"버스 ${arguments?.getInt("restTime")}분 뒤에 와요\"")
+            viewModel.busNumber.emit(arguments?.getString("busNumber") ?: "???")
+            viewModel.exit.emit("정류장은 ${arguments?.getString("where")}역 ${arguments?.getInt("exit")}번 출구에서")
+            viewModel.distance.emit("${arguments?.getInt("distance")}m")
+        }
+
         viewModel.imageId.postValue(
             Bus.getMapImageIdByBusNumber(
                 arguments?.getString("busNumber"),
