@@ -18,4 +18,8 @@ abstract class BaseActivity<VB: ViewDataBinding> : AppCompatActivity() {
 
         initDataBinding()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 }

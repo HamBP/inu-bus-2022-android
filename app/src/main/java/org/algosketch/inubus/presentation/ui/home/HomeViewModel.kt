@@ -18,6 +18,7 @@ class HomeViewModel : BaseViewModel() {
     val currentTime = MutableLiveData<String>()
     val busList = MutableLiveData<List<BusArrivalInfo>>()
     val timeEvent = SingleLiveEvent<Any>()
+    val moveDetailEvent = SingleLiveEvent<Any>()
 
     private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase by inject()
 
@@ -41,6 +42,7 @@ class HomeViewModel : BaseViewModel() {
         viewModelScope.launch(coroutineExceptionHandler) {
             busList.value = getBusArrivalInfoUseCase(where).map {
                 it.copy(navigateDetail = { view ->
+                    moveDetailEvent.call()
                     view.findNavController().navigate(R.id.action_wrap_to_detail, it.toBundle())
                 })
             }
