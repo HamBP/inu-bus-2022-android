@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.algosketch.inubus.common.base.BaseViewModel
+import org.algosketch.inubus.common.util.Event
 import org.algosketch.inubus.common.util.SingleLiveEvent
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.usecase.GetBusArrivalInfoUseCase
@@ -17,7 +18,7 @@ class HomeViewModel : BaseViewModel() {
     val currentTime = MutableLiveData<String>()
     val busList = MutableLiveData<List<BusArrivalInfo>>()
     val timeEvent = SingleLiveEvent<Any>()
-    val moveDetailEvent = MutableLiveData<BusArrivalInfo>()
+    val moveDetailEvent = MutableLiveData<Event<BusArrivalInfo>>()
 
     private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase by inject()
 
@@ -41,7 +42,7 @@ class HomeViewModel : BaseViewModel() {
         viewModelScope.launch(coroutineExceptionHandler) {
             busList.value = getBusArrivalInfoUseCase(where).map {
                 it.copy(navigateDetail = { _ ->
-                    moveDetailEvent.value = it
+                    moveDetailEvent.value = Event(it)
                 })
             }
             refreshTime()
