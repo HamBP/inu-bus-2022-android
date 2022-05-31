@@ -38,8 +38,10 @@ class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding
             findNavController().navigate(R.id.action_wrap_to_timeout)
         }
 
-        viewModel.moveDetailEvent.observe(this) {
-            findNavController().navigate(R.id.action_wrap_to_detail, it.toBundle())
+        viewModel.moveDetailEvent.observe(this) { event ->
+            event.getContentIfNotHandled()?.let {
+                findNavController().navigate(R.id.action_wrap_to_detail, it.toBundle())
+            }
         }
     }
 
