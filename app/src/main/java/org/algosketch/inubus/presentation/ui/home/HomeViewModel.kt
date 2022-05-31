@@ -2,11 +2,10 @@ package org.algosketch.inubus.presentation.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.algosketch.inubus.R
 import org.algosketch.inubus.common.base.BaseViewModel
 import org.algosketch.inubus.common.util.SingleLiveEvent
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
@@ -18,7 +17,7 @@ class HomeViewModel : BaseViewModel() {
     val currentTime = MutableLiveData<String>()
     val busList = MutableLiveData<List<BusArrivalInfo>>()
     val timeEvent = SingleLiveEvent<Any>()
-    val moveDetailEvent = SingleLiveEvent<Any>()
+    val moveDetailEvent = MutableLiveData<BusArrivalInfo>()
 
     private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase by inject()
 
@@ -41,9 +40,8 @@ class HomeViewModel : BaseViewModel() {
 
         viewModelScope.launch(coroutineExceptionHandler) {
             busList.value = getBusArrivalInfoUseCase(where).map {
-                it.copy(navigateDetail = { view ->
-                    moveDetailEvent.call()
-                    view.findNavController().navigate(R.id.action_wrap_to_detail, it.toBundle())
+                it.copy(navigateDetail = { _ ->
+                    moveDetailEvent.value = it
                 })
             }
             refreshTime()
