@@ -2,9 +2,12 @@ package org.algosketch.inubus.presentation.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentHomeBinding
 import org.algosketch.inubus.common.base.BaseFragment
@@ -38,8 +41,8 @@ class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding
             findNavController().navigate(R.id.action_wrap_to_timeout)
         }
 
-        viewModel.moveDetailEvent.observe(this) { event ->
-            event.getContentIfNotHandled()?.let {
+        lifecycleScope.launch {
+            viewModel.moveDetailEvent.collect {
                 findNavController().navigate(R.id.action_wrap_to_detail, it.toBundle())
             }
         }
