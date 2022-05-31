@@ -4,10 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.algosketch.inubus.common.base.BaseViewModel
-import org.algosketch.inubus.common.util.Event
 import org.algosketch.inubus.common.util.SingleLiveEvent
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.usecase.GetBusArrivalInfoUseCase
@@ -18,7 +19,7 @@ class HomeViewModel : BaseViewModel() {
     val currentTime = MutableLiveData<String>()
     val busList = MutableLiveData<List<BusArrivalInfo>>()
     val timeEvent = SingleLiveEvent<Any>()
-    val moveDetailEvent = MutableLiveData<Event<BusArrivalInfo>>()
+    val moveDetailEvent = MutableSharedFlow<BusArrivalInfo>()
 
     private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase by inject()
 
@@ -40,12 +41,20 @@ class HomeViewModel : BaseViewModel() {
         }
 
         viewModelScope.launch(coroutineExceptionHandler) {
-            busList.value = getBusArrivalInfoUseCase(where).map {
-                it.copy(navigateDetail = { _ ->
-                    moveDetailEvent.value = Event(it)
+            busList.value = getBusArrivalInfoUseCase(where).map { item ->
+                item.copy(navigateDetail = {
+                    moveDetail(item)
                 })
             }
             refreshTime()
+        }
+    }
+
+    private fun moveDetail(item: BusArrivalInfo) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                moveDetailEvent.emit(item)
+            }
         }
     }
 
