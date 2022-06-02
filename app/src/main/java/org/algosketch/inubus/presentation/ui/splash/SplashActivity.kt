@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import org.algosketch.inubus.BuildConfig.IS_PROD
 import org.algosketch.inubus.R
 import org.algosketch.inubus.presentation.ui.error.ErrorActivity
 import org.algosketch.inubus.presentation.main.MainActivity
@@ -17,12 +18,16 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             val dateTime = LocalDateTime.now()
-            if(dateTime.hour in 6..23) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+            val startTime = if (IS_PROD) 6 else 0
+
+            if(dateTime.hour in startTime..23) {
+                Intent(this, MainActivity::class.java).apply {
+                    startActivity(this)
+                }
             } else {
-                val intent = Intent(this, ErrorActivity::class.java)
-                startActivity(intent)
+                Intent(this, ErrorActivity::class.java).apply {
+                    startActivity(this)
+                }
             }
             finish()
         }, 500)
