@@ -19,16 +19,12 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             val dateTime = LocalDateTime.now()
             val startTime = if (IS_PROD) 6 else 0
+            val intent =
+                if(dateTime.hour in startTime..23) Intent(this, MainActivity::class.java)
+                else Intent(this, ErrorActivity::class.java)
 
-            if(dateTime.hour in startTime..23) {
-                Intent(this, MainActivity::class.java).apply {
-                    startActivity(this)
-                }
-            } else {
-                Intent(this, ErrorActivity::class.java).apply {
-                    startActivity(this)
-                }
-            }
+            startActivity(intent)
+
             finish()
         }, 500)
     }
