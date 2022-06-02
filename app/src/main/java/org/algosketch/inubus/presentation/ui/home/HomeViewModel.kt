@@ -52,9 +52,7 @@ class HomeViewModel : BaseViewModel() {
 
     private fun moveDetail(item: BusArrivalInfo) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                moveDetailEvent.emit(item)
-            }
+            moveDetailEvent.emit(item)
         }
     }
 
