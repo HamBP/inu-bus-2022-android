@@ -1,11 +1,13 @@
 package org.algosketch.inubus.presentation.ui.home
 
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.algosketch.inubus.common.base.BaseViewModel
@@ -16,8 +18,8 @@ import org.koin.core.component.inject
 import java.time.LocalDateTime
 
 class HomeViewModel : BaseViewModel() {
-    val currentTime = MutableLiveData<String>()
-    val busList = MutableLiveData<List<BusArrivalInfo>>()
+    val currentTime = MutableStateFlow("")
+    val busList = MutableLiveData<List<BusArrivalInfo>>(listOf())
     val timeEvent = SingleLiveEvent<Any>()
     val moveDetailEvent = MutableSharedFlow<BusArrivalInfo>()
 
@@ -25,7 +27,7 @@ class HomeViewModel : BaseViewModel() {
 
     private fun refreshTime() {
         val dateTime = LocalDateTime.now()
-        currentTime.postValue("${getDateString(dateTime.hour, dateTime.minute)} 기준")
+        currentTime.value = "${getDateString(dateTime.hour, dateTime.minute)} 기준"
     }
 
     private fun getDateString(hour: Int, minute: Int): String {
