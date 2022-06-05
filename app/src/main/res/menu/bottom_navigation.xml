@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/page_inu"
+        android:enabled="true"
+        android:title="인천대입구" />
+    <item
+        android:id="@+id/page_bit"
+        android:enabled="true"
+        android:title="지식정보단지"/>
+</menu>
