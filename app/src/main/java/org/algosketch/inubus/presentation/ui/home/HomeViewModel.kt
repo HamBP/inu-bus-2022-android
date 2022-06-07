@@ -64,4 +64,8 @@ class HomeViewModel : BaseViewModel() {
             refreshLayout.isRefreshing = false
         }
     }
+
+    sealed class Event {
+        data class MoveDetail(val busInfo: BusArrivalInfo) : Event()
+    }
 }
