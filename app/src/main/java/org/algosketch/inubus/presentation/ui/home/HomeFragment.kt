@@ -42,8 +42,10 @@ class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding
         }
 
         lifecycleScope.launch {
-            viewModel.moveDetailEvent.collect {
-                findNavController().navigate(R.id.action_wrap_to_detail, it.toBundle())
+            viewModel.eventFlow.collect {
+                when (it) {
+                    is HomeViewModel.Event.MoveDetail -> findNavController().navigate(R.id.action_wrap_to_detail, it.busInfo.toBundle())
+                }
             }
         }
     }
