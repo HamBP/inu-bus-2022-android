@@ -21,7 +21,7 @@ class HomeViewModel : BaseViewModel() {
     val currentTime = MutableStateFlow("")
     val busList = MutableLiveData<List<BusArrivalInfo>>(listOf())
     val timeEvent = SingleLiveEvent<Any>()
-    val moveDetailEvent = MutableSharedFlow<BusArrivalInfo>()
+    val eventFlow = MutableSharedFlow<Event>()
 
     private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase by inject()
 
@@ -54,7 +54,7 @@ class HomeViewModel : BaseViewModel() {
 
     private fun moveDetail(item: BusArrivalInfo) {
         viewModelScope.launch {
-            moveDetailEvent.emit(item)
+            eventFlow.emit(Event.MoveDetail(item))
         }
     }
 
