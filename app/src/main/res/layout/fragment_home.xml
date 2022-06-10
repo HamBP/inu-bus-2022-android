@@ -29,7 +29,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="24dp"
-                    android:text="@{viewModel.currentTime}"
+                    android:text='@{viewModel.currentTime + " 기준"}'
                     tools:text="08:42 기준"
                     android:textColor="#616161"/>
 

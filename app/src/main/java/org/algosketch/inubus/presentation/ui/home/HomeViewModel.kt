@@ -27,7 +27,7 @@ class HomeViewModel : BaseViewModel() {
 
     private fun refreshTime() {
         val dateTime = LocalDateTime.now()
-        currentTime.value = "${getDateString(dateTime.hour, dateTime.minute)} 기준"
+        currentTime.value = getDateString(dateTime.hour, dateTime.minute)
     }
 
     private fun getDateString(hour: Int, minute: Int): String {
