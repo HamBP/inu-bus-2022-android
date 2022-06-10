@@ -1,15 +1,12 @@
 package org.algosketch.inubus.presentation.ui.home
 
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.algosketch.inubus.common.base.BaseViewModel
 import org.algosketch.inubus.common.util.SingleLiveEvent
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
@@ -26,13 +23,14 @@ class HomeViewModel : BaseViewModel() {
     private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase by inject()
 
     private fun refreshTime() {
-        val dateTime = LocalDateTime.now()
-        currentTime.value = getDateString(dateTime.hour, dateTime.minute)
+        currentTime.value = getCurrentDateTime()
     }
 
-    private fun getDateString(hour: Int, minute: Int): String {
-        val hourInString = if (hour > 9) hour.toString() else "0${hour}"
-        val minuteInString = if (minute > 9) minute.toString() else "0${minute}"
+    private fun getCurrentDateTime(): String {
+        val dateTime = LocalDateTime.now()
+
+        val hourInString = if (dateTime.hour > 9) dateTime.hour.toString() else "0${dateTime.hour}"
+        val minuteInString = if (dateTime.minute > 9) dateTime.minute.toString() else "0${dateTime.minute}"
         return "${hourInString}:${minuteInString}"
     }
 
