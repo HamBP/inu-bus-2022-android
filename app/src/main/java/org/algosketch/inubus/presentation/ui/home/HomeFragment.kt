@@ -37,14 +37,11 @@ class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding
     }
 
     private fun setupObserver() {
-        viewModel.timeEvent.observe(this) {
-            findNavController().navigate(R.id.action_wrap_to_timeout)
-        }
-
         lifecycleScope.launch {
             viewModel.eventFlow.collect {
                 when (it) {
                     is HomeViewModel.Event.MoveDetail -> findNavController().navigate(R.id.action_wrap_to_detail, it.busInfo.toBundle())
+                    is HomeViewModel.Event.Timeout -> findNavController().navigate(R.id.action_wrap_to_timeout)
                 }
             }
         }
