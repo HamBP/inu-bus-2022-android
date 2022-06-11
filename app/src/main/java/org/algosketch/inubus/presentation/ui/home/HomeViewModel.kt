@@ -12,12 +12,12 @@ import org.algosketch.inubus.common.util.SingleLiveEvent
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.usecase.GetBusArrivalInfoUseCase
 import org.koin.core.component.inject
+import java.net.SocketTimeoutException
 import java.time.LocalDateTime
 
 class HomeViewModel : BaseViewModel() {
     val currentTime = MutableStateFlow("")
     val busList = MutableLiveData<List<BusArrivalInfo>>(listOf())
-    val timeEvent = SingleLiveEvent<Any>()
     val eventFlow = MutableSharedFlow<Event>()
 
     private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase by inject()
@@ -36,7 +36,11 @@ class HomeViewModel : BaseViewModel() {
 
     fun updateBusList(where: String) { // 1 : 인입, 2 : 지정단
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            timeEvent.call()
+
+            viewModelScope.launch {
+                eventFlow.emit(Event.Timeout())
+            }
+
             throwable.printStackTrace()
         }
 
@@ -65,5 +69,6 @@ class HomeViewModel : BaseViewModel() {
 
     sealed class Event {
         data class MoveDetail(val busInfo: BusArrivalInfo) : Event()
+        class Timeout : Event()
     }
 }
