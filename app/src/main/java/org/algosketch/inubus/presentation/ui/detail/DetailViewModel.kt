@@ -1,6 +1,5 @@
 package org.algosketch.inubus.presentation.ui.detail
 
-import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.algosketch.inubus.common.base.BaseViewModel
@@ -13,7 +12,7 @@ class DetailViewModel : BaseViewModel() {
     val restTime = MutableStateFlow("")
     val exit = MutableStateFlow("")
     val distance = MutableStateFlow("")
-    val imageId = MutableLiveData<Int>()
+    val imageId = MutableStateFlow<Int?>(null)
     val undoEvent = SingleLiveEvent<Any>()
 
     fun undo() {
