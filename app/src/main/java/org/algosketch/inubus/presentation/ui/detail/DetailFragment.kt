@@ -31,11 +31,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             viewModel.distance.value = ("${arguments?.getInt("distance")}m")
         }
 
-        viewModel.imageId.postValue(
-            Bus.getMapImageIdByBusNumber(
-                arguments?.getString("busNumber"),
-                if (arguments?.getString("where") == "인천대입구") BusStop.INU else BusStop.BIT
-            )
+        viewModel.imageId.value = Bus.getMapImageIdByBusNumber(
+            arguments?.getString("busNumber"),
+            if (arguments?.getString("where") == "인천대입구") BusStop.INU else BusStop.BIT
         )
     }
 
