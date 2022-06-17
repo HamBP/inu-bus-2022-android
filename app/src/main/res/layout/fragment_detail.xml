@@ -52,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="24dp"
             android:layout_marginHorizontal="16dp"
-            android:text="@{viewModel.restTime}"
+            android:text='@{"버스 " + viewModel.restTime + "분 뒤에 와요"}'
             tools:text='"버스 12분 뒤에 와요"'
             android:textColor="@color/black_1"
             android:textSize="16sp"
@@ -65,7 +65,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="20dp"
             app:layout_constraintTop_toBottomOf="@id/bus_rest_time"
-            android:text="@{viewModel.exit}"
+            android:text='@{"정류장은 " + viewModel.where + "역" + viewModel.exit + "번 출구에서"}'
             tools:text="정류장은 인천대입구연 2번 출구에서"
             android:gravity="center"
             android:textColor="@color/gray_8"
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             app:layout_constraintTop_toBottomOf="@id/detail_exit"
-            android:text="@{viewModel.distance}"
+            android:text='@{viewModel.distance + "m"}'
             tools:text="189m"
             android:gravity="center"
             android:textColor="@color/black_1"

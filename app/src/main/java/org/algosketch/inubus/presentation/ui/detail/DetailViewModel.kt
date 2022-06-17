@@ -10,6 +10,7 @@ class DetailViewModel : BaseViewModel() {
 //    val busNumber = _busNumber.asStateFlow()
 
     val restTime = MutableStateFlow("")
+    val where = MutableStateFlow("")
     val exit = MutableStateFlow("")
     val distance = MutableStateFlow("")
     val imageId = MutableStateFlow<Int?>(null)
