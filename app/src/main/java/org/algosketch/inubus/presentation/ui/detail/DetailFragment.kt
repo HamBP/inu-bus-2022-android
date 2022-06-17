@@ -25,10 +25,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     override fun initState() {
         lifecycleScope.launch {
-            viewModel.restTime.value = ("\"버스 ${arguments?.getInt("restTime")}분 뒤에 와요\"")
-            viewModel.busNumber.value = (arguments?.getString("busNumber") ?: "???")
-            viewModel.exit.value = ("정류장은 ${arguments?.getString("where")}역 ${arguments?.getInt("exit")}번 출구에서")
-            viewModel.distance.value = ("${arguments?.getInt("distance")}m")
+            viewModel.restTime.value = arguments?.getInt("restTime").toString()
+            viewModel.busNumber.value = arguments?.getString("busNumber") ?: "???"
+            viewModel.exit.value = arguments?.getInt("exit").toString()
+            viewModel.where.value = arguments?.getString("where") ?: "???"
+            viewModel.distance.value = arguments?.getInt("distance").toString()
         }
 
         viewModel.imageId.value = Bus.getMapImageIdByBusNumber(
