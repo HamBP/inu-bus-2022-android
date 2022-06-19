@@ -38,7 +38,7 @@ class HomeViewModel : BaseViewModel() {
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
 
             viewModelScope.launch {
-                eventFlow.emit(Event.Timeout())
+                eventFlow.emit(Event.Timeout)
             }
 
             throwable.printStackTrace()
@@ -69,6 +69,6 @@ class HomeViewModel : BaseViewModel() {
 
     sealed class Event {
         data class MoveDetail(val busInfo: BusArrivalInfo) : Event()
-        class Timeout : Event()
+        object Timeout : Event()
     }
 }
