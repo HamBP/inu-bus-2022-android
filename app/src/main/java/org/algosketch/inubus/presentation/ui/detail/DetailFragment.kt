@@ -13,6 +13,7 @@ import org.algosketch.inubus.R
 import org.algosketch.inubus.common.base.BaseFragment
 import org.algosketch.inubus.common.constant.BusStop
 import org.algosketch.inubus.common.util.Bus
+import org.algosketch.inubus.common.util.setBackgroundTint
 import org.algosketch.inubus.databinding.FragmentDetailBinding
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
@@ -48,19 +49,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             "purple" to R.color.purple_bus
         )
 
-        setBackgroundTint(
-            binding.toolbarBackground,
+        binding.toolbarBackground.setBackgroundTint(
             colorMap[arguments?.getString("busColor")] ?: R.color.black_3
         )
 
         setupEvents()
-    }
-
-    private fun setBackgroundTint(view: View, colorId: Int) {
-        var drawable: Drawable? = DrawableCompat.wrap(view.background!!)
-        drawable = DrawableCompat.wrap(drawable!!)
-
-        DrawableCompat.setTint(drawable, ContextCompat.getColor(view.context, colorId))
     }
 
     private fun setupEvents() {
