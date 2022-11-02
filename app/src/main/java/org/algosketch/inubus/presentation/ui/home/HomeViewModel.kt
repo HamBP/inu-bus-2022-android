@@ -14,6 +14,7 @@ import org.algosketch.inubus.domain.usecase.GetBusArrivalInfoUseCase
 import org.koin.core.component.inject
 import java.net.SocketTimeoutException
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class HomeViewModel : BaseViewModel() {
     val currentTime = MutableStateFlow("")
@@ -28,10 +29,9 @@ class HomeViewModel : BaseViewModel() {
 
     private fun getCurrentDateTime(): String {
         val dateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
 
-        val hourInString = if (dateTime.hour > 9) dateTime.hour.toString() else "0${dateTime.hour}"
-        val minuteInString = if (dateTime.minute > 9) dateTime.minute.toString() else "0${dateTime.minute}"
-        return "${hourInString}:${minuteInString}"
+        return dateTime.format(formatter)
     }
 
     fun updateBusList(where: String) { // 1 : 인입, 2 : 지정단
