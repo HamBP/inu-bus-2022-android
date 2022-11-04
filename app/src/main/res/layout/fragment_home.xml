@@ -42,6 +42,8 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical"
                     android:overScrollMode="never"
+                    tools:listitem="@layout/item_information"
+                    tools:itemCount="5"
                     app:items="@{viewModel.busList}"/>
 
                 <View
