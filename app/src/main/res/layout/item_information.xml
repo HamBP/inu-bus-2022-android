@@ -70,7 +70,9 @@
             android:layout_marginBottom="16dp"
             android:layout_marginHorizontal="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_tag"
+            tools:itemCount="3"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_detail"
