@@ -32,9 +32,9 @@ class MyApplication : Application() {
 
             androidFileProperties()
 
-            modules(dataSourceModule)
-            modules(repositoryModule)
-            modules(useCaseModule)
+//            modules(dataSourceModule)
+//            modules(repositoryModule)
+//            modules(useCaseModule)
         }
     }
 }
