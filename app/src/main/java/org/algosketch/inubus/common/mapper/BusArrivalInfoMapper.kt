@@ -16,7 +16,7 @@ object BusArrivalInfoMapper {
                 val where = Bus.getBusStopName(it.BSTOPID)
                 val exit = Bus.getExit(it.BSTOPID)
                 BusArrivalInfo(
-                    restTime = restTime,
+                    restTime = it.ARRIVALESTIMATETIME,
                     busNumber = busNumber,
                     busColor = Bus.getBusColorByBusNumber(busNumber),
                     exit = Bus.getExit(it.BSTOPID),
