@@ -18,34 +18,50 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collectLatest
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.presentation.ui.home.HomeViewModel
-import org.algosketch.inubus.presentation.ui.theme.colorF9
-import org.algosketch.inubus.presentation.ui.theme.gray
-import org.algosketch.inubus.presentation.ui.theme.primary
-import org.algosketch.inubus.presentation.ui.theme.secondary
+import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
 fun InuScreen(viewModel: HomeViewModel, owner: LifecycleOwner, subwayState: String) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
+    val updatedTime = remember {
+        mutableStateOf(viewModel.currentTime.value)
+    }
     viewModel.busList.observe(owner) {
         busList.value = viewModel.busList.value ?: listOf()
     }
+    owner.lifecycleScope.launchWhenCreated {
+        viewModel.currentTime.collectLatest {
+            updatedTime.value = it
+        }
+    }
     viewModel.updateBusList(subwayState)
 
-    LazyColumn {
-        items(items = busList.value!!) { busArrivalInfo ->
-            Box(
-                modifier = Modifier.padding(
-                    start = 20.dp,
-                    top = 16.dp,
-                    bottom = 20.dp
-                )
-            ) {
-                BusInfo(busArrivalInfo = busArrivalInfo)
+    Column {
+        Row(
+            modifier = Modifier.padding(horizontal = 20.dp).padding(top = 20.dp, bottom = 2.dp)
+        ) {
+            Spacer(modifier = Modifier.weight(1f, true))
+            Text(text = "${updatedTime.value}기준")
+        }
+        Divider(color = grayDivider)
+        LazyColumn {
+            items(items = busList.value!!) { busArrivalInfo ->
+                Box(
+                    modifier = Modifier.padding(
+                        start = 20.dp,
+                        top = 16.dp,
+                        bottom = 20.dp
+                    )
+                ) {
+                    BusInfo(busArrivalInfo = busArrivalInfo)
+                }
+                Divider(color = grayDivider)
             }
-            Divider()
         }
     }
 }
@@ -78,7 +94,7 @@ private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInf
                     .padding(end = 6.dp)
                     .width(64.dp),
             )
-            Text(text = "${busArrivalInfo.where} ${busArrivalInfo.exit}번 출구", color = gray)
+            Text(text = "${busArrivalInfo.where} ${busArrivalInfo.exit}번 출구", color = gray66)
         }
         Row {
             Bus.getBusStopsByBusNumber(busArrivalInfo.busNumber).forEach { busStop ->
