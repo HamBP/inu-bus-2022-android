@@ -80,7 +80,8 @@ private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInf
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .padding(end = 11.dp)
-                    .background(color = primary, shape = RoundedCornerShape(size = 6.dp))
+                    .background(color = Bus.getBusColorByBusNumber(busArrivalInfo.busNumber).color(),
+                        shape = RoundedCornerShape(size = 6.dp))
                     .height(33.dp)
                     .width(52.dp),
             ) {
@@ -127,6 +128,16 @@ private fun Chip(text: String) {
             text = text,
             color = primary,
         )
+    }
+}
+
+private fun String.color(): Color {
+    return when(this) {
+        "red" -> busRed
+        "blue" -> busBlue
+        "purple" -> busPurple
+        "green" -> busGreen
+        else -> primary
     }
 }
 
