@@ -18,8 +18,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
+import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.presentation.ui.home.HomeViewModel
+import org.algosketch.inubus.presentation.ui.theme.colorF9
+import org.algosketch.inubus.presentation.ui.theme.gray
 import org.algosketch.inubus.presentation.ui.theme.primary
 import org.algosketch.inubus.presentation.ui.theme.secondary
 
@@ -69,18 +72,26 @@ private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInf
                 )
             }
             Text(
-                text = "곧도착",
-                color = secondary,
-                modifier = Modifier.padding(end = 12.dp)
+                text = busArrivalInfo.restTime.toRestTimeFormat(),
+                color = colorF9,
+                modifier = Modifier
+                    .padding(end = 6.dp)
+                    .width(64.dp),
             )
-            Text(text = "인천대입구 2번 출구")
+            Text(text = "${busArrivalInfo.where} ${busArrivalInfo.exit}번 출구", color = gray)
         }
         Row {
-            Chip(text = "정문")
-            Chip(text = "자연대")
-            Chip(text = "공과대")
+            Bus.getBusStopsByBusNumber(busArrivalInfo.busNumber).forEach { busStop ->
+                Chip(text = busStop)
+            }
         }
     }
+}
+
+private fun Int.toRestTimeFormat(): String {
+    if(this < 60) return "곧도착"
+
+    return "${this / 60}분 ${this % 60}초"
 }
 
 @Composable
@@ -94,7 +105,8 @@ private fun Chip(text: String) {
             .padding(horizontal = 12.dp),
     ) {
         Text(
-            text = text
+            text = text,
+            color = primary,
         )
     }
 }
