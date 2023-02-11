@@ -21,6 +21,8 @@ class HomeViewModel : BaseViewModel() {
     val currentTime = MutableStateFlow("")
     val busList = MutableLiveData<List<BusArrivalInfo>>(listOf())
     val eventFlow = MutableSharedFlow<Event>()
+    val filter = MutableStateFlow("전체")
+    val sort = MutableStateFlow("최신순")
 
     private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase = TempDI.getBusArrivalInfoUseCase
 
@@ -50,7 +52,7 @@ class HomeViewModel : BaseViewModel() {
                 item.copy(navigateDetail = {
                     moveDetail(item)
                 })
-            }
+            }.sortedList()
             refreshTime()
         }
     }
@@ -71,5 +73,11 @@ class HomeViewModel : BaseViewModel() {
     sealed class Event {
         data class MoveDetail(val busInfo: BusArrivalInfo) : Event()
         object Timeout : Event()
+    }
+
+    private fun List<BusArrivalInfo>.sortedList(): List<BusArrivalInfo> {
+        return this.sortedBy { busArrivalInfo ->
+            busArrivalInfo.restTime
+        }
     }
 }

@@ -31,6 +31,7 @@ fun InuScreen(viewModel: HomeViewModel, owner: LifecycleOwner, subwayState: Stri
     val updatedTime = remember {
         mutableStateOf(viewModel.currentTime.value)
     }
+
     viewModel.busList.observe(owner) {
         busList.value = viewModel.busList.value ?: listOf()
     }
@@ -43,7 +44,9 @@ fun InuScreen(viewModel: HomeViewModel, owner: LifecycleOwner, subwayState: Stri
 
     Column {
         Row(
-            modifier = Modifier.padding(horizontal = 20.dp).padding(top = 20.dp, bottom = 2.dp)
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .padding(top = 20.dp, bottom = 2.dp)
         ) {
             Spacer(modifier = Modifier.weight(1f, true))
             Text(text = "${updatedTime.value}기준")
