@@ -1,5 +1,6 @@
 package org.algosketch.inubus.presentation.ui.inu
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -117,7 +118,9 @@ private fun BusStopFilter(
             modifier = Modifier.width(12.dp)
         )
     }
-    DropdownMenu(expanded = filterExpanded.value, onDismissRequest = { onFilterExpansionChanged(false) }) {
+    DropdownMenu(
+        expanded = filterExpanded.value,
+        onDismissRequest = { onFilterExpansionChanged(false) }) {
         val busStops = listOf("전체", "정문", "자연대", "공과대", "인천대 송도캠")
         busStops.forEach { busStop ->
             DropdownMenuItem(onClick = {
@@ -132,44 +135,56 @@ private fun BusStopFilter(
 
 @Composable
 private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInfo) {
-    Column {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(bottom = 20.dp)
-        ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .padding(end = 11.dp)
-                    .background(
-                        color = Bus
-                            .getBusColorByBusNumber(busArrivalInfo.busNumber)
-                            .color(),
-                        shape = RoundedCornerShape(size = 6.dp)
-                    )
-                    .height(33.dp)
-                    .width(52.dp),
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(bottom = 20.dp)
             ) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .padding(end = 11.dp)
+                        .background(
+                            color = Bus
+                                .getBusColorByBusNumber(busArrivalInfo.busNumber)
+                                .color(),
+                            shape = RoundedCornerShape(size = 6.dp)
+                        )
+                        .height(33.dp)
+                        .width(52.dp),
+                ) {
+                    Text(
+                        text = busArrivalInfo.busNumber,
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                    )
+                }
                 Text(
-                    text = busArrivalInfo.busNumber,
-                    textAlign = TextAlign.Center,
-                    color = Color.White,
+                    text = busArrivalInfo.restTime.toRestTimeFormat(),
+                    color = colorF9,
+                    modifier = Modifier
+                        .padding(end = 6.dp)
+                        .width(64.dp),
                 )
+                Text(text = "${busArrivalInfo.where} ${busArrivalInfo.exit}번 출구", color = gray66)
             }
-            Text(
-                text = busArrivalInfo.restTime.toRestTimeFormat(),
-                color = colorF9,
-                modifier = Modifier
-                    .padding(end = 6.dp)
-                    .width(64.dp),
-            )
-            Text(text = "${busArrivalInfo.where} ${busArrivalInfo.exit}번 출구", color = gray66)
-        }
-        Row {
-            Bus.getBusStopsByBusNumber(busArrivalInfo.busNumber).forEach { busStop ->
-                Chip(text = busStop)
+            Row {
+                Bus.getBusStopsByBusNumber(busArrivalInfo.busNumber).forEach { busStop ->
+                    Chip(text = busStop)
+                }
             }
         }
+        Spacer(modifier = Modifier.weight(1f, true))
+        Image(
+            painter = painterResource(id = R.drawable.arrow_right),
+            contentDescription = "show detail",
+            modifier = Modifier
+                .width(24.dp)
+                .height(24.dp),
+        )
     }
 }
 
@@ -210,4 +225,19 @@ private fun String.color(): Color {
 @Composable
 fun WidgetPreview() {
     BusStopFilter("전체", {})
+}
+
+@Preview(showBackground = true, widthDp = 360)
+@Composable
+fun BusInfoPreview() {
+    BusInfo(busArrivalInfo = BusArrivalInfo(
+        restTime = 234,
+        busNumber = "8",
+        busColor = "blue",
+        exit = 1,
+        where = "인천대입구",
+        restTimeInformationText = "",
+        exitInformationText = "",
+        navigateDetail = {}
+    ))
 }
