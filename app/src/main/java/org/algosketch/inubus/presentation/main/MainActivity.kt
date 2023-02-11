@@ -14,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -24,14 +25,19 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import org.algosketch.inubus.domain.entity.BusArrivalInfo
+import org.algosketch.inubus.presentation.ui.home.HomeViewModel
 import org.algosketch.inubus.presentation.ui.inu.InuScreen
 import org.algosketch.inubus.presentation.ui.theme.gray
 import org.algosketch.inubus.presentation.ui.theme.primary
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        homeViewModel.updateBusList("인천대입구")
+
         setContent {
             Surface(
                 modifier = Modifier.fillMaxSize(),
@@ -95,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                         Spacer(modifier = Modifier.padding(bottom = 6.dp))
                         Box(
                             modifier = Modifier
-                                .background(color = if(selected) primary else gray)
+                                .background(color = if (selected) primary else gray)
                                 .fillMaxWidth()
                                 .height(4.dp)
                         )
@@ -116,10 +122,10 @@ class MainActivity : AppCompatActivity() {
             modifier = modifier
         ) {
             composable(route = IncheonNationalUniversity.route) {
-                InuScreen(temp = 2)
+                InuScreen(owner = this@MainActivity, viewModel = homeViewModel, subwayState = "인천대입구")
             }
             composable(route = BioInformationTechnology.route) {
-                InuScreen(temp = 4)
+                InuScreen(owner = this@MainActivity, viewModel = homeViewModel, subwayState = "지식정보단지")
             }
         }
     }
