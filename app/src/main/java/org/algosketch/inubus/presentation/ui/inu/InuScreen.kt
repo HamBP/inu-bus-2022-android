@@ -9,21 +9,30 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LifecycleOwner
+import org.algosketch.inubus.domain.entity.BusArrivalInfo
+import org.algosketch.inubus.presentation.ui.home.HomeViewModel
 import org.algosketch.inubus.presentation.ui.theme.primary
 import org.algosketch.inubus.presentation.ui.theme.secondary
 
 @Composable
-fun InuScreen(temp: Int) {
-    val names: List<String> = List(temp) { "$it" }
+fun InuScreen(viewModel: HomeViewModel, owner: LifecycleOwner, subwayState: String) {
+    val busList = remember { mutableStateOf(viewModel.busList.value) }
+    viewModel.busList.observe(owner) {
+        busList.value = viewModel.busList.value ?: listOf()
+    }
+    viewModel.updateBusList(subwayState)
 
     LazyColumn {
-        items(items = names) { name ->
+        items(items = busList.value!!) { busArrivalInfo ->
             Box(
                 modifier = Modifier.padding(
                     start = 20.dp,
@@ -31,7 +40,7 @@ fun InuScreen(temp: Int) {
                     bottom = 20.dp
                 )
             ) {
-                BusInfo()
+                BusInfo(busArrivalInfo = busArrivalInfo)
             }
             Divider()
         }
@@ -39,7 +48,7 @@ fun InuScreen(temp: Int) {
 }
 
 @Composable
-private fun BusInfo(modifier: Modifier = Modifier) {
+private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInfo) {
     Column {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -54,7 +63,7 @@ private fun BusInfo(modifier: Modifier = Modifier) {
                     .width(52.dp),
             ) {
                 Text(
-                    text = "8",
+                    text = busArrivalInfo.busNumber,
                     textAlign = TextAlign.Center,
                     color = Color.White,
                 )
@@ -93,11 +102,11 @@ private fun Chip(text: String) {
 @Preview(showBackground = true, widthDp = 360)
 @Composable
 fun ChipPreview() {
-    BusInfo()
+//    BusInfo()
 }
 
 @Preview(showBackground = true, widthDp = 360, heightDp = 800)
 @Composable
 fun MainPreview() {
-    BusInfo()
+//    BusInfo()
 }
