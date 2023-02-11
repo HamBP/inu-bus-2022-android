@@ -100,7 +100,6 @@ private fun BusStopFilter(
         mutableStateOf(false)
     }
     val onFilterExpansionChanged = { expanded: Boolean ->
-        println("확장 $expanded")
         filterExpanded.value = expanded
     }
 
@@ -119,17 +118,14 @@ private fun BusStopFilter(
         )
     }
     DropdownMenu(expanded = filterExpanded.value, onDismissRequest = { onFilterExpansionChanged(false) }) {
-        DropdownMenuItem(onClick = {
-            onFilterItemClicked("전체")
-            onFilterExpansionChanged(false)
-        }) {
-            Text("전체")
-        }
-        DropdownMenuItem(onClick = {
-            onFilterItemClicked("공과대")
-            onFilterExpansionChanged(false)
-        }) {
-            Text("공과대")
+        val busStops = listOf("전체", "정문", "자연대", "공과대", "인천대 송도캠")
+        busStops.forEach { busStop ->
+            DropdownMenuItem(onClick = {
+                onFilterItemClicked(busStop)
+                onFilterExpansionChanged(false)
+            }) {
+                Text(busStop)
+            }
         }
     }
 }

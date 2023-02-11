@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.algosketch.inubus.common.base.BaseViewModel
+import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.common.util.SingleLiveEvent
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.usecase.GetBusArrivalInfoUseCase
@@ -52,6 +53,11 @@ class HomeViewModel : BaseViewModel() {
                 item.copy(navigateDetail = {
                     moveDetail(item)
                 })
+            }.filter { busInfo ->
+                (filter.value == "전체") ||
+                        (Bus.getBusStopsByBusNumber(busInfo.busNumber).find { busStop ->
+                    busStop == filter.value
+                } != null)
             }.sortedList()
             refreshTime()
         }
