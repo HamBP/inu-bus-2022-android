@@ -9,6 +9,11 @@ val colorF9 = Color(0xFFFF9473)
 val grayDivider = Color(0x80D9D9D9)
 val gray66 = Color(0xFF666666)
 
+val busRed = Color(0xFFBF3B3B)
+val busGreen = Color(0xFF66C654)
+val busPurple = Color(0xFF8841D2)
+val busBlue = Color(0xFF1E408A)
+
 val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
