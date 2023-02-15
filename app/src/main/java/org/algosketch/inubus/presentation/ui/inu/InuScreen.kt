@@ -29,11 +29,11 @@ import kotlinx.coroutines.flow.collectLatest
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
-import org.algosketch.inubus.presentation.ui.home.HomeViewModel
+import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
-fun InuScreen(viewModel: HomeViewModel, owner: LifecycleOwner, subwayState: String) {
+fun InuScreen(viewModel: ToSchoolViewModel, owner: LifecycleOwner, subwayState: String) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
     val updatedTime = remember {
         mutableStateOf(viewModel.currentTime.value)

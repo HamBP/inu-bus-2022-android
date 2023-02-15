@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="org.algosketch.inubus.presentation.ui.home.HomeViewModel" />
+            type="org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel" />
     </data>
 
 
