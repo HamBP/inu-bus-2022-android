@@ -6,18 +6,17 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -25,10 +24,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import org.algosketch.inubus.domain.entity.BusArrivalInfo
+import org.algosketch.inubus.R
 import org.algosketch.inubus.presentation.ui.home.HomeViewModel
 import org.algosketch.inubus.presentation.ui.inu.InuScreen
-import org.algosketch.inubus.presentation.ui.theme.gray
 import org.algosketch.inubus.presentation.ui.theme.primary
 
 class MainActivity : AppCompatActivity() {
@@ -55,14 +53,17 @@ class MainActivity : AppCompatActivity() {
         val currentBackStack by navController.currentBackStackEntryAsState()
         val currentDestination = currentBackStack?.destination
 
-        val currentScreen = inuTabRowScreens.find { it.route == currentDestination?.route }
-            ?: IncheonNationalUniversity
+        val currentScreen = toSchoolScreens.find { it.route == currentDestination?.route }
+            ?: INU
 
         Scaffold(
             topBar = {
                 BusTabView(onSelected = { MainDestination ->
                     navController.navigate(MainDestination.route)
                 }, currentScreen = currentScreen)
+            },
+            bottomBar = {
+                BusBottomNavigation()
             }
         ) { innerPadding ->
             BusNavHost(
@@ -79,14 +80,22 @@ class MainActivity : AppCompatActivity() {
     ) {
         NavHost(
             navController = navController,
-            startDestination = IncheonNationalUniversity.route,
+            startDestination = INU.route,
             modifier = modifier
         ) {
-            composable(route = IncheonNationalUniversity.route) {
-                InuScreen(owner = this@MainActivity, viewModel = homeViewModel, subwayState = "인천대입구")
+            composable(route = INU.route) {
+                InuScreen(
+                    owner = this@MainActivity,
+                    viewModel = homeViewModel,
+                    subwayState = "인천대입구"
+                )
             }
-            composable(route = BioInformationTechnology.route) {
-                InuScreen(owner = this@MainActivity, viewModel = homeViewModel, subwayState = "지식정보단지")
+            composable(route = BIT.route) {
+                InuScreen(
+                    owner = this@MainActivity,
+                    viewModel = homeViewModel,
+                    subwayState = "지식정보단지"
+                )
             }
         }
     }
