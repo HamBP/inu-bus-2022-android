@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
         Scaffold(
             topBar = {
-                BusTab(onSelected = { MainDestination ->
+                BusTabView(onSelected = { MainDestination ->
                     navController.navigate(MainDestination.route)
                 }, currentScreen = currentScreen)
             }
@@ -69,46 +69,6 @@ class MainActivity : AppCompatActivity() {
                 navController = navController,
                 modifier = Modifier.padding(innerPadding)
             )
-        }
-    }
-
-    @Composable
-    fun BusTab(onSelected: (MainDestination) -> Unit, currentScreen: MainDestination) {
-        Row(
-            Modifier
-                .selectableGroup()
-                .fillMaxWidth()
-        ) {
-            inuTabRowScreens.forEach { screen ->
-                val selected = currentScreen == screen
-
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .height(52.dp)
-                        .weight(1f, true)
-                        .selectable(
-                            selected = selected,
-                            onClick = { onSelected(screen) },
-                        )
-                ) {
-                    Column {
-                        Spacer(modifier = Modifier.weight(1f, true))
-                        Text(
-                            text = screen.route,
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center,
-                        )
-                        Spacer(modifier = Modifier.padding(bottom = 6.dp))
-                        Box(
-                            modifier = Modifier
-                                .background(color = if (selected) primary else gray)
-                                .fillMaxWidth()
-                                .height(4.dp)
-                        )
-                    }
-                }
-            }
         }
     }
 
