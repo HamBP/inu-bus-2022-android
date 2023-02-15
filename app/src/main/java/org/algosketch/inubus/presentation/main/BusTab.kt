@@ -20,7 +20,7 @@ fun BusTabView(onSelected: (MainDestination) -> Unit, currentScreen: MainDestina
             .selectableGroup()
             .fillMaxWidth()
     ) {
-        inuTabRowScreens.forEach { screen ->
+        toSchoolScreens.forEach { screen ->
             val selected = currentScreen == screen
 
             Box(
