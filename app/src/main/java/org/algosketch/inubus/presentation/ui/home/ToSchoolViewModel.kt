@@ -9,16 +9,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.algosketch.inubus.common.base.BaseViewModel
 import org.algosketch.inubus.common.util.Bus
-import org.algosketch.inubus.common.util.SingleLiveEvent
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.usecase.GetBusArrivalInfoUseCase
 import org.algosketch.inubus.global.TempDI
-import org.koin.core.component.inject
-import java.net.SocketTimeoutException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class HomeViewModel : BaseViewModel() {
+class ToSchoolViewModel : BaseViewModel() {
     val currentTime = MutableStateFlow("")
     val busList = MutableLiveData<List<BusArrivalInfo>>(listOf())
     val eventFlow = MutableSharedFlow<Event>()

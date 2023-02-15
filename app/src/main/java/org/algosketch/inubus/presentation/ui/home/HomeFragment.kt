@@ -3,10 +3,8 @@ package org.algosketch.inubus.presentation.ui.home
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.algosketch.inubus.R
 import org.algosketch.inubus.databinding.FragmentHomeBinding
@@ -14,7 +12,7 @@ import org.algosketch.inubus.common.base.BaseFragment
 
 class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding>() {
     override val layoutResourceId = R.layout.fragment_home
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: ToSchoolViewModel by viewModels()
 
     override fun initDataBinding() {
         binding.viewModel = viewModel
@@ -40,8 +38,8 @@ class HomeFragment(private val where: String) : BaseFragment<FragmentHomeBinding
         lifecycleScope.launch {
             viewModel.eventFlow.collect {
                 when (it) {
-                    is HomeViewModel.Event.MoveDetail -> findNavController().navigate(R.id.action_wrap_to_detail, it.busInfo.toBundle())
-                    is HomeViewModel.Event.Timeout -> findNavController().navigate(R.id.action_wrap_to_timeout)
+                    is ToSchoolViewModel.Event.MoveDetail -> findNavController().navigate(R.id.action_wrap_to_detail, it.busInfo.toBundle())
+                    is ToSchoolViewModel.Event.Timeout -> findNavController().navigate(R.id.action_wrap_to_timeout)
                 }
             }
         }
