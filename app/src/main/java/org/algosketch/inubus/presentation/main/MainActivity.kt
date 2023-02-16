@@ -2,7 +2,6 @@ package org.algosketch.inubus.presentation.main
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
@@ -21,12 +20,13 @@ import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.inu.InuScreen
 
 class MainActivity : AppCompatActivity() {
-    private val toSchoolViewModel: ToSchoolViewModel by viewModels()
+    private val toSchoolViewModelFromInu: ToSchoolViewModel = ViewModelFactory.create(ToSchoolViewModel::class.java)
+    private val toSchoolViewModelFromBit: ToSchoolViewModel = ViewModelFactory.create(ToSchoolViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        toSchoolViewModel.updateBusList("인천대입구")
+        toSchoolViewModelFromInu.updateBusList("인천대입구")
 
         setContent {
             Surface(
@@ -77,14 +77,14 @@ class MainActivity : AppCompatActivity() {
             composable(route = INU.route) {
                 InuScreen(
                     owner = this@MainActivity,
-                    viewModel = toSchoolViewModel,
+                    viewModel = toSchoolViewModelFromInu,
                     subwayState = "인천대입구"
                 )
             }
             composable(route = BIT.route) {
                 InuScreen(
                     owner = this@MainActivity,
-                    viewModel = toSchoolViewModel,
+                    viewModel = toSchoolViewModelFromBit,
                     subwayState = "지식정보단지"
                 )
             }
