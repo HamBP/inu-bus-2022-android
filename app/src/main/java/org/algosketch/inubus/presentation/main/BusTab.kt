@@ -10,11 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import org.algosketch.inubus.presentation.navigation.NavDestination
 import org.algosketch.inubus.presentation.ui.theme.gray
 import org.algosketch.inubus.presentation.ui.theme.primary
 
 @Composable
-fun BusTabView(onSelected: (NavDestination) -> Unit, currentScreen: NavDestination) {
+fun BusTabView(toSchoolScreens: List<NavDestination>, onSelected: (NavDestination) -> Unit, currentScreen: NavDestination) {
     Row(
         Modifier
             .selectableGroup()

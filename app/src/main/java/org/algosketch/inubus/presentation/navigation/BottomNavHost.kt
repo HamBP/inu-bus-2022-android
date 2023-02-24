@@ -5,7 +5,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.algosketch.inubus.presentation.main.NavDestination
 
 @Composable
 fun BottomNavHost() {
@@ -27,7 +26,7 @@ class BottomNavDestination {
             override val route = "등교"
         }
         val LEAVING_SCHOOL = object : NavDestination {
-            override val route = "등교"
+            override val route = "하교"
         }
     }
 }
