@@ -183,6 +183,7 @@ private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInf
             painter = painterResource(id = R.drawable.arrow_right),
             contentDescription = "show detail",
             modifier = Modifier
+                .padding(end = 16.dp)
                 .width(24.dp)
                 .height(24.dp)
                 .clickable {
