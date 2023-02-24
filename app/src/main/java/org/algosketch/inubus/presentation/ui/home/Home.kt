@@ -10,20 +10,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.algosketch.inubus.presentation.main.BusBottomNavigation
-import org.algosketch.inubus.presentation.main.BusTabView
-import org.algosketch.inubus.presentation.navigation.BIT
-import org.algosketch.inubus.presentation.navigation.BottomNavDestination
-import org.algosketch.inubus.presentation.navigation.BottomNavHost
-import org.algosketch.inubus.presentation.navigation.INU
+import org.algosketch.inubus.presentation.navigation.*
 
 @Composable
 fun Home(lifecycleOwner: LifecycleOwner, mainNavController: NavHostController) {
-    val tabNavController = rememberNavController()
-    val currentBackStack by tabNavController.currentBackStackEntryAsState()
-    val currentDestination = currentBackStack?.destination
-    val toSchoolScreens = listOf(INU, BIT)
-    val currentTab = toSchoolScreens.find { it.route == currentDestination?.route } ?: INU
-
     val bottomNavController = rememberNavController()
     val currentBottomNavBackStack by bottomNavController.currentBackStackEntryAsState()
     val currentBottomNavDestination = currentBottomNavBackStack?.destination
@@ -31,11 +21,6 @@ fun Home(lifecycleOwner: LifecycleOwner, mainNavController: NavHostController) {
     val currentBottomNav = bottomNavScreens.find { it.route == currentBottomNavDestination?.route } ?: BottomNavDestination.GOING_TO_SCHOOL
 
     Scaffold(
-        topBar = {
-            BusTabView(toSchoolScreens = toSchoolScreens, onSelected = { MainDestination ->
-                tabNavController.navigate(MainDestination.route)
-            }, currentScreen = currentTab)
-        },
         bottomBar = {
             BusBottomNavigation(destinations = bottomNavScreens, onSelected = { MainDestination ->
                 bottomNavController.navigate(MainDestination.route)
@@ -47,7 +32,6 @@ fun Home(lifecycleOwner: LifecycleOwner, mainNavController: NavHostController) {
             lifecycleOwner = lifecycleOwner,
             mainNavController = mainNavController,
             modifier = Modifier.padding(innerPadding),
-            tabNavController = tabNavController,
         )
     }
 }
