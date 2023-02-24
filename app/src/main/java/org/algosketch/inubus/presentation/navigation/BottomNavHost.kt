@@ -8,14 +8,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 @Composable
-fun BottomNavHost(bottomNavController: NavHostController, lifecycleOwner: LifecycleOwner, mainNavController: NavHostController, modifier: Modifier = Modifier, tabNavController: NavHostController) {
+fun BottomNavHost(bottomNavController: NavHostController, lifecycleOwner: LifecycleOwner, mainNavController: NavHostController, modifier: Modifier = Modifier) {
 
     NavHost(navController = bottomNavController, startDestination = "등교", modifier = modifier) {
         composable(route = BottomNavDestination.GOING_TO_SCHOOL.route) {
-            TabNavHost(mainNavController = mainNavController, lifecycleOwner = lifecycleOwner, tabNavController = tabNavController)
+            TabNavHost(mainNavController = mainNavController, lifecycleOwner = lifecycleOwner, destinations = TabNavDestination.goingToSchool)
         }
         composable(route = BottomNavDestination.LEAVING_SCHOOL.route) {
-            TabNavHost(mainNavController = mainNavController, lifecycleOwner = lifecycleOwner, tabNavController = tabNavController)
+            TabNavHost(mainNavController = mainNavController, lifecycleOwner = lifecycleOwner, destinations = TabNavDestination.leavingSchool)
         }
     }
 }
