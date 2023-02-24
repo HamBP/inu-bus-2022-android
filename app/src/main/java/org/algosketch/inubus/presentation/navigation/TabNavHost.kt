@@ -6,8 +6,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import org.algosketch.inubus.presentation.main.BIT
-import org.algosketch.inubus.presentation.main.INU
 import org.algosketch.inubus.presentation.main.ViewModelFactory
 import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.inu.InuScreen
@@ -46,4 +44,12 @@ fun TabNavHost(
             )
         }
     }
+}
+
+object INU : NavDestination {
+    override val route = "인천대입구"
+}
+
+object BIT : NavDestination {
+    override val route = "지식정보단지"
 }
