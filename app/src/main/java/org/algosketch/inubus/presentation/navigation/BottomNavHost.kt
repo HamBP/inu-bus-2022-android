@@ -28,5 +28,6 @@ class BottomNavDestination {
         val LEAVING_SCHOOL = object : NavDestination {
             override val route = "하교"
         }
+        val destinations = listOf(GOING_TO_SCHOOL, LEAVING_SCHOOL)
     }
 }
