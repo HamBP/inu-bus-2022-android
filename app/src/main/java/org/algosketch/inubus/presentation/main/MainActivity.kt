@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity() {
                 DetailScreen(
                     busNumber = "8",
                     busStops = listOf("인천대입구", "인천대입구", "송도컨벤시아", "인천대입구"),
-                    lastStopName = "송도컨벤시아"
+                    lastStopName = "송도컨벤시아",
+                    navController = navController,
                 )
             }
         }
