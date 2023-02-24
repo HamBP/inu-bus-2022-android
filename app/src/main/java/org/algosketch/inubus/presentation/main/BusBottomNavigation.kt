@@ -17,47 +17,34 @@ import org.algosketch.inubus.presentation.ui.theme.primary
 
 @Composable
 fun BusBottomNavigation(destinations: List<NavDestination>, onSelected: (NavDestination) -> Unit, currentScreen: NavDestination) {
+
     Row(
         Modifier
             .selectableGroup()
             .fillMaxWidth()
             .height(46.dp)
     ) {
-        Box(
-            modifier = Modifier
-                .background(color = primary)
-                .fillMaxHeight()
-                .weight(1f)
-                .selectable(
-                    selected = destinations[0].route == currentScreen.route,
-                    onClick = { onSelected(destinations[0]) }
-                ),
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.school),
-                contentDescription = "등교",
-                tint = Color.White,
-                modifier = Modifier.width(24.dp)
-            )
-        }
-        Box(
-            Modifier
-                .background(color = Color.White)
-                .fillMaxHeight()
-                .weight(1f)
-                .selectable(
-                    selected = destinations[1].route == currentScreen.route,
-                    onClick = { onSelected(destinations[1]) }
-                ),
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.home),
-                contentDescription = "하교",
-                tint = primary,
-                modifier = Modifier.width(24.dp)
-            )
+        destinations.forEach { destination ->
+            val selected = currentScreen == destination
+
+            Box(
+                modifier = Modifier
+                    .background(color = if(selected) primary else Color.White)
+                    .fillMaxHeight()
+                    .weight(1f)
+                    .selectable(
+                        selected = selected,
+                        onClick = { onSelected(destination) }
+                    ),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    painter = painterResource(id = destination.icon ?: R.drawable.school),
+                    contentDescription = destination.route,
+                    tint = if(selected) Color.White else primary,
+                    modifier = Modifier.width(24.dp)
+                )
+            }
         }
     }
 }

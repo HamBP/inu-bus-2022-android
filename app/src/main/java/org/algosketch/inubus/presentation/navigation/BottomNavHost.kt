@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import org.algosketch.inubus.R
 
 @Composable
 fun BottomNavHost(bottomNavController: NavHostController, lifecycleOwner: LifecycleOwner, mainNavController: NavHostController, modifier: Modifier = Modifier) {
@@ -24,9 +25,13 @@ class BottomNavDestination {
     companion object {
         val GOING_TO_SCHOOL = object : NavDestination {
             override val route = "등교"
+            override val icon: Int
+                get() =  R.drawable.school
         }
         val LEAVING_SCHOOL = object : NavDestination {
             override val route = "하교"
+            override val icon: Int
+                get() =  R.drawable.home
         }
         val destinations = listOf(GOING_TO_SCHOOL, LEAVING_SCHOOL)
     }
