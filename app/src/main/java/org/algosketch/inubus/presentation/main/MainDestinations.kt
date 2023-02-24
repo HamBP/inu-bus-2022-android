@@ -1,22 +1,22 @@
 package org.algosketch.inubus.presentation.main
 
-interface MainDestination {
+interface NavDestination {
     val route: String
 }
 
-object INU : MainDestination {
+object INU : NavDestination {
     override val route = "인천대입구"
 }
 
-object BIT : MainDestination {
+object BIT : NavDestination {
     override val route = "지식정보단지"
 }
 
-object CollegeOfEngineering : MainDestination {
+object CollegeOfEngineering : NavDestination {
     override val route = "공대"
 }
 
-object Gate : MainDestination {
+object Gate : NavDestination {
     override val route = "정문"
 }
 

@@ -14,7 +14,7 @@ import org.algosketch.inubus.presentation.ui.theme.gray
 import org.algosketch.inubus.presentation.ui.theme.primary
 
 @Composable
-fun BusTabView(onSelected: (MainDestination) -> Unit, currentScreen: MainDestination) {
+fun BusTabView(onSelected: (NavDestination) -> Unit, currentScreen: NavDestination) {
     Row(
         Modifier
             .selectableGroup()
