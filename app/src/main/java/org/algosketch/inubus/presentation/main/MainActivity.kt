@@ -17,20 +17,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import org.algosketch.inubus.presentation.navigation.NavDestination
+import org.algosketch.inubus.presentation.navigation.TabNavHost
 import org.algosketch.inubus.presentation.ui.detail.DetailScreen
-import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
-import org.algosketch.inubus.presentation.ui.inu.InuScreen
 
 class MainActivity : AppCompatActivity() {
-    private val toSchoolViewModelFromInu: ToSchoolViewModel =
-        ViewModelFactory.create(ToSchoolViewModel::class.java)
-    private val toSchoolViewModelFromBit: ToSchoolViewModel =
-        ViewModelFactory.create(ToSchoolViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        toSchoolViewModelFromInu.updateBusList("인천대입구")
 
         setContent {
             Surface(
@@ -65,13 +60,14 @@ class MainActivity : AppCompatActivity() {
         val navController = rememberNavController()
         val currentBackStack by navController.currentBackStackEntryAsState()
         val currentDestination = currentBackStack?.destination
+        val toSchoolScreens = listOf(INU, BIT)
 
         val currentScreen = toSchoolScreens.find { it.route == currentDestination?.route }
             ?: INU
 
         Scaffold(
             topBar = {
-                BusTabView(onSelected = { MainDestination ->
+                BusTabView(toSchoolScreens = toSchoolScreens, onSelected = { MainDestination ->
                     navController.navigate(MainDestination.route)
                 }, currentScreen = currentScreen)
             },
@@ -79,41 +75,12 @@ class MainActivity : AppCompatActivity() {
                 BusBottomNavigation()
             }
         ) { innerPadding ->
-            BusNavHost(
+            TabNavHost(
                 navController = navController,
                 modifier = Modifier.padding(innerPadding),
                 parentNavController = parentNavHostController,
+                lifecycleOwner = this,
             )
-        }
-    }
-
-    @Composable
-    fun BusNavHost(
-        navController: NavHostController,
-        modifier: Modifier = Modifier,
-        parentNavController: NavHostController,
-    ) {
-        NavHost(
-            navController = navController,
-            startDestination = INU.route,
-            modifier = modifier
-        ) {
-            composable(route = INU.route) {
-                InuScreen(
-                    owner = this@MainActivity,
-                    viewModel = toSchoolViewModelFromInu,
-                    subwayState = "인천대입구",
-                    navController = parentNavController
-                )
-            }
-            composable(route = BIT.route) {
-                InuScreen(
-                    owner = this@MainActivity,
-                    viewModel = toSchoolViewModelFromBit,
-                    subwayState = "지식정보단지",
-                    navController = parentNavController
-                )
-            }
         }
     }
 
@@ -122,4 +89,12 @@ class MainActivity : AppCompatActivity() {
     fun InuBusAppPreview() {
         InuBusApp()
     }
+}
+
+object INU : NavDestination {
+    override val route = "인천대입구"
+}
+
+object BIT : NavDestination {
+    override val route = "지식정보단지"
 }
