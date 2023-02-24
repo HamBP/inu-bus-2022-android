@@ -12,9 +12,9 @@ import org.algosketch.inubus.presentation.ui.inu.InuScreen
 
 @Composable
 fun TabNavHost(
-    navController: NavHostController,
     modifier: Modifier = Modifier,
-    parentNavController: NavHostController,
+    tabNavController: NavHostController,
+    mainNavController: NavHostController,
     lifecycleOwner: LifecycleOwner,
 ) {
     val toSchoolViewModelFromInu: ToSchoolViewModel =
@@ -25,14 +25,14 @@ fun TabNavHost(
     toSchoolViewModelFromInu.updateBusList("인천대입구")
 
     NavHost(
-        navController = navController, startDestination = INU.route, modifier = modifier
+        navController = tabNavController, startDestination = INU.route, modifier = modifier
     ) {
         composable(route = INU.route) {
             InuScreen(
                 owner = lifecycleOwner,
                 viewModel = toSchoolViewModelFromInu,
                 subwayState = "인천대입구",
-                navController = parentNavController
+                navController = mainNavController
             )
         }
         composable(route = BIT.route) {
@@ -40,7 +40,7 @@ fun TabNavHost(
                 owner = lifecycleOwner,
                 viewModel = toSchoolViewModelFromBit,
                 subwayState = "지식정보단지",
-                navController = parentNavController
+                navController = mainNavController
             )
         }
     }

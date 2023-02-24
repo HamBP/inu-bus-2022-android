@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "HOME") {
             composable(route = "HOME") {
-                Home(lifecycleOwner = this@MainActivity, parentNavHostController = navController)
+                Home(lifecycleOwner = this@MainActivity, mainNavController = navController)
             }
             composable(route = "DETAIL") {
                 DetailScreen(

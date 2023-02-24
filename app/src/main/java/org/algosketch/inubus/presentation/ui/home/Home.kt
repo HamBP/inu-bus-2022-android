@@ -12,34 +12,36 @@ import androidx.navigation.compose.rememberNavController
 import org.algosketch.inubus.presentation.main.BusBottomNavigation
 import org.algosketch.inubus.presentation.main.BusTabView
 import org.algosketch.inubus.presentation.navigation.BIT
+import org.algosketch.inubus.presentation.navigation.BottomNavHost
 import org.algosketch.inubus.presentation.navigation.INU
-import org.algosketch.inubus.presentation.navigation.TabNavHost
 
 @Composable
-fun Home(lifecycleOwner: LifecycleOwner, parentNavHostController: NavHostController) {
-    val navController = rememberNavController()
-    val currentBackStack by navController.currentBackStackEntryAsState()
+fun Home(lifecycleOwner: LifecycleOwner, mainNavController: NavHostController) {
+    val tabNavController = rememberNavController()
+    val currentBackStack by tabNavController.currentBackStackEntryAsState()
     val currentDestination = currentBackStack?.destination
     val toSchoolScreens = listOf(INU, BIT)
-
     val currentScreen = toSchoolScreens.find { it.route == currentDestination?.route }
         ?: INU
+
+    val bottomNavController = rememberNavController()
 
     Scaffold(
         topBar = {
             BusTabView(toSchoolScreens = toSchoolScreens, onSelected = { MainDestination ->
-                navController.navigate(MainDestination.route)
+                tabNavController.navigate(MainDestination.route)
             }, currentScreen = currentScreen)
         },
         bottomBar = {
             BusBottomNavigation()
         }
     ) { innerPadding ->
-        TabNavHost(
-            navController = navController,
-            modifier = Modifier.padding(innerPadding),
-            parentNavController = parentNavHostController,
+        BottomNavHost(
+            bottomNavController = bottomNavController,
             lifecycleOwner = lifecycleOwner,
+            mainNavController = mainNavController,
+            modifier = Modifier.padding(innerPadding),
+            tabNavController = tabNavController,
         )
     }
 }
