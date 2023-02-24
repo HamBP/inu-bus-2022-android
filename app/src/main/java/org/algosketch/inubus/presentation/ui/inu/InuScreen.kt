@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import kotlinx.coroutines.flow.collectLatest
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
@@ -33,7 +34,7 @@ import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
-fun InuScreen(viewModel: ToSchoolViewModel, owner: LifecycleOwner, subwayState: String) {
+fun InuScreen(viewModel: ToSchoolViewModel, owner: LifecycleOwner, subwayState: String, navController: NavController) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
     val updatedTime = remember {
         mutableStateOf(viewModel.currentTime.value)
@@ -84,7 +85,7 @@ fun InuScreen(viewModel: ToSchoolViewModel, owner: LifecycleOwner, subwayState: 
                         bottom = 20.dp
                     )
                 ) {
-                    BusInfo(busArrivalInfo = busArrivalInfo)
+                    BusInfo(busArrivalInfo = busArrivalInfo, navController = navController)
                 }
                 Divider(color = grayDivider)
             }
@@ -134,7 +135,7 @@ private fun BusStopFilter(
 }
 
 @Composable
-private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInfo) {
+private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInfo, navController: NavController) {
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -183,7 +184,10 @@ private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInf
             contentDescription = "show detail",
             modifier = Modifier
                 .width(24.dp)
-                .height(24.dp),
+                .height(24.dp)
+                .clickable {
+                    navController.navigate("DETAIL")
+                },
         )
     }
 }
@@ -230,14 +234,15 @@ fun WidgetPreview() {
 @Preview(showBackground = true, widthDp = 360)
 @Composable
 fun BusInfoPreview() {
-    BusInfo(busArrivalInfo = BusArrivalInfo(
-        restTime = 234,
-        busNumber = "8",
-        busColor = "blue",
-        exit = 1,
-        where = "인천대입구",
-        restTimeInformationText = "",
-        exitInformationText = "",
-        navigateDetail = {}
-    ))
+//    BusInfo(busArrivalInfo = BusArrivalInfo(
+//        restTime = 234,
+//        busNumber = "8",
+//        busColor = "blue",
+//        exit = 1,
+//        where = "인천대입구",
+//        restTimeInformationText = "",
+//        exitInformationText = "",
+//        navigateDetail = {},
+//
+//    ))
 }
