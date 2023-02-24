@@ -2,6 +2,7 @@ package org.algosketch.inubus.presentation.ui.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,12 +18,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
-fun DetailScreen(busNumber: String, busStops: List<String>, lastStopName: String) {
+fun DetailScreen(busNumber: String, busStops: List<String>, lastStopName: String, navController: NavController) {
 
     Column {
         Box(modifier = Modifier
@@ -32,6 +35,9 @@ fun DetailScreen(busNumber: String, busStops: List<String>, lastStopName: String
                 painter = painterResource(R.drawable.close),
                 contentDescription = "close",
                 modifier = Modifier.size(width = 20.dp, height = 20.dp)
+                    .clickable {
+                        navController.popBackStack()
+                    }
             )
             Box(
                 contentAlignment = Alignment.Center,
@@ -103,21 +109,21 @@ fun BusStop(text: String, isLastStop: Boolean = false) {
 @Composable
 @Preview
 fun DetailScreenPreview() {
-    DetailScreen(
-        "8",
-        listOf(
-            "인천대입구역",
-            "송도컨벤시아",
-            "인천대입구역",
-            "송도컨벤시아",
-            "인천대입구역",
-            "송도컨벤시아",
-            "인천대입구역",
-            "송도컨벤시아",
-            "인천대입구역",
-            "송도컨벤시아"
-        ), "송도컨벤시아"
-    )
+//    DetailScreen(
+//        "8",
+//        listOf(
+//            "인천대입구역",
+//            "송도컨벤시아",
+//            "인천대입구역",
+//            "송도컨벤시아",
+//            "인천대입구역",
+//            "송도컨벤시아",
+//            "인천대입구역",
+//            "송도컨벤시아",
+//            "인천대입구역",
+//            "송도컨벤시아"
+//        ), "송도컨벤시아"
+//    )
 }
 
 private fun String.color(): Color {
