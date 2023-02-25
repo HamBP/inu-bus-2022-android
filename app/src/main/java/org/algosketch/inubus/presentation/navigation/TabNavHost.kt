@@ -11,9 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.algosketch.inubus.presentation.main.BusTabView
-import org.algosketch.inubus.presentation.main.ViewModelFactory
 import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
-import org.algosketch.inubus.presentation.ui.leaveschool.LeaveSchool
 import org.algosketch.inubus.presentation.ui.toschool.ToSchool
 
 @Composable
@@ -22,19 +20,15 @@ fun TabNavHost(
     mainNavController: NavHostController,
     lifecycleOwner: LifecycleOwner,
     destinations: List<NavDestination>,
+    viewModels: List<ToSchoolViewModel>,
 ) {
-    val toSchoolViewModelFromInu: ToSchoolViewModel =
-        ViewModelFactory.create(ToSchoolViewModel::class.java)
-    val toSchoolViewModelFromBit: ToSchoolViewModel =
-        ViewModelFactory.create(ToSchoolViewModel::class.java)
-
-    toSchoolViewModelFromInu.updateBusList("인천대입구")
-
     val tabNavController = rememberNavController()
     val currentBackStack by tabNavController.currentBackStackEntryAsState()
     val currentDestination = currentBackStack?.destination
     val currentTab =
         destinations.find { it.route == currentDestination?.route } ?: destinations.first()
+
+    viewModels.first().updateBusList(currentTab.route)
 
     Column {
         BusTabView(toSchoolScreens = destinations, onSelected = { MainDestination ->
@@ -43,21 +37,15 @@ fun TabNavHost(
         NavHost(
             navController = tabNavController, startDestination = destinations.first().route, modifier = modifier
         ) {
-            composable(route = destinations[0].route) {
-                ToSchool(
-                    owner = lifecycleOwner,
-                    viewModel = toSchoolViewModelFromInu,
-                    subwayState = destinations[0].route,
-                    navController = mainNavController
-                )
-            }
-            composable(route = destinations[1].route) {
-                LeaveSchool(
-                    owner = lifecycleOwner,
-                    viewModel = toSchoolViewModelFromBit,
-                    subwayState = destinations[1].route,
-                    navController = mainNavController
-                )
+            destinations.forEachIndexed { index, destination ->
+                composable(route = destination.route) {
+                    ToSchool(
+                        owner = lifecycleOwner,
+                        viewModel = viewModels[index],
+                        startBusStop = destination.route,
+                        navController = mainNavController
+                    )
+                }
             }
         }
     }

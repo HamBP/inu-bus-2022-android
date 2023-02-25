@@ -2,17 +2,13 @@ package org.algosketch.inubus.presentation.ui.toschool
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.Divider
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,7 +33,7 @@ import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
-fun ToSchool(viewModel: ToSchoolViewModel, owner: LifecycleOwner, subwayState: String, navController: NavController) {
+fun ToSchool(viewModel: ToSchoolViewModel, owner: LifecycleOwner, startBusStop: String, navController: NavController) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
     val updatedTime = remember {
         mutableStateOf(viewModel.currentTime.value)
@@ -63,7 +59,7 @@ fun ToSchool(viewModel: ToSchoolViewModel, owner: LifecycleOwner, subwayState: S
         }
     }
 
-    viewModel.updateBusList(subwayState)
+    viewModel.updateBusList(startBusStop)
 
     Column {
         Row(
