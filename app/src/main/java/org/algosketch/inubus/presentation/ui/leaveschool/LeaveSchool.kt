@@ -1,4 +1,4 @@
-package org.algosketch.inubus.presentation.ui.inu
+package org.algosketch.inubus.presentation.ui.leaveschool
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,11 +29,13 @@ import kotlinx.coroutines.flow.collectLatest
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
+import org.algosketch.inubus.presentation.ui.extension.color
+import org.algosketch.inubus.presentation.ui.extension.toRestTimeFormat
 import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
-fun BusInfoScreen(viewModel: ToSchoolViewModel, owner: LifecycleOwner, subwayState: String, navController: NavController) {
+fun LeaveSchool(viewModel: ToSchoolViewModel, owner: LifecycleOwner, subwayState: String, navController: NavController) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
     val updatedTime = remember {
         mutableStateOf(viewModel.currentTime.value)
@@ -192,12 +194,6 @@ private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInf
     }
 }
 
-private fun Int.toRestTimeFormat(): String {
-    if (this < 60) return "곧도착"
-
-    return "${this / 60}분 ${this % 60}초"
-}
-
 @Composable
 private fun Chip(text: String) {
     Box(
@@ -212,15 +208,5 @@ private fun Chip(text: String) {
             text = text,
             color = primary,
         )
-    }
-}
-
-private fun String.color(): Color {
-    return when (this) {
-        "red" -> busRed
-        "blue" -> busBlue
-        "purple" -> busPurple
-        "green" -> busGreen
-        else -> primary
     }
 }
