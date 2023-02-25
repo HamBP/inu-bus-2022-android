@@ -13,7 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import org.algosketch.inubus.presentation.main.BusTabView
 import org.algosketch.inubus.presentation.main.ViewModelFactory
 import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
-import org.algosketch.inubus.presentation.ui.inu.BusInfoScreen
+import org.algosketch.inubus.presentation.ui.leaveschool.LeaveSchool
+import org.algosketch.inubus.presentation.ui.toschool.ToSchool
 
 @Composable
 fun TabNavHost(
@@ -43,7 +44,7 @@ fun TabNavHost(
             navController = tabNavController, startDestination = destinations.first().route, modifier = modifier
         ) {
             composable(route = destinations[0].route) {
-                BusInfoScreen(
+                ToSchool(
                     owner = lifecycleOwner,
                     viewModel = toSchoolViewModelFromInu,
                     subwayState = destinations[0].route,
@@ -51,7 +52,7 @@ fun TabNavHost(
                 )
             }
             composable(route = destinations[1].route) {
-                BusInfoScreen(
+                LeaveSchool(
                     owner = lifecycleOwner,
                     viewModel = toSchoolViewModelFromBit,
                     subwayState = destinations[1].route,
