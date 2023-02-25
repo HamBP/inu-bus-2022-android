@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,6 +13,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.algosketch.inubus.presentation.main.BusTabView
 import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
+import org.algosketch.inubus.presentation.ui.leaveschool.LeaveSchool
 import org.algosketch.inubus.presentation.ui.toschool.ToSchool
 
 @Composable
@@ -21,6 +23,7 @@ fun TabNavHost(
     lifecycleOwner: LifecycleOwner,
     destinations: List<NavDestination>,
     viewModels: List<ToSchoolViewModel>,
+    isToSchool: Boolean,
 ) {
     val tabNavController = rememberNavController()
     val currentBackStack by tabNavController.currentBackStackEntryAsState()
@@ -39,12 +42,21 @@ fun TabNavHost(
         ) {
             destinations.forEachIndexed { index, destination ->
                 composable(route = destination.route) {
-                    ToSchool(
-                        owner = lifecycleOwner,
-                        viewModel = viewModels[index],
-                        startBusStop = destination.route,
-                        navController = mainNavController
-                    )
+                    if(isToSchool) {
+                        ToSchool(
+                            viewModel = viewModels[index],
+                            owner = lifecycleOwner,
+                            startBusStop = destination.route,
+                            navController = mainNavController,
+                        )
+                    } else {
+                        LeaveSchool(
+                            viewModel = viewModels[index],
+                            owner = lifecycleOwner,
+                            startBusStop = destination.route,
+                            navController = mainNavController,
+                        )
+                    }
                 }
             }
         }
