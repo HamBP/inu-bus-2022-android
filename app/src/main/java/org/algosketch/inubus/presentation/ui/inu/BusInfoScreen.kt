@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -34,7 +33,7 @@ import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
-fun InuScreen(viewModel: ToSchoolViewModel, owner: LifecycleOwner, subwayState: String, navController: NavController) {
+fun BusInfoScreen(viewModel: ToSchoolViewModel, owner: LifecycleOwner, subwayState: String, navController: NavController) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
     val updatedTime = remember {
         mutableStateOf(viewModel.currentTime.value)
@@ -224,26 +223,4 @@ private fun String.color(): Color {
         "green" -> busGreen
         else -> primary
     }
-}
-
-@Preview(showBackground = true, widthDp = 360)
-@Composable
-fun WidgetPreview() {
-    BusStopFilter("전체", {})
-}
-
-@Preview(showBackground = true, widthDp = 360)
-@Composable
-fun BusInfoPreview() {
-//    BusInfo(busArrivalInfo = BusArrivalInfo(
-//        restTime = 234,
-//        busNumber = "8",
-//        busColor = "blue",
-//        exit = 1,
-//        where = "인천대입구",
-//        restTimeInformationText = "",
-//        exitInformationText = "",
-//        navigateDetail = {},
-//
-//    ))
 }
