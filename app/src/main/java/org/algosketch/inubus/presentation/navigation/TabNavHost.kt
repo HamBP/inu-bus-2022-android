@@ -40,21 +40,21 @@ fun TabNavHost(
             tabNavController.navigate(MainDestination.route)
         }, currentScreen = currentTab)
         NavHost(
-            navController = tabNavController, startDestination = TabNavDestination.INU.route, modifier = modifier
+            navController = tabNavController, startDestination = destinations.first().route, modifier = modifier
         ) {
-            composable(route = TabNavDestination.INU.route) {
+            composable(route = destinations[0].route) {
                 BusInfoScreen(
                     owner = lifecycleOwner,
                     viewModel = toSchoolViewModelFromInu,
-                    subwayState = "인천대입구",
+                    subwayState = destinations[0].route,
                     navController = mainNavController
                 )
             }
-            composable(route = TabNavDestination.BIT.route) {
+            composable(route = destinations[1].route) {
                 BusInfoScreen(
                     owner = lifecycleOwner,
                     viewModel = toSchoolViewModelFromBit,
-                    subwayState = "지식정보단지",
+                    subwayState = destinations[1].route,
                     navController = mainNavController
                 )
             }
