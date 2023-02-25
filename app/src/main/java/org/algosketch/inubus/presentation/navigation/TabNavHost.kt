@@ -10,11 +10,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import org.algosketch.inubus.R
 import org.algosketch.inubus.presentation.main.BusTabView
 import org.algosketch.inubus.presentation.main.ViewModelFactory
 import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
-import org.algosketch.inubus.presentation.ui.inu.InuScreen
+import org.algosketch.inubus.presentation.ui.inu.BusInfoScreen
 
 @Composable
 fun TabNavHost(
@@ -44,7 +43,7 @@ fun TabNavHost(
             navController = tabNavController, startDestination = TabNavDestination.INU.route, modifier = modifier
         ) {
             composable(route = TabNavDestination.INU.route) {
-                InuScreen(
+                BusInfoScreen(
                     owner = lifecycleOwner,
                     viewModel = toSchoolViewModelFromInu,
                     subwayState = "인천대입구",
@@ -52,7 +51,7 @@ fun TabNavHost(
                 )
             }
             composable(route = TabNavDestination.BIT.route) {
-                InuScreen(
+                BusInfoScreen(
                     owner = lifecycleOwner,
                     viewModel = toSchoolViewModelFromBit,
                     subwayState = "지식정보단지",
