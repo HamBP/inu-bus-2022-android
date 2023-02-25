@@ -25,4 +25,16 @@ data class BusArrivalInfo(
             "busColor" to Bus.getBusColorByBusNumber(busNumber)
         )
     }
+
+    fun getBusStops(direction: Int): List<String> {
+        return if(direction == TO_SCHOOL) BusStops.toSchool[busNumber] ?: listOf()
+        else BusStops.toSchool[busNumber] ?: listOf()
+    }
+
+    companion object {
+        const val TO_SCHOOL = 0
+        const val TO_HOME = 1
+
+        val toHomeBusStops = HashMap<String, List<String>>()
+    }
 }
