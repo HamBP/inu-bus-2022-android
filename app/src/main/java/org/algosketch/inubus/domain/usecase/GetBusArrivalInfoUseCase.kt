@@ -41,7 +41,7 @@ class GetBusArrivalInfoUseCase(private val infoRepository: BusArrivalInfoReposit
 
     private suspend fun fetchCOE(): List<BusArrivalInfo> {
         return withContext(Dispatchers.Default) {
-            request("164000377")
+            request("164000387")
         }
     }
 
