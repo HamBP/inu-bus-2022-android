@@ -5,7 +5,7 @@ import org.algosketch.inubus.data.model.BusArrivalResponse
 import java.time.LocalDateTime
 
 class CachedDataSource : DataSource {
-    val updatedAt: MutableMap<String, String> = HashMap()
+    val expiredAt: MutableMap<String, LocalDateTime> = HashMap()
     private val cachedBusArrivalResponse: MutableMap<String, BusArrivalResponse> = HashMap()
 
     override suspend fun getArrivalBusTime(bstopId: String): BusArrivalResponse {
@@ -14,19 +14,12 @@ class CachedDataSource : DataSource {
     }
 
     fun storeData(bstopId: String, busArrivalResponse: BusArrivalResponse) {
-        val dateString = getDateString()
         cachedBusArrivalResponse[bstopId] = busArrivalResponse
-        updatedAt[bstopId] = dateString
+        expiredAt[bstopId] = LocalDateTime.now().plusSeconds(10)
     }
 
     fun isCached(bstopId: String) : Boolean {
-        val dateString = getDateString()
-        return dateString == updatedAt[bstopId]
-    }
-
-    private fun getDateString(): String {
-        val currentTime = LocalDateTime.now()
-        val dateString = "${currentTime.dayOfMonth}:${currentTime.hour}:${currentTime.minute}"
-        return dateString
+        val now = LocalDateTime.now()
+        return expiredAt[bstopId]?.isAfter(now) ?: false
     }
 }
