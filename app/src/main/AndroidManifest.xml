@@ -11,7 +11,7 @@
         android:label="${appName}"
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AndroidTemplate"
+        android:theme="@style/Theme.InuRun.Splash"
         android:usesCleartextTraffic="true">
         <activity
             android:name="org.algosketch.inubus.presentation.ui.error.ErrorActivity"
@@ -19,15 +19,17 @@
         <activity
             android:name="org.algosketch.inubus.presentation.ui.splash.SplashActivity"
             android:exported="true">
+        </activity>
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.main.MainActivity"
-            android:exported="true"></activity>
     </application>
 
 </manifest>

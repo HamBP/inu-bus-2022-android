@@ -143,5 +143,8 @@ dependencies {
     implementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.compose.ui:ui-tooling'
 
+    // splash
+    implementation("androidx.core:core-splashscreen:1.0.0")
+
     implementation "androidx.navigation:navigation-compose:2.5.3"
 }
