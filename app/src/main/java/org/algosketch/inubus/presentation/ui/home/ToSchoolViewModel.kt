@@ -35,7 +35,7 @@ class ToSchoolViewModel : BaseViewModel() {
         return dateTime.format(formatter)
     }
 
-    fun updateBusList(where: String) { // 1 : 인입, 2 : 지정단
+    fun updateBusList(where: String) { // 1 : 인천대입구, 2 : 지식정보단지, 3 : 정문, 4 : 공과대
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
 
             viewModelScope.launch {
