@@ -17,10 +17,6 @@
             android:name="org.algosketch.inubus.presentation.ui.error.ErrorActivity"
             android:exported="false" />
         <activity
-            android:name="org.algosketch.inubus.presentation.ui.splash.SplashActivity"
-            android:exported="true">
-        </activity>
-        <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true">
 
