@@ -25,7 +25,7 @@ fun TabNavHost(
     destinations: List<NavDestination>,
     viewModels: List<ToSchoolViewModel>,
     isToSchool: Boolean,
-    toDetail: (BusArrivalInfo) -> Unit,
+    toDetail: (String, String) -> Unit,
 ) {
     val tabNavController = rememberNavController()
     val currentBackStack by tabNavController.currentBackStackEntryAsState()

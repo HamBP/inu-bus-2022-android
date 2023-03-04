@@ -43,11 +43,12 @@ class MainActivity : AppCompatActivity() {
                 Home(
                     lifecycleOwner = this@MainActivity,
                     mainNavController = navController,
-                    toDetail = { navController.navigate("DETAIL") }
+                    toDetail = { busNumber: String, busStop: String -> navController.navigate("DETAIL/$busNumber/$busStop") }
                 )
             }
             composable(
-                route = "DETAIL", arguments = listOf(
+                route = "DETAIL/{busNumber}/{busStop}",
+                arguments = listOf(
                     navArgument("busNumber") { type = NavType.StringType },
                     navArgument("busStop") { type = NavType.StringType },
                 )

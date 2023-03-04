@@ -17,7 +17,7 @@ fun BottomNavHost(
     lifecycleOwner: LifecycleOwner,
     mainNavController: NavHostController,
     modifier: Modifier = Modifier,
-    toDetail: (BusArrivalInfo) -> Unit,
+    toDetail: (String, String) -> Unit,
 ) {
     val toSchoolViewModelFromInu: ToSchoolViewModel =
         ViewModelFactory.create(ToSchoolViewModel::class.java)
