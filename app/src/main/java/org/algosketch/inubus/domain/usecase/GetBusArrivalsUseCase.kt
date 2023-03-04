@@ -6,7 +6,7 @@ import org.algosketch.inubus.common.mapper.BusArrivalInfoMapper
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 
-class GetBusArrivalInfoUseCase(private val infoRepository: BusArrivalInfoRepository) {
+class GetBusArrivalsUseCase(private val infoRepository: BusArrivalInfoRepository) {
     suspend operator fun invoke(busStop: String): List<BusArrivalInfo> {
         return when(busStop) {
             "인천대입구" -> fetchINU()
@@ -47,7 +47,7 @@ class GetBusArrivalInfoUseCase(private val infoRepository: BusArrivalInfoReposit
 
     private suspend fun request(bstop: String): List<BusArrivalInfo> {
         return withContext(Dispatchers.IO) {
-            BusArrivalInfoMapper.toBusArrival(infoRepository.getArrivalBusTime(bstop))
+            BusArrivalInfoMapper.toBusArrival(infoRepository.getBusArrival(bstop))
         }
     }
 

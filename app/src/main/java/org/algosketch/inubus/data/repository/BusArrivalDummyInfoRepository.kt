@@ -7,7 +7,7 @@ import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 class BusArrivalDummyInfoRepository() : BusArrivalInfoRepository {
     val dummyRepository = DummyDataSource()
 
-    override suspend fun getArrivalBusTime(bstopId: String): BusArrivalResponse {
+    override suspend fun getBusArrival(bstopId: String): BusArrivalResponse {
         return dummyRepository.getArrivalBusTime(bstopId)
     }
 }
