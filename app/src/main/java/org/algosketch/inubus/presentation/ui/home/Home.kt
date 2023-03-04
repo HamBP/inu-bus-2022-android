@@ -17,7 +17,7 @@ import org.algosketch.inubus.presentation.navigation.*
 fun Home(
     lifecycleOwner: LifecycleOwner,
     mainNavController: NavHostController,
-    toDetail: (BusArrivalInfo) -> Unit,
+    toDetail: (String, String) -> Unit,
 ) {
     val bottomNavController = rememberNavController()
     val currentBottomNavBackStack by bottomNavController.currentBackStackEntryAsState()

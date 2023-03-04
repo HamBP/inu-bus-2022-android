@@ -40,7 +40,7 @@ fun ToSchool(
     owner: LifecycleOwner,
     startBusStop: String,
     navController: NavController,
-    toDetail: (BusArrivalInfo) -> Unit,
+    toDetail: (String, String) -> Unit,
 ) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
     val updatedTime = remember {
@@ -92,7 +92,7 @@ fun ToSchool(
                         bottom = 20.dp
                     )
                 ) {
-                    BusInfo(busArrivalInfo = busArrivalInfo, navController = navController)
+                    BusInfo(busArrivalInfo = busArrivalInfo, toDetail = toDetail)
                 }
                 Divider(color = grayDivider)
             }
@@ -104,7 +104,7 @@ fun ToSchool(
 private fun BusInfo(
     modifier: Modifier = Modifier,
     busArrivalInfo: BusArrivalInfo,
-    navController: NavController
+    toDetail: (String, String) -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically
@@ -157,7 +157,7 @@ private fun BusInfo(
                 .width(24.dp)
                 .height(24.dp)
                 .clickable {
-                    navController.navigate("DETAIL")
+                    toDetail(busArrivalInfo.busNumber, busArrivalInfo.where)
                 },
         )
     }
