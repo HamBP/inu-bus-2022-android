@@ -22,7 +22,8 @@ object BusArrivalInfoMapper {
                     exit = Bus.getExit(it.BSTOPID),
                     where = where,
                     restTimeInformationText = "${where}역 ${exit}번 출구",
-                    exitInformationText = "버스가 ${restTime}분 뒤 도착해요."
+                    exitInformationText = "버스가 ${restTime}분 뒤 도착해요.",
+                    lastStop = it.LATEST_STOP_NAME,
                 )
             }
 

@@ -10,18 +10,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
+import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.entity.BusStops
+import org.algosketch.inubus.presentation.main.ViewModelFactory
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
@@ -30,7 +33,10 @@ fun DetailScreen(
     navController: NavController,
     busStop: String,
 ) {
-    val busStops = listOf<String>()
+    val viewModel = ViewModelFactory.create(DetailViewModel::class.java)
+    viewModel.fetchBusArrival(busNumber, busStop)
+    val busStops = BusStops.toSchool[busNumber] ?: listOf()
+    val busArrival: BusArrivalInfo by viewModel.busArrivalInfo.collectAsState()
 
     Column {
         Box(
@@ -72,7 +78,7 @@ fun DetailScreen(
         Divider(color = grayDivider)
         LazyColumn(modifier = Modifier.background(Color.White)) {
             items(items = busStops) { text ->
-                BusStop(text = text, text == "송도컨벤시아")
+                BusStop(text = text, text == busArrival.lastStop)
                 Divider(color = grayDivider)
             }
         }
@@ -114,26 +120,6 @@ fun BusStop(text: String, isLastStop: Boolean = false) {
             )
         }
     }
-}
-
-@Composable
-@Preview
-fun DetailScreenPreview() {
-//    DetailScreen(
-//        "8",
-//        listOf(
-//            "인천대입구역",
-//            "송도컨벤시아",
-//            "인천대입구역",
-//            "송도컨벤시아",
-//            "인천대입구역",
-//            "송도컨벤시아",
-//            "인천대입구역",
-//            "송도컨벤시아",
-//            "인천대입구역",
-//            "송도컨벤시아"
-//        ), "송도컨벤시아"
-//    )
 }
 
 private fun String.color(): Color {
