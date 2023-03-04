@@ -57,8 +57,6 @@ class MainActivity : AppCompatActivity() {
                 val busStop = navBackStackEntry.arguments?.getString("busStop")
                 DetailScreen(
                     busNumber = busNumber ?: "??",
-                    busStops = listOf("인천대입구", "인천대입구", "송도컨벤시아", "인천대입구"),
-                    lastStopName = "송도컨벤시아",
                     navController = navController,
                     busStop = busStop ?: "",
                 )

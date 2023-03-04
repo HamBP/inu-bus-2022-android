@@ -21,16 +21,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
+import org.algosketch.inubus.domain.entity.BusStops
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
 fun DetailScreen(
     busNumber: String,
-    busStops: List<String>,
-    lastStopName: String,
     navController: NavController,
     busStop: String,
 ) {
+    val busStops = listOf<String>()
 
     Column {
         Box(
@@ -72,7 +72,7 @@ fun DetailScreen(
         Divider(color = grayDivider)
         LazyColumn(modifier = Modifier.background(Color.White)) {
             items(items = busStops) { text ->
-                BusStop(text = text, text == lastStopName)
+                BusStop(text = text, text == "송도컨벤시아")
                 Divider(color = grayDivider)
             }
         }
