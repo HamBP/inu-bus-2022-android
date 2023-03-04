@@ -6,14 +6,15 @@ import androidx.core.os.bundleOf
 import org.algosketch.inubus.common.util.Bus
 
 data class BusArrivalInfo(
-    val restTime: Int,
-    val busNumber: String,
-    val busColor: String,
-    val exit: Int,
-    val where: String,
-    val restTimeInformationText: String,
-    val exitInformationText: String,
-    val navigateDetail: (View) -> Unit = {}
+    val restTime: Int = 0,
+    val busNumber: String = "0",
+    val busColor: String = "blue",
+    val exit: Int = 0,
+    val where: String = "인천대입구",
+    val restTimeInformationText: String = "",
+    val exitInformationText: String = "",
+    val navigateDetail: (View) -> Unit = {},
+    val lastStop: String = "",
 ) {
     fun toBundle(): Bundle {
         return bundleOf(
