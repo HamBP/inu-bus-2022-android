@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import org.algosketch.inubus.common.base.BaseViewModel
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
-import org.algosketch.inubus.domain.usecase.GetBusArrivalInfoUseCase
+import org.algosketch.inubus.domain.usecase.GetBusArrivalsUseCase
 import org.algosketch.inubus.global.TempDI
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -22,7 +22,7 @@ class ToSchoolViewModel : BaseViewModel() {
     val filter = MutableStateFlow("전체")
     val sort = MutableStateFlow("최신순")
 
-    private val getBusArrivalInfoUseCase: GetBusArrivalInfoUseCase = TempDI.getBusArrivalInfoUseCase
+    private val getBusArrivalsUseCase: GetBusArrivalsUseCase = TempDI.getBusArrivalsUseCase
 
     private fun refreshTime() {
         currentTime.value = getCurrentDateTime()
@@ -46,7 +46,7 @@ class ToSchoolViewModel : BaseViewModel() {
         }
 
         viewModelScope.launch(coroutineExceptionHandler) {
-            busList.value = getBusArrivalInfoUseCase(where).map { item ->
+            busList.value = getBusArrivalsUseCase(where).map { item ->
                 item.copy(navigateDetail = {
                     moveDetail(item)
                 })

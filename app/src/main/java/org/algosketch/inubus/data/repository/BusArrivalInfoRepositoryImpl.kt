@@ -9,7 +9,7 @@ class BusArrivalInfoRepositoryImpl(
     private val cachedDataSource: CachedDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : BusArrivalInfoRepository {
-    override suspend fun getArrivalBusTime(bstopId: String): BusArrivalResponse {
+    override suspend fun getBusArrival(bstopId: String): BusArrivalResponse {
         if (cachedDataSource.isCached(bstopId))
             return cachedDataSource.getArrivalBusTime(bstopId)
 
