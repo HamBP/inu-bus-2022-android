@@ -10,11 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.algosketch.inubus.presentation.ui.home.Home
+import androidx.navigation.navArgument
 import org.algosketch.inubus.presentation.ui.detail.DetailScreen
+import org.algosketch.inubus.presentation.ui.home.Home
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,14 +40,26 @@ class MainActivity : AppCompatActivity() {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "HOME") {
             composable(route = "HOME") {
-                Home(lifecycleOwner = this@MainActivity, mainNavController = navController)
+                Home(
+                    lifecycleOwner = this@MainActivity,
+                    mainNavController = navController,
+                    toDetail = { navController.navigate("DETAIL") }
+                )
             }
-            composable(route = "DETAIL") {
+            composable(
+                route = "DETAIL", arguments = listOf(
+                    navArgument("busNumber") { type = NavType.StringType },
+                    navArgument("busStop") { type = NavType.StringType },
+                )
+            ) { navBackStackEntry ->
+                val busNumber = navBackStackEntry.arguments?.getString("busNumber")
+                val busStop = navBackStackEntry.arguments?.getString("busStop")
                 DetailScreen(
-                    busNumber = "8",
+                    busNumber = busNumber ?: "??",
                     busStops = listOf("인천대입구", "인천대입구", "송도컨벤시아", "인천대입구"),
                     lastStopName = "송도컨벤시아",
                     navController = navController,
+                    busStop = busStop ?: "",
                 )
             }
         }

@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.algosketch.inubus.R
+import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.presentation.main.ViewModelFactory
 import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
 
@@ -15,7 +16,8 @@ fun BottomNavHost(
     bottomNavController: NavHostController,
     lifecycleOwner: LifecycleOwner,
     mainNavController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    toDetail: (BusArrivalInfo) -> Unit,
 ) {
     val toSchoolViewModelFromInu: ToSchoolViewModel =
         ViewModelFactory.create(ToSchoolViewModel::class.java)
@@ -37,6 +39,7 @@ fun BottomNavHost(
                 destinations = TabNavDestination.goingToSchool,
                 viewModels = toSchoolViewModels,
                 isToSchool = true,
+                toDetail = toDetail,
             )
         }
         composable(route = BottomNavDestination.LEAVING_SCHOOL.route) {
@@ -46,6 +49,7 @@ fun BottomNavHost(
                 destinations = TabNavDestination.leavingSchool,
                 viewModels = leaveSchoolViewModels,
                 isToSchool = false,
+                toDetail = toDetail,
             )
         }
     }
