@@ -6,6 +6,7 @@ import org.algosketch.inubus.data.datasource.DummyDataSource
 import org.algosketch.inubus.data.datasource.RemoteDataSource
 import org.algosketch.inubus.data.repository.BusArrivalInfoRepositoryImpl
 import org.algosketch.inubus.di.factory.RetrofitServiceFactory
+import org.algosketch.inubus.domain.usecase.GetBusArrivalUseCase
 import org.algosketch.inubus.domain.usecase.GetBusArrivalsUseCase
 
 object TempDI {
@@ -20,6 +21,7 @@ object TempDI {
 //        else BusArrivalDummyInfoRepository()
 
     val getBusArrivalsUseCase = GetBusArrivalsUseCase(busArrivalRepository)
+    val getBusArrivalUseCase = GetBusArrivalUseCase(busArrivalRepository)
 
     init {
         busArrivalService = RetrofitServiceFactory.create<BusArrivalService>()
