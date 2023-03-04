@@ -30,10 +30,18 @@ import org.algosketch.inubus.presentation.ui.common.Chip
 import org.algosketch.inubus.presentation.ui.extension.color
 import org.algosketch.inubus.presentation.ui.extension.toRestTimeFormat
 import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
-import org.algosketch.inubus.presentation.ui.theme.*
+import org.algosketch.inubus.presentation.ui.theme.colorF9
+import org.algosketch.inubus.presentation.ui.theme.gray66
+import org.algosketch.inubus.presentation.ui.theme.grayDivider
 
 @Composable
-fun ToSchool(viewModel: ToSchoolViewModel, owner: LifecycleOwner, startBusStop: String, navController: NavController) {
+fun ToSchool(
+    viewModel: ToSchoolViewModel,
+    owner: LifecycleOwner,
+    startBusStop: String,
+    navController: NavController,
+    toDetail: (BusArrivalInfo) -> Unit,
+) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
     val updatedTime = remember {
         mutableStateOf(viewModel.currentTime.value)
@@ -93,7 +101,11 @@ fun ToSchool(viewModel: ToSchoolViewModel, owner: LifecycleOwner, startBusStop: 
 }
 
 @Composable
-private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInfo, navController: NavController) {
+private fun BusInfo(
+    modifier: Modifier = Modifier,
+    busArrivalInfo: BusArrivalInfo,
+    navController: NavController
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {

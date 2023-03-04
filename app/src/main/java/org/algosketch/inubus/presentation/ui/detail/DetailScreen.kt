@@ -19,22 +19,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
-fun DetailScreen(busNumber: String, busStops: List<String>, lastStopName: String, navController: NavController) {
+fun DetailScreen(
+    busNumber: String,
+    busStops: List<String>,
+    lastStopName: String,
+    navController: NavController,
+    busStop: String,
+) {
 
     Column {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 20.dp, bottom = 10.dp, start = 20.dp, end = 20.dp)) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp, bottom = 10.dp, start = 20.dp, end = 20.dp)
+        ) {
             Image(
                 painter = painterResource(R.drawable.close),
                 contentDescription = "close",
-                modifier = Modifier.size(width = 20.dp, height = 20.dp)
+                modifier = Modifier
+                    .size(width = 20.dp, height = 20.dp)
                     .clickable {
                         navController.popBackStack()
                     }
@@ -95,13 +103,15 @@ fun BusStop(text: String, isLastStop: Boolean = false) {
                 .size(width = 24.dp, height = 24.dp)
                 .align(alignment = Alignment.CenterStart)
         )
-        if(isLastStop) {
-            Image(painter = painterResource(id = R.drawable.runner),
+        if (isLastStop) {
+            Image(
+                painter = painterResource(id = R.drawable.runner),
                 contentDescription = "runner",
-            modifier = Modifier
-                .padding(top = 52.dp, start = 54.5.dp)
-                .size(width = 37.dp, height = 57.dp)
-                .align(alignment = Alignment.CenterStart))
+                modifier = Modifier
+                    .padding(top = 52.dp, start = 54.5.dp)
+                    .size(width = 37.dp, height = 57.dp)
+                    .align(alignment = Alignment.CenterStart)
+            )
         }
     }
 }

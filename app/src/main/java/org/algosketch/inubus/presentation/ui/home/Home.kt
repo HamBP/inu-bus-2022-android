@@ -9,16 +9,22 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.presentation.main.BusBottomNavigation
 import org.algosketch.inubus.presentation.navigation.*
 
 @Composable
-fun Home(lifecycleOwner: LifecycleOwner, mainNavController: NavHostController) {
+fun Home(
+    lifecycleOwner: LifecycleOwner,
+    mainNavController: NavHostController,
+    toDetail: (BusArrivalInfo) -> Unit,
+) {
     val bottomNavController = rememberNavController()
     val currentBottomNavBackStack by bottomNavController.currentBackStackEntryAsState()
     val currentBottomNavDestination = currentBottomNavBackStack?.destination
     val bottomNavScreens = BottomNavDestination.destinations
-    val currentBottomNav = bottomNavScreens.find { it.route == currentBottomNavDestination?.route } ?: BottomNavDestination.GOING_TO_SCHOOL
+    val currentBottomNav = bottomNavScreens.find { it.route == currentBottomNavDestination?.route }
+        ?: BottomNavDestination.GOING_TO_SCHOOL
 
     Scaffold(
         bottomBar = {
@@ -32,6 +38,7 @@ fun Home(lifecycleOwner: LifecycleOwner, mainNavController: NavHostController) {
             lifecycleOwner = lifecycleOwner,
             mainNavController = mainNavController,
             modifier = Modifier.padding(innerPadding),
+            toDetail = toDetail,
         )
     }
 }
