@@ -46,7 +46,7 @@ fun BusStopFilter(
     DropdownMenu(
         expanded = filterExpanded.value,
         onDismissRequest = { onFilterExpansionChanged(false) }) {
-        val busStops = listOf("전체", "정문", "자연대", "공과대", "인천대 송도캠")
+        val busStops = listOf("전체", "정문", "자연대", "공과대", "송도캠")
         busStops.forEach { busStop ->
             DropdownMenuItem(onClick = {
                 onFilterItemClicked(busStop)

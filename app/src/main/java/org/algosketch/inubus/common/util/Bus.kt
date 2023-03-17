@@ -92,7 +92,7 @@ object Bus {
     fun getBusStopsByBusNumber(busNumber: String) : List<String> {
         return when(busNumber) {
             "8" -> listOf("정문", "자연대", "공과대")
-            "98" -> listOf("정문", "자연대", "공과대", "인천대 송도캠")
+            "98" -> listOf("정문", "자연대", "공과대", "송도캠")
             "16", "99" -> listOf("정문")
             "41", "42", "43", "6", "6-1" -> listOf("자연대", "공과대")
             else -> throw Exception("UNKNOWN BUS NUMBER")
