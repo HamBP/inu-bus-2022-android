@@ -44,20 +44,6 @@ object Bus {
         }
     }
 
-    fun getDistance(where: String, busNumber: String) : Int {
-        if(busNumber == "99") {
-            return if(where == "인천대입구") 21 else 156
-        }
-
-        return when(busNumber) {
-            "42", "43" -> 11
-            "8", "98", "58", "16" -> 21
-            "6", "41" -> 87
-            "6-1" -> 83
-            else -> 999
-        }
-    }
-
     fun getBusStopsByBusNumber(busNumber: String) : List<String> {
         return when(busNumber) {
             "8" -> listOf("정문", "자연대", "공과대")
