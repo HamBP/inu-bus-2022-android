@@ -1,4 +1,4 @@
-package org.algosketch.inubus.presentation.ui.home
+package org.algosketch.inubus.presentation.ui.toschool
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope

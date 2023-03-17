@@ -29,7 +29,7 @@ import org.algosketch.inubus.presentation.ui.common.BusStopFilter
 import org.algosketch.inubus.presentation.ui.common.Chip
 import org.algosketch.inubus.presentation.ui.extension.color
 import org.algosketch.inubus.presentation.ui.extension.toRestTimeFormat
-import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
+import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable

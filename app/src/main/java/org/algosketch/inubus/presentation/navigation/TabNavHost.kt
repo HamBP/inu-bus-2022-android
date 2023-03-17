@@ -5,15 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.presentation.main.BusTabView
-import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
+import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.leaveschool.LeaveSchool
 import org.algosketch.inubus.presentation.ui.toschool.ToSchool
 

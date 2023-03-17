@@ -7,9 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.algosketch.inubus.R
-import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.presentation.main.ViewModelFactory
-import org.algosketch.inubus.presentation.ui.home.ToSchoolViewModel
+import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 
 @Composable
 fun BottomNavHost(
