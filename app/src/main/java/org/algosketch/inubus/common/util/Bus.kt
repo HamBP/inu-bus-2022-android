@@ -1,37 +1,6 @@
 package org.algosketch.inubus.common.util
 
-import org.algosketch.inubus.R
-import org.algosketch.inubus.common.constant.BusStop
-
 object Bus {
-    val routeIds = mapOf(
-        "42" to "165000515", // 인입 1출 (38396)
-        "43" to "165000516",
-        "8" to "165000012", // 인입 2출 (38395)
-        "98" to "164000001",
-        "99" to "161000008",
-        "58" to "161000007",
-        "16" to "165000020",
-        "6" to "???",
-        "41" to "???",
-        "6-1" to "165000008",
-        "99" to "161000008" // 지정단 4출
-    )
-
-    val busStopIds = mapOf(
-        "42" to "164000396", // 인입 1출 (38396)
-        "43" to "164000396",
-        "8" to "164000395", // 인입 2출 (38395)
-        "98" to "164000395",
-        "99" to "164000395",
-        "58" to "164000395",
-        "16" to "164000395",
-        "6" to "???", // 지정단 2출
-        "41" to "???",
-        "6-1" to "164000403", // 지정단 3출
-        "99" to "164000380" // 지정단 4출
-    )
-
     val busNumbers = mapOf(
         "165000515" to "42",
         "165000516" to "43",
@@ -106,19 +75,6 @@ object Bus {
             "164000385" -> "공과대"
             "164000387" -> "정문"
             else -> throw Exception("${busStopId} 알 수 없는 버스 정류장입니다.")
-        }
-    }
-
-    fun getMapImageIdByBusNumber(busNumber: String?, busStop: BusStop) : Int {
-        return when(busNumber) {
-            "8", "98" -> R.drawable.inu_8
-            "16" -> R.drawable.inu_16
-            "42", "43" -> R.drawable.inu_42
-            "6" -> R.drawable.bit6
-            "6-1" -> R.drawable.bit6_1
-            "41" -> R.drawable.bit41
-            "99" -> if(busStop == BusStop.INU) R.drawable.inu_16 else R.drawable.bit99
-            else -> throw Exception("UNKNOWN BUS NUMBER")
         }
     }
 }

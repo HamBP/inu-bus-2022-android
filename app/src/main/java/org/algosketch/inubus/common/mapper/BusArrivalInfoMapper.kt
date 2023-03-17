@@ -12,17 +12,13 @@ object BusArrivalInfoMapper {
             .filter { Bus.getRouteIdsByBusStop(itemList[0].BSTOPID).contains(it.ROUTEID) }
             .map {
                 val busNumber = Bus.busNumbers[it.ROUTEID] ?: "?"
-                val restTime = it.ARRIVALESTIMATETIME / 60
                 val where = Bus.getBusStopName(it.BSTOPID)
-                val exit = Bus.getExit(it.BSTOPID)
                 BusArrivalInfo(
                     restTime = it.ARRIVALESTIMATETIME,
                     busNumber = busNumber,
                     busColor = Bus.getBusColorByBusNumber(busNumber),
                     exit = Bus.getExit(it.BSTOPID),
                     where = where,
-                    restTimeInformationText = "${where}역 ${exit}번 출구",
-                    exitInformationText = "버스가 ${restTime}분 뒤 도착해요.",
                     lastStop = it.LATEST_STOP_NAME,
                 )
             }
