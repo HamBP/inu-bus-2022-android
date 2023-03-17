@@ -3,13 +3,25 @@ package org.algosketch.inubus.data.model
 import com.tickaroo.tikxml.annotation.Element
 import com.tickaroo.tikxml.annotation.PropertyElement
 import com.tickaroo.tikxml.annotation.Xml
+import org.algosketch.inubus.common.util.Bus
+import org.algosketch.inubus.domain.entity.BusArrivalInfo
 
 @Xml(name = "ServiceResult")
 data class BusArrivalResponse(
     @Element val comMsgHeader: ComMsgHeader? = null,
     @Element val msgHeader: MsgHeader? = null,
     @Element val msgBody: MsgBody?
-)
+) {
+    fun toBusArrivals(): List<BusArrivalInfo> {
+        return msgBody!!.itemList!!.map {
+            BusArrivalInfo(
+                busNumber = Bus.busNumbers[it.ROUTEID] ?: "?",
+                busColor = "blue",
+                restTime = it.ARRIVALESTIMATETIME,
+            )
+        }
+    }
+}
 
 @Xml(name = "msgHeader")
 data class MsgHeader(
