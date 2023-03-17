@@ -14,16 +14,19 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 Properties keystoreProperties = new Properties()
 keystoreProperties.load(project.rootProject.file('key.properties').newDataInputStream())
 
+static def getRevisionCount() {
+    return Integer.parseInt('git rev-list --count HEAD'.execute().text.trim())
+}
+
 android {
     compileSdkVersion 33
     buildToolsVersion "30.0.3"
-
 
     defaultConfig {
         applicationId "org.algosketch.inubus"
         minSdkVersion 26
         targetSdkVersion 33
-        versionCode 7
+        versionCode getRevisionCount()
         versionName "0.0.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
