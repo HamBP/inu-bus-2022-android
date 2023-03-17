@@ -1,4 +1,4 @@
-package org.algosketch.inubus.presentation.ui.toschool
+package org.algosketch.inubus.presentation.ui.leaveschool
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +15,7 @@ import org.algosketch.inubus.global.TempDI
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class ToSchoolViewModel : ViewModel() {
+class LeaveSchoolViewModel : ViewModel() {
     val currentTime = MutableStateFlow("")
     val busList = MutableLiveData<List<BusArrivalInfo>>(listOf())
     val eventFlow = MutableSharedFlow<Event>()
@@ -53,8 +53,8 @@ class ToSchoolViewModel : ViewModel() {
             }.filter { busInfo ->
                 (filter.value == "전체") ||
                         (Bus.getBusStopsByBusNumber(busInfo.busNumber).find { busStop ->
-                    busStop == filter.value
-                } != null)
+                            busStop == filter.value
+                        } != null)
             }.sortedList()
             refreshTime()
         }
