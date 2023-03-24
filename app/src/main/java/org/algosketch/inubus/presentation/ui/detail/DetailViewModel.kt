@@ -16,7 +16,8 @@ class DetailViewModel : ViewModel() {
 
     fun fetchBusArrival(busNumber: String, busStop: String) {
         viewModelScope.launch {
-            getBusArrivalAssumptionUseCase(busNumber)
+            val temp = getBusArrivalAssumptionUseCase(busNumber)
+            println("제발 ${temp}")
             busArrivalInfo.value = getBusArrivalUseCase(busNumber, busStop)
         }
     }

@@ -33,7 +33,7 @@ import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
-fun LeaveSchool(viewModel: ToSchoolViewModel, owner: LifecycleOwner, startBusStop: String, navController: NavController) {
+fun LeaveSchool(viewModel: LeaveSchoolViewModel, owner: LifecycleOwner, startBusStop: String, navController: NavController) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
     val updatedTime = remember {
         mutableStateOf(viewModel.currentTime.value)

@@ -18,6 +18,7 @@ data class BusArrivalResponse(
                 busNumber = Bus.busNumbers[it.ROUTEID] ?: "?",
                 busColor = "blue",
                 restTime = it.ARRIVALESTIMATETIME,
+                lastStop = it.LATEST_STOP_NAME,
             )
         }
     }

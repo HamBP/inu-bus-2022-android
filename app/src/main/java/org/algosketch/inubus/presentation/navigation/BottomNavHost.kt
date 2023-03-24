@@ -18,17 +18,6 @@ fun BottomNavHost(
     modifier: Modifier = Modifier,
     toDetail: (String, String) -> Unit,
 ) {
-    val toSchoolViewModelFromInu: ToSchoolViewModel =
-        ViewModelFactory.create(ToSchoolViewModel::class.java)
-    val toSchoolViewModelFromBit: ToSchoolViewModel =
-        ViewModelFactory.create(ToSchoolViewModel::class.java)
-    val toSchoolViewModels = listOf(toSchoolViewModelFromInu, toSchoolViewModelFromBit)
-
-    val leaveSchoolViewModelFromGate: ToSchoolViewModel =
-        ViewModelFactory.create(ToSchoolViewModel::class.java)
-    val leaveSchoolViewModelFromCOE: ToSchoolViewModel =
-        ViewModelFactory.create(ToSchoolViewModel::class.java)
-    val leaveSchoolViewModels = listOf(leaveSchoolViewModelFromGate, leaveSchoolViewModelFromCOE)
 
     NavHost(navController = bottomNavController, startDestination = "등교", modifier = modifier) {
         composable(route = BottomNavDestination.GOING_TO_SCHOOL.route) {
@@ -36,7 +25,6 @@ fun BottomNavHost(
                 mainNavController = mainNavController,
                 lifecycleOwner = lifecycleOwner,
                 destinations = TabNavDestination.goingToSchool,
-                viewModels = toSchoolViewModels,
                 isToSchool = true,
                 toDetail = toDetail,
             )
@@ -46,7 +34,6 @@ fun BottomNavHost(
                 mainNavController = mainNavController,
                 lifecycleOwner = lifecycleOwner,
                 destinations = TabNavDestination.leavingSchool,
-                viewModels = leaveSchoolViewModels,
                 isToSchool = false,
                 toDetail = toDetail,
             )
