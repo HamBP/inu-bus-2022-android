@@ -46,23 +46,13 @@ class ToSchoolViewModel : ViewModel() {
         }
 
         viewModelScope.launch(coroutineExceptionHandler) {
-            busList.value = getBusArrivalsUseCase(where).map { item ->
-                item.copy(navigateDetail = {
-                    moveDetail(item)
-                })
-            }.filter { busInfo ->
+            busList.value = getBusArrivalsUseCase(where).filter { busInfo ->
                 (filter.value == "전체") ||
                         (Bus.getBusStopsByBusNumber(busInfo.busNumber).find { busStop ->
                     busStop == filter.value
                 } != null)
             }.sortedList()
             refreshTime()
-        }
-    }
-
-    private fun moveDetail(item: BusArrivalInfo) {
-        viewModelScope.launch {
-            eventFlow.emit(Event.MoveDetail(item))
         }
     }
 
@@ -74,7 +64,6 @@ class ToSchoolViewModel : ViewModel() {
     }
 
     sealed class Event {
-        data class MoveDetail(val busInfo: BusArrivalInfo) : Event()
         object Timeout : Event()
     }
 

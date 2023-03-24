@@ -1,14 +1,11 @@
 package org.algosketch.inubus.domain.entity
 
-import android.view.View
-
 data class BusArrivalInfo(
     val restTime: Int = 0,
     val busNumber: String = "0",
     val busColor: String = "blue",
     val exit: Int = 0,
     val where: String = "인천대입구",
-    val navigateDetail: (View) -> Unit = {},
     val lastStop: String = "",
 ) {
     fun getBusStops(direction: Int): List<String> {
