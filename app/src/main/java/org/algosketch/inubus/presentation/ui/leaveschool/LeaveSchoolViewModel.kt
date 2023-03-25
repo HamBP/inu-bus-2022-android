@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
+import org.algosketch.inubus.domain.usecase.GetBusArrivalAssumptionUseCase
 import org.algosketch.inubus.domain.usecase.GetBusArrivalsUseCase
 import org.algosketch.inubus.global.TempDI
 import java.time.LocalDateTime
@@ -23,6 +24,7 @@ class LeaveSchoolViewModel : ViewModel() {
     val sort = MutableStateFlow("최신순")
 
     private val getBusArrivalsUseCase: GetBusArrivalsUseCase = TempDI.getBusArrivalsUseCase
+    private val getBusArrivalAssumptionUseCase: GetBusArrivalAssumptionUseCase = TempDI.getBusArrivalAssumptionUseCase
 
     private fun refreshTime() {
         currentTime.value = getCurrentDateTime()
@@ -46,12 +48,16 @@ class LeaveSchoolViewModel : ViewModel() {
         }
 
         viewModelScope.launch(coroutineExceptionHandler) {
-            busList.value = getBusArrivalsUseCase(where).filter { busInfo ->
-                (filter.value == "전체") ||
-                        (Bus.getBusStopsByBusNumber(busInfo.busNumber).find { busStop ->
-                            busStop == filter.value
-                        } != null)
-            }.sortedList()
+//            busList.value = getBusArrivalsUseCase(where).filter { busInfo ->
+//                (filter.value == "전체") ||
+//                        (Bus.getBusStopsByBusNumber(busInfo.busNumber).find { busStop ->
+//                            busStop == filter.value
+//                        } != null)
+//            }.sortedList()
+
+            busList.value = listOf(getBusArrivalAssumptionUseCase("8"))
+            println("로그로그 ${busList.value}")
+
             refreshTime()
         }
     }

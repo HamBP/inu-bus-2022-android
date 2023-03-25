@@ -14,11 +14,22 @@ class DetailViewModel : ViewModel() {
     private val getBusArrivalAssumptionUseCase: GetBusArrivalAssumptionUseCase = TempDI.getBusArrivalAssumptionUseCase
     val busArrivalInfo = MutableStateFlow(BusArrivalInfo())
 
+    fun fetchData(busNumber: String, busStop: String) {
+        when (busStop) {
+            "인천대입구", "지식정보단지" -> fetchBusArrival(busNumber = busNumber, busStop = busStop)
+            else -> fetchBusArrivalToLeaveSchool(busNumber = busNumber)
+        }
+    }
+
     fun fetchBusArrival(busNumber: String, busStop: String) {
         viewModelScope.launch {
-            val temp = getBusArrivalAssumptionUseCase(busNumber)
-            println("제발 ${temp}")
             busArrivalInfo.value = getBusArrivalUseCase(busNumber, busStop)
+        }
+    }
+
+    fun fetchBusArrivalToLeaveSchool(busNumber: String) {
+        viewModelScope.launch {
+            busArrivalInfo.value = getBusArrivalAssumptionUseCase(busNumber = busNumber)
         }
     }
 }

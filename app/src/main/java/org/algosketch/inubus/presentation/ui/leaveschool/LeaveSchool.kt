@@ -33,7 +33,7 @@ import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
-fun LeaveSchool(viewModel: LeaveSchoolViewModel, owner: LifecycleOwner, startBusStop: String, navController: NavController) {
+fun LeaveSchool(viewModel: LeaveSchoolViewModel, owner: LifecycleOwner, startBusStop: String, toDetail: (String, String) -> Unit) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
     val updatedTime = remember {
         mutableStateOf(viewModel.currentTime.value)
@@ -84,7 +84,7 @@ fun LeaveSchool(viewModel: LeaveSchoolViewModel, owner: LifecycleOwner, startBus
                         bottom = 20.dp
                     )
                 ) {
-                    BusInfo(busArrivalInfo = busArrivalInfo, navController = navController)
+                    BusInfo(busArrivalInfo = busArrivalInfo, toDetail = toDetail)
                 }
                 Divider(color = grayDivider)
             }
@@ -93,7 +93,9 @@ fun LeaveSchool(viewModel: LeaveSchoolViewModel, owner: LifecycleOwner, startBus
 }
 
 @Composable
-private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInfo, navController: NavController) {
+private fun BusInfo(modifier: Modifier = Modifier,
+                    busArrivalInfo: BusArrivalInfo,
+                    toDetail: (String, String) -> Unit,) {
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -144,7 +146,7 @@ private fun BusInfo(modifier: Modifier = Modifier, busArrivalInfo: BusArrivalInf
                 .width(24.dp)
                 .height(24.dp)
                 .clickable {
-                    navController.navigate("DETAIL")
+                    toDetail(busArrivalInfo.busNumber, busArrivalInfo.where)
                 },
         )
     }

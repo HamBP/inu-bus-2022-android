@@ -61,7 +61,6 @@ fun TabNavHost(
                             viewModel = toSchoolViewModels[index],
                             owner = lifecycleOwner,
                             startBusStop = destination.route,
-                            navController = mainNavController,
                             toDetail = toDetail,
                         )
                     } else {
@@ -69,7 +68,7 @@ fun TabNavHost(
                             viewModel = leaveSchoolViewModels[index],
                             owner = lifecycleOwner,
                             startBusStop = destination.route,
-                            navController = mainNavController,
+                            toDetail = toDetail
                         )
                     }
                 }

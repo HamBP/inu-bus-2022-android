@@ -34,8 +34,13 @@ fun DetailScreen(
     busStop: String,
 ) {
     val viewModel = ViewModelFactory.create(DetailViewModel::class.java)
-    viewModel.fetchBusArrival(busNumber, busStop)
-    val busStops = BusStops.toSchool[busNumber] ?: listOf()
+    viewModel.fetchData(busNumber, busStop)
+
+    val toSchool = when (busStop) {
+        "인천대입구", "지식정보단지" -> true
+        else -> false
+    }
+    val busStops = if(toSchool) BusStops.toSchool[busNumber] ?: listOf() else BusStops.toHome[busNumber] ?: listOf()
     val busArrival: BusArrivalInfo by viewModel.busArrivalInfo.collectAsState()
 
     Column {

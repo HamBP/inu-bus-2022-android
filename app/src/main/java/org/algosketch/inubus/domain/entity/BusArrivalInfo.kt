@@ -5,7 +5,7 @@ data class BusArrivalInfo(
     val busNumber: String = "0",
     val busColor: String = "blue",
     val exit: Int = 0,
-    val where: String = "인천대입구",
+    val where: String = "UNKNONW",
     val lastStop: String = "",
 ) {
     fun getBusStops(direction: Int): List<String> {

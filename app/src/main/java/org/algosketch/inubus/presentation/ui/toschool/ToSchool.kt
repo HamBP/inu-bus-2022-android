@@ -38,7 +38,6 @@ fun ToSchool(
     viewModel: ToSchoolViewModel,
     owner: LifecycleOwner,
     startBusStop: String,
-    navController: NavController,
     toDetail: (String, String) -> Unit,
 ) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
