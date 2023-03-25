@@ -97,7 +97,10 @@ private fun BusInfo(modifier: Modifier = Modifier,
                     busArrivalInfo: BusArrivalInfo,
                     toDetail: (String, String) -> Unit,) {
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.clickable {
+            toDetail(busArrivalInfo.busNumber, busArrivalInfo.where)
+        }
     ) {
         Column {
             Row(
@@ -144,10 +147,7 @@ private fun BusInfo(modifier: Modifier = Modifier,
             modifier = Modifier
                 .padding(end = 16.dp)
                 .width(24.dp)
-                .height(24.dp)
-                .clickable {
-                    toDetail(busArrivalInfo.busNumber, busArrivalInfo.where)
-                },
+                .height(24.dp),
         )
     }
 }
