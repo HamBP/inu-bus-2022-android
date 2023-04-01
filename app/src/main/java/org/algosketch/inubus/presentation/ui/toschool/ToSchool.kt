@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
@@ -51,28 +52,14 @@ fun ToSchool(
     toDetail: (String, String) -> Unit,
 ) {
     val busList = remember { mutableStateOf(viewModel.busList.value) }
-    val updatedTime = remember {
-        mutableStateOf(viewModel.currentTime.value)
-    }
-    val filter = remember {
-        mutableStateOf(viewModel.filter.value)
-    }
+    val updatedTime = viewModel.currentTime.collectAsState()
+    val filter = viewModel.filter.collectAsState()
     val onFilterItemClicked = { filterItem: String ->
         viewModel.filter.value = filterItem
     }
 
     viewModel.busList.observe(owner) {
         busList.value = viewModel.busList.value ?: listOf()
-    }
-    owner.lifecycleScope.launchWhenCreated {
-        viewModel.currentTime.collectLatest {
-            updatedTime.value = it
-        }
-    }
-    owner.lifecycleScope.launchWhenCreated {
-        viewModel.filter.collectLatest {
-            filter.value = it
-        }
     }
 
     val isRefreshing = viewModel.loading.collectAsState()
