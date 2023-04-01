@@ -21,6 +21,7 @@ class ToSchoolViewModel : ViewModel() {
     val eventFlow = MutableSharedFlow<Event>()
     val filter = MutableStateFlow("전체")
     val sort = MutableStateFlow("최신순")
+    val loading = MutableStateFlow(false)
 
     private val getBusArrivalsUseCase: GetBusArrivalsUseCase = TempDI.getBusArrivalsUseCase
 
@@ -53,13 +54,6 @@ class ToSchoolViewModel : ViewModel() {
                 } != null)
             }.sortedList()
             refreshTime()
-        }
-    }
-
-    fun refresh(refreshLayout: SwipeRefreshLayout, where: String) {
-        viewModelScope.launch {
-            updateBusList(where)
-            refreshLayout.isRefreshing = false
         }
     }
 

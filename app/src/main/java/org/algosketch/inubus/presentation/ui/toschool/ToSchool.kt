@@ -1,26 +1,35 @@
 package org.algosketch.inubus.presentation.ui.toschool
 
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Refresh
+import androidx.compose.material.pullrefresh.PullRefreshState
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.pullRefreshIndicatorTransform
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Divider
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import kotlinx.coroutines.flow.collectLatest
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
@@ -33,6 +42,7 @@ import org.algosketch.inubus.presentation.ui.theme.colorF9
 import org.algosketch.inubus.presentation.ui.theme.gray66
 import org.algosketch.inubus.presentation.ui.theme.grayDivider
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ToSchool(
     viewModel: ToSchoolViewModel,
@@ -65,7 +75,22 @@ fun ToSchool(
         }
     }
 
-    viewModel.updateBusList(startBusStop)
+    val isRefreshing = viewModel.loading.collectAsState()
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = isRefreshing.value,
+        onRefresh = {
+            viewModel.loading.value = true
+        })
+    val pullRefreshModifier = Modifier.pullRefresh(pullRefreshState)
+
+    LaunchedEffect(isRefreshing) {
+        if (isRefreshing.value) {
+            viewModel.loading.value = false
+            viewModel.updateBusList(startBusStop)
+        }
+    }
+
+    PokeBallIndicator(state = pullRefreshState, refreshing = isRefreshing.value)
 
     Column {
         Row(
@@ -81,7 +106,9 @@ fun ToSchool(
             Text(text = "${updatedTime.value}기준")
         }
         Divider(color = grayDivider)
-        LazyColumn {
+        LazyColumn(
+            modifier = pullRefreshModifier
+        ) {
             items(items = busList.value!!) { busArrivalInfo ->
                 Box(
                     modifier = Modifier.padding(
@@ -94,6 +121,44 @@ fun ToSchool(
                 }
                 Divider(color = grayDivider)
             }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+private fun PokeBallIndicator(
+    modifier: Modifier = Modifier,
+    state: PullRefreshState,
+    refreshing: Boolean
+) {
+    Box(
+        modifier = modifier
+            .pullRefreshIndicatorTransform(state, true)
+            .fillMaxWidth(),
+        contentAlignment = Alignment.Center,
+    ) {
+        if (refreshing) {
+            val transition = rememberInfiniteTransition()
+            val degree by transition.animateFloat(
+                initialValue = 0f, targetValue = 360f, animationSpec = infiniteRepeatable(
+                    animation = tween(
+                        durationMillis = 1000,
+                        easing = LinearEasing
+                    )
+                )
+            )
+            Icon(
+                modifier = Modifier.rotate(degree),
+                imageVector = Icons.Rounded.Refresh,
+                contentDescription = "refresh"
+            )
+        } else {
+            Icon(
+                modifier = Modifier.rotate(state.progress * 180),
+                imageVector = Icons.Rounded.Refresh,
+                contentDescription = "refresh"
+            )
         }
     }
 }
