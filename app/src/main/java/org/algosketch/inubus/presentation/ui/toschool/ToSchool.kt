@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
@@ -19,7 +18,6 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.pullRefreshIndicatorTransform
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,8 +27,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
@@ -57,20 +53,24 @@ fun ToSchool(
     val onFilterItemClicked = { filterItem: String ->
         viewModel.filter.value = filterItem
     }
-    val isRefreshing by viewModel.loading.collectAsState()
+    var isRefreshing by remember {
+        mutableStateOf(false)
+    }
 
     val pullRefreshState = rememberPullRefreshState(
         refreshing = isRefreshing,
         onRefresh = {
+            isRefreshing = true
             viewModel.updateBusList(startBusStop)
         })
     val pullRefreshModifier = Modifier.pullRefresh(pullRefreshState)
 
     LaunchedEffect(isRefreshing, filter) {
         viewModel.updateBusList(startBusStop)
+        isRefreshing = false
     }
 
-    PokeBallIndicator(state = pullRefreshState, refreshing = isRefreshing)
+    RefreshIndicator(state = pullRefreshState, refreshing = isRefreshing)
 
     Column {
         Row(
@@ -107,7 +107,7 @@ fun ToSchool(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun PokeBallIndicator(
+private fun RefreshIndicator(
     modifier: Modifier = Modifier,
     state: PullRefreshState,
     refreshing: Boolean
