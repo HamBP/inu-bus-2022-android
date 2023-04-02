@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter
 
 class ToSchoolViewModel : ViewModel() {
     val currentTime = MutableStateFlow("")
-    val busList = MutableLiveData<List<BusArrivalInfo>>(listOf())
+    val busList = MutableStateFlow<List<BusArrivalInfo>>(listOf())
     val eventFlow = MutableSharedFlow<Event>()
     val filter = MutableStateFlow("전체")
     val sort = MutableStateFlow("최신순")
@@ -55,6 +55,8 @@ class ToSchoolViewModel : ViewModel() {
             }.sortedList()
             refreshTime()
         }
+        println("호출")
+        loading.value = false
     }
 
     sealed class Event {

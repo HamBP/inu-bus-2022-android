@@ -51,33 +51,26 @@ fun ToSchool(
     startBusStop: String,
     toDetail: (String, String) -> Unit,
 ) {
-    val busList = remember { mutableStateOf(viewModel.busList.value) }
-    val updatedTime = viewModel.currentTime.collectAsState()
-    val filter = viewModel.filter.collectAsState()
+    val busList by viewModel.busList.collectAsState()
+    val updatedTime by viewModel.currentTime.collectAsState()
+    val filter by viewModel.filter.collectAsState()
     val onFilterItemClicked = { filterItem: String ->
         viewModel.filter.value = filterItem
     }
+    val isRefreshing by viewModel.loading.collectAsState()
 
-    viewModel.busList.observe(owner) {
-        busList.value = viewModel.busList.value ?: listOf()
-    }
-
-    val isRefreshing = viewModel.loading.collectAsState()
     val pullRefreshState = rememberPullRefreshState(
-        refreshing = isRefreshing.value,
+        refreshing = isRefreshing,
         onRefresh = {
-            viewModel.loading.value = true
+            viewModel.updateBusList(startBusStop)
         })
     val pullRefreshModifier = Modifier.pullRefresh(pullRefreshState)
 
-    LaunchedEffect(isRefreshing) {
-        if (isRefreshing.value) {
-            viewModel.loading.value = false
-            viewModel.updateBusList(startBusStop)
-        }
+    LaunchedEffect(isRefreshing, filter) {
+        viewModel.updateBusList(startBusStop)
     }
 
-    PokeBallIndicator(state = pullRefreshState, refreshing = isRefreshing.value)
+    PokeBallIndicator(state = pullRefreshState, refreshing = isRefreshing)
 
     Column {
         Row(
@@ -86,17 +79,17 @@ fun ToSchool(
                 .padding(top = 20.dp, bottom = 2.dp)
         ) {
             BusStopFilter(
-                filterText = filter.value,
+                filterText = filter,
                 onFilterItemClicked = onFilterItemClicked,
             )
             Spacer(modifier = Modifier.weight(1f, true))
-            Text(text = "${updatedTime.value}기준")
+            Text(text = "${updatedTime}기준")
         }
         Divider(color = grayDivider)
         LazyColumn(
-            modifier = pullRefreshModifier
+            modifier = pullRefreshModifier.fillMaxHeight()
         ) {
-            items(items = busList.value!!) { busArrivalInfo ->
+            items(items = busList) { busArrivalInfo ->
                 Box(
                     modifier = Modifier.padding(
                         start = 20.dp,
