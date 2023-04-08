@@ -138,7 +138,7 @@ private fun BusInfo(modifier: Modifier = Modifier,
                     color = colorF9,
                     modifier = Modifier
                         .padding(end = 6.dp)
-                        .width(64.dp),
+                        .width(68.dp),
                 )
             }
             Row {
