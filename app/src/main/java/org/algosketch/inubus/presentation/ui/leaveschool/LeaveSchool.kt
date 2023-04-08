@@ -52,7 +52,6 @@ fun LeaveSchool(viewModel: LeaveSchoolViewModel, startBusStop: String, toDetail:
         refreshing = isRefreshing,
         onRefresh = {
             isRefreshing = true
-            viewModel.updateBusList(startBusStop)
         })
     val pullRefreshModifier = Modifier.pullRefresh(pullRefreshState)
 
