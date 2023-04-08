@@ -142,7 +142,7 @@ private fun BusInfo(modifier: Modifier = Modifier,
                 )
             }
             Row {
-                Bus.getBusStopsByBusNumber(busArrivalInfo.busNumber).forEach { busStop ->
+                busArrivalInfo.stopStations.forEach { busStop ->
                     Chip(text = busStop)
                 }
             }

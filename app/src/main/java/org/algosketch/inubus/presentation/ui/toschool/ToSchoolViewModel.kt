@@ -47,10 +47,7 @@ class ToSchoolViewModel : ViewModel() {
 
         viewModelScope.launch(coroutineExceptionHandler) {
             busList.value = getBusArrivalsUseCase(where).filter { busInfo ->
-                (filter.value == "전체") ||
-                        (Bus.getBusStopsByBusNumber(busInfo.busNumber).find { busStop ->
-                    busStop == filter.value
-                } != null)
+                (filter.value == "전체") || busInfo.stopStations.contains (filter.value)
             }.sortedList()
             refreshTime()
         }

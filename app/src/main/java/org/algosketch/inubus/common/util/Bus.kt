@@ -44,12 +44,21 @@ object Bus {
         }
     }
 
-    fun getBusStopsByBusNumber(busNumber: String) : List<String> {
+    fun getBusStopsByBusNumber(busNumber: String, toSchool: Boolean = true) : List<String> {
+        if(toSchool) {
+            return when(busNumber) {
+                "8" -> listOf("정문", "자연대", "공과대")
+                "98" -> listOf("정문", "자연대", "공과대", "송도캠")
+                "16", "99" -> listOf("정문")
+                "41", "42", "43", "6", "6-1" -> listOf("자연대", "공과대")
+                else -> throw Exception("UNKNOWN BUS NUMBER")
+            }
+        }
+
         return when(busNumber) {
-            "8" -> listOf("정문", "자연대", "공과대")
-            "98" -> listOf("정문", "자연대", "공과대", "송도캠")
-            "16", "99" -> listOf("정문")
-            "41", "42", "43", "6", "6-1" -> listOf("자연대", "공과대")
+            "16", "8", "98", "42", "43" -> listOf("인천대입구")
+            "41", "6", "6-1" -> listOf("지식정보단지")
+            "99" -> listOf("인천대입구", "지식정보단지")
             else -> throw Exception("UNKNOWN BUS NUMBER")
         }
     }
