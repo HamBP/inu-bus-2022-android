@@ -18,7 +18,7 @@ class GetBusArrivalUseCase(private val infoRepository: BusArrivalInfoRepository)
 
         return busArrivals.find { busArrival ->
             busArrival.busNumber == busNumber
-        } ?: throw java.lang.RuntimeException("버스 정보 없음")
+        } ?: BusArrivalInfo()
     }
 
     private suspend fun fetchINU() : List<BusArrivalInfo> {
