@@ -3,14 +3,12 @@ package org.algosketch.inubus.presentation.ui.leaveschool
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
-import org.algosketch.inubus.domain.usecase.GetBusArrivalAssumptionUseCase
 import org.algosketch.inubus.domain.usecase.GetBusArrivalsUseCase
 import org.algosketch.inubus.global.TempDI
 import java.time.LocalDateTime
@@ -18,13 +16,13 @@ import java.time.format.DateTimeFormatter
 
 class LeaveSchoolViewModel : ViewModel() {
     val currentTime = MutableStateFlow("")
-    val busList = MutableLiveData<List<BusArrivalInfo>>(listOf())
+    val busList = MutableStateFlow<List<BusArrivalInfo>>(listOf())
     val eventFlow = MutableSharedFlow<Event>()
+    // todo : 하교용 필터 적용
     val filter = MutableStateFlow("전체")
     val sort = MutableStateFlow("최신순")
 
     private val getBusArrivalsUseCase: GetBusArrivalsUseCase = TempDI.getBusArrivalsUseCase
-    private val getBusArrivalAssumptionUseCase: GetBusArrivalAssumptionUseCase = TempDI.getBusArrivalAssumptionUseCase
 
     private fun refreshTime() {
         currentTime.value = getCurrentDateTime()
@@ -48,24 +46,13 @@ class LeaveSchoolViewModel : ViewModel() {
         }
 
         viewModelScope.launch(coroutineExceptionHandler) {
-//            busList.value = getBusArrivalsUseCase(where).filter { busInfo ->
-//                (filter.value == "전체") ||
-//                        (Bus.getBusStopsByBusNumber(busInfo.busNumber).find { busStop ->
-//                            busStop == filter.value
-//                        } != null)
-//            }.sortedList()
-
-            busList.value = listOf(getBusArrivalAssumptionUseCase("8"))
-            println("로그로그 ${busList.value}")
-
+            busList.value = getBusArrivalsUseCase(where).filter { busInfo ->
+                (filter.value == "전체") ||
+                        (Bus.getBusStopsByBusNumber(busInfo.busNumber).find { busStop ->
+                            busStop == filter.value
+                        } != null)
+            }.sortedList()
             refreshTime()
-        }
-    }
-
-    fun refresh(refreshLayout: SwipeRefreshLayout, where: String) {
-        viewModelScope.launch {
-            updateBusList(where)
-            refreshLayout.isRefreshing = false
         }
     }
 

@@ -9,9 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material3.Divider
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,29 +32,11 @@ import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
 fun LeaveSchool(viewModel: LeaveSchoolViewModel, owner: LifecycleOwner, startBusStop: String, toDetail: (String, String) -> Unit) {
-    val busList = remember { mutableStateOf(viewModel.busList.value) }
-    val updatedTime = remember {
-        mutableStateOf(viewModel.currentTime.value)
-    }
-    val filter = remember {
-        mutableStateOf(viewModel.filter.value)
-    }
+    val busList = viewModel.busList.collectAsState()
+    val updatedTime by viewModel.currentTime.collectAsState()
+    val filter by viewModel.filter.collectAsState()
     val onFilterItemClicked = { filterItem: String ->
         viewModel.filter.value = filterItem
-    }
-
-    viewModel.busList.observe(owner) {
-        busList.value = viewModel.busList.value ?: listOf()
-    }
-    owner.lifecycleScope.launchWhenCreated {
-        viewModel.currentTime.collectLatest {
-            updatedTime.value = it
-        }
-    }
-    owner.lifecycleScope.launchWhenCreated {
-        viewModel.filter.collectLatest {
-            filter.value = it
-        }
     }
 
     viewModel.updateBusList(startBusStop)
@@ -68,15 +48,15 @@ fun LeaveSchool(viewModel: LeaveSchoolViewModel, owner: LifecycleOwner, startBus
                 .padding(top = 20.dp, bottom = 2.dp)
         ) {
             BusStopFilter(
-                filterText = filter.value,
+                filterText = filter,
                 onFilterItemClicked = onFilterItemClicked,
             )
             Spacer(modifier = Modifier.weight(1f, true))
-            Text(text = "${updatedTime.value}기준")
+            Text(text = "${updatedTime}기준")
         }
         Divider(color = grayDivider)
         LazyColumn {
-            items(items = busList.value!!) { busArrivalInfo ->
+            items(items = busList.value) { busArrivalInfo ->
                 Box(
                     modifier = Modifier.padding(
                         start = 20.dp,
