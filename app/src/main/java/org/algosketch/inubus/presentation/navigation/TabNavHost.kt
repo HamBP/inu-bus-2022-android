@@ -20,8 +20,6 @@ import org.algosketch.inubus.presentation.ui.toschool.ToSchool
 @Composable
 fun TabNavHost(
     modifier: Modifier = Modifier,
-    mainNavController: NavHostController,
-    lifecycleOwner: LifecycleOwner,
     destinations: List<NavDestination>,
     isToSchool: Boolean,
     toDetail: (String, String) -> Unit,

@@ -15,8 +15,6 @@ import org.algosketch.inubus.presentation.navigation.*
 
 @Composable
 fun Home(
-    lifecycleOwner: LifecycleOwner,
-    mainNavController: NavHostController,
     toDetail: (String, String) -> Unit,
 ) {
     val bottomNavController = rememberNavController()
@@ -35,8 +33,6 @@ fun Home(
     ) { innerPadding ->
         BottomNavHost(
             bottomNavController = bottomNavController,
-            lifecycleOwner = lifecycleOwner,
-            mainNavController = mainNavController,
             modifier = Modifier.padding(innerPadding),
             toDetail = toDetail,
         )

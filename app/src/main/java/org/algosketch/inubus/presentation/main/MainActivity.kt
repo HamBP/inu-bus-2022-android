@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity() {
         NavHost(navController = navController, startDestination = "HOME") {
             composable(route = "HOME") {
                 Home(
-                    lifecycleOwner = this@MainActivity,
-                    mainNavController = navController,
                     toDetail = { busNumber: String, busStop: String -> navController.navigate("DETAIL/$busNumber/$busStop") }
                 )
             }

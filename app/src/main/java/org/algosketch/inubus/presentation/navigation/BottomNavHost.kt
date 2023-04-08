@@ -13,8 +13,6 @@ import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 @Composable
 fun BottomNavHost(
     bottomNavController: NavHostController,
-    lifecycleOwner: LifecycleOwner,
-    mainNavController: NavHostController,
     modifier: Modifier = Modifier,
     toDetail: (String, String) -> Unit,
 ) {
@@ -22,8 +20,6 @@ fun BottomNavHost(
     NavHost(navController = bottomNavController, startDestination = "등교", modifier = modifier) {
         composable(route = BottomNavDestination.GOING_TO_SCHOOL.route) {
             TabNavHost(
-                mainNavController = mainNavController,
-                lifecycleOwner = lifecycleOwner,
                 destinations = TabNavDestination.goingToSchool,
                 isToSchool = true,
                 toDetail = toDetail,
@@ -31,8 +27,6 @@ fun BottomNavHost(
         }
         composable(route = BottomNavDestination.LEAVING_SCHOOL.route) {
             TabNavHost(
-                mainNavController = mainNavController,
-                lifecycleOwner = lifecycleOwner,
                 destinations = TabNavDestination.leavingSchool,
                 isToSchool = false,
                 toDetail = toDetail,
