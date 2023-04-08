@@ -43,7 +43,6 @@ import org.algosketch.inubus.presentation.ui.theme.grayDivider
 @Composable
 fun ToSchool(
     viewModel: ToSchoolViewModel,
-    owner: LifecycleOwner,
     startBusStop: String,
     toDetail: (String, String) -> Unit,
 ) {

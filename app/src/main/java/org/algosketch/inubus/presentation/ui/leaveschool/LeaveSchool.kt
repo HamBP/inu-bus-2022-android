@@ -31,7 +31,7 @@ import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @Composable
-fun LeaveSchool(viewModel: LeaveSchoolViewModel, owner: LifecycleOwner, startBusStop: String, toDetail: (String, String) -> Unit) {
+fun LeaveSchool(viewModel: LeaveSchoolViewModel, startBusStop: String, toDetail: (String, String) -> Unit) {
     val busList = viewModel.busList.collectAsState()
     val updatedTime by viewModel.currentTime.collectAsState()
     val filter by viewModel.filter.collectAsState()

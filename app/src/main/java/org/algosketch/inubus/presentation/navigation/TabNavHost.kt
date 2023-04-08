@@ -59,14 +59,12 @@ fun TabNavHost(
                     if(isToSchool) {
                         ToSchool(
                             viewModel = toSchoolViewModels[index],
-                            owner = lifecycleOwner,
                             startBusStop = destination.route,
                             toDetail = toDetail,
                         )
                     } else {
                         LeaveSchool(
                             viewModel = leaveSchoolViewModels[index],
-                            owner = lifecycleOwner,
                             startBusStop = destination.route,
                             toDetail = toDetail
                         )
