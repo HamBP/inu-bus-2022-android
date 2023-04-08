@@ -20,6 +20,7 @@ import org.algosketch.inubus.presentation.ui.theme.grayD9
 @Composable
 fun BusStopFilter(
     filterText: String,
+    options: List<String>,
     onFilterItemClicked: (String) -> Unit,
 ) {
     val filterExpanded = remember {
@@ -46,8 +47,7 @@ fun BusStopFilter(
     DropdownMenu(
         expanded = filterExpanded.value,
         onDismissRequest = { onFilterExpansionChanged(false) }) {
-        val busStops = listOf("전체", "정문", "자연대", "공과대", "송도캠")
-        busStops.forEach { busStop ->
+        options.forEach { busStop ->
             DropdownMenuItem(onClick = {
                 onFilterItemClicked(busStop)
                 onFilterExpansionChanged(false)

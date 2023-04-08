@@ -49,6 +49,7 @@ fun LeaveSchool(viewModel: LeaveSchoolViewModel, startBusStop: String, toDetail:
         ) {
             BusStopFilter(
                 filterText = filter,
+                options = listOf("전체", "인천대입구", "지식정보단지"),
                 onFilterItemClicked = onFilterItemClicked,
             )
             Spacer(modifier = Modifier.weight(1f, true))

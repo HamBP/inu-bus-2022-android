@@ -79,6 +79,7 @@ fun ToSchool(
         ) {
             BusStopFilter(
                 filterText = filter,
+                options = listOf("전체", "정문", "자연대", "공과대", "송도캠"),
                 onFilterItemClicked = onFilterItemClicked,
             )
             Spacer(modifier = Modifier.weight(1f, true))
