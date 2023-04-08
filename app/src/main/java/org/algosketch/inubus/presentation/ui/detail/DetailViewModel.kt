@@ -11,25 +11,24 @@ import org.algosketch.inubus.global.TempDI
 
 class DetailViewModel : ViewModel() {
     private val getBusArrivalUseCase: GetBusArrivalUseCase = TempDI.getBusArrivalUseCase
-    private val getBusArrivalAssumptionUseCase: GetBusArrivalAssumptionUseCase = TempDI.getBusArrivalAssumptionUseCase
     val busArrivalInfo = MutableStateFlow(BusArrivalInfo())
 
     fun fetchData(busNumber: String, busStop: String) {
         when (busStop) {
             "인천대입구", "지식정보단지" -> fetchBusArrival(busNumber = busNumber, busStop = busStop)
-            else -> fetchBusArrivalToLeaveSchool(busNumber = busNumber)
+            else -> fetchBusArrivalToLeaveSchool(busNumber = busNumber, busStop = busStop)
         }
     }
 
-    fun fetchBusArrival(busNumber: String, busStop: String) {
+    private fun fetchBusArrival(busNumber: String, busStop: String) {
         viewModelScope.launch {
             busArrivalInfo.value = getBusArrivalUseCase(busNumber, busStop)
         }
     }
 
-    fun fetchBusArrivalToLeaveSchool(busNumber: String) {
+    private fun fetchBusArrivalToLeaveSchool(busNumber: String, busStop: String) {
         viewModelScope.launch {
-            busArrivalInfo.value = getBusArrivalAssumptionUseCase(busNumber = busNumber)
+            busArrivalInfo.value = getBusArrivalUseCase(busNumber, busStop)
         }
     }
 }
