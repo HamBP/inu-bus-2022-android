@@ -7,7 +7,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,11 +28,13 @@ import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.presentation.ui.common.BusStopFilter
 import org.algosketch.inubus.presentation.ui.common.Chip
+import org.algosketch.inubus.presentation.ui.common.RefreshIndicator
 import org.algosketch.inubus.presentation.ui.extension.color
 import org.algosketch.inubus.presentation.ui.extension.toRestTimeFormat
 import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun LeaveSchool(viewModel: LeaveSchoolViewModel, startBusStop: String, toDetail: (String, String) -> Unit) {
     val busList = viewModel.busList.collectAsState()
@@ -39,7 +44,24 @@ fun LeaveSchool(viewModel: LeaveSchoolViewModel, startBusStop: String, toDetail:
         viewModel.filter.value = filterItem
     }
 
-    viewModel.updateBusList(startBusStop)
+    var isRefreshing by remember {
+        mutableStateOf(false)
+    }
+
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = isRefreshing,
+        onRefresh = {
+            isRefreshing = true
+            viewModel.updateBusList(startBusStop)
+        })
+    val pullRefreshModifier = Modifier.pullRefresh(pullRefreshState)
+
+    LaunchedEffect(isRefreshing, filter) {
+        viewModel.updateBusList(startBusStop)
+        isRefreshing = false
+    }
+
+    RefreshIndicator(state = pullRefreshState, refreshing = isRefreshing)
 
     Column {
         Row(
@@ -56,7 +78,11 @@ fun LeaveSchool(viewModel: LeaveSchoolViewModel, startBusStop: String, toDetail:
             Text(text = "${updatedTime}기준")
         }
         Divider(color = grayDivider)
-        LazyColumn {
+        LazyColumn(
+            modifier = pullRefreshModifier
+                .fillMaxHeight()
+                .fillMaxWidth()
+        ) {
             items(items = busList.value) { busArrivalInfo ->
                 Box(
                     modifier = Modifier.padding(

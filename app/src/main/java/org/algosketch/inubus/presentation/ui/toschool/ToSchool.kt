@@ -9,30 +9,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Refresh
-import androidx.compose.material.pullrefresh.PullRefreshState
 import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material.pullrefresh.pullRefreshIndicatorTransform
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LifecycleOwner
-import kotlinx.coroutines.flow.collectLatest
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
-import org.algosketch.inubus.presentation.ui.common.BusStopFilter
-import org.algosketch.inubus.presentation.ui.common.Chip
+import org.algosketch.inubus.presentation.ui.common.*
 import org.algosketch.inubus.presentation.ui.extension.color
 import org.algosketch.inubus.presentation.ui.extension.toRestTimeFormat
 import org.algosketch.inubus.presentation.ui.theme.colorF9
@@ -87,7 +78,9 @@ fun ToSchool(
         }
         Divider(color = grayDivider)
         LazyColumn(
-            modifier = pullRefreshModifier.fillMaxHeight()
+            modifier = pullRefreshModifier
+                .fillMaxHeight()
+                .fillMaxWidth()
         ) {
             items(items = busList) { busArrivalInfo ->
                 Box(
@@ -101,44 +94,6 @@ fun ToSchool(
                 }
                 Divider(color = grayDivider)
             }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-private fun RefreshIndicator(
-    modifier: Modifier = Modifier,
-    state: PullRefreshState,
-    refreshing: Boolean
-) {
-    Box(
-        modifier = modifier
-            .pullRefreshIndicatorTransform(state, true)
-            .fillMaxWidth(),
-        contentAlignment = Alignment.Center,
-    ) {
-        if (refreshing) {
-            val transition = rememberInfiniteTransition()
-            val degree by transition.animateFloat(
-                initialValue = 0f, targetValue = 360f, animationSpec = infiniteRepeatable(
-                    animation = tween(
-                        durationMillis = 1000,
-                        easing = LinearEasing
-                    )
-                )
-            )
-            Icon(
-                modifier = Modifier.rotate(degree),
-                imageVector = Icons.Rounded.Refresh,
-                contentDescription = "refresh"
-            )
-        } else {
-            Icon(
-                modifier = Modifier.rotate(state.progress * 180),
-                imageVector = Icons.Rounded.Refresh,
-                contentDescription = "refresh"
-            )
         }
     }
 }
