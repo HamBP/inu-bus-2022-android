@@ -16,7 +16,7 @@
 
     <style name="Theme.InuRun.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/runner</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash</item>
         <item name="postSplashScreenTheme">@style/Theme.InuRun</item>
 
         <item name="android:statusBarColor">@color/white</item>
