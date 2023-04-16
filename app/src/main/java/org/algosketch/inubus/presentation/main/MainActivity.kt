@@ -15,9 +15,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import dagger.hilt.android.AndroidEntryPoint
 import org.algosketch.inubus.presentation.ui.detail.DetailScreen
 import org.algosketch.inubus.presentation.ui.home.Home
+import org.algosketch.inubus.presentation.ui.theme.BasicsCodelabTheme
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +29,13 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
 
         setContent {
-            Surface(
-                modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colorScheme.background
-            ) {
-                InuBusApp()
+            BasicsCodelabTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    InuBusApp()
+                }
             }
         }
     }

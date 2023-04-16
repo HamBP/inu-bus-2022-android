@@ -11,12 +11,11 @@
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InuRun.Splash"
-        android:usesCleartextTraffic="true">
-        <activity
-            android:name="org.algosketch.inubus.presentation.ui.error.ErrorActivity"
-            android:exported="false" />
+        android:usesCleartextTraffic="true"
+        android:name=".application.InuRunApplication">
         <activity
             android:name=".presentation.main.MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="true">
 
             <intent-filter>
