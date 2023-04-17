@@ -6,8 +6,11 @@ import org.algosketch.inubus.di.factory.RetrofitServiceFactory
 import org.algosketch.inubus.global.TempDI
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RemoteDataSource : DataSource, KoinComponent {
+@Singleton
+class RemoteDataSource @Inject constructor() : DataSource, KoinComponent {
     val service: BusArrivalService = RetrofitServiceFactory.create<BusArrivalService>()
 
     override suspend fun getArrivalBusTime(bstopId: String): BusArrivalResponse {

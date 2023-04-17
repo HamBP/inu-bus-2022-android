@@ -4,8 +4,11 @@ import org.algosketch.inubus.data.datasource.CachedDataSource
 import org.algosketch.inubus.data.datasource.RemoteDataSource
 import org.algosketch.inubus.data.model.BusArrivalResponse
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BusArrivalInfoRepositoryImpl(
+@Singleton
+class BusArrivalInfoRepositoryImpl @Inject constructor(
     private val cachedDataSource: CachedDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : BusArrivalInfoRepository {

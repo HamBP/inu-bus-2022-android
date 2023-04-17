@@ -2,15 +2,17 @@ package org.algosketch.inubus.presentation.ui.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
-import org.algosketch.inubus.domain.usecase.GetBusArrivalAssumptionUseCase
 import org.algosketch.inubus.domain.usecase.GetBusArrivalUseCase
-import org.algosketch.inubus.global.TempDI
+import javax.inject.Inject
 
-class DetailViewModel : ViewModel() {
-    private val getBusArrivalUseCase: GetBusArrivalUseCase = TempDI.getBusArrivalUseCase
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    private val getBusArrivalUseCase: GetBusArrivalUseCase
+) : ViewModel() {
     val busArrivalInfo = MutableStateFlow(BusArrivalInfo())
 
     fun fetchData(busNumber: String, busStop: String) {

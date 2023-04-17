@@ -10,7 +10,6 @@ object ViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(ToSchoolViewModel::class.java) -> ToSchoolViewModel() as T
-            modelClass.isAssignableFrom(DetailViewModel::class.java) -> DetailViewModel() as T
             modelClass.isAssignableFrom(LeaveSchoolViewModel::class.java) -> LeaveSchoolViewModel() as T
             else -> throw IllegalArgumentException()
         }

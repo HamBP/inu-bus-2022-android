@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
@@ -32,8 +33,8 @@ fun DetailScreen(
     busNumber: String,
     navController: NavController,
     busStop: String,
+    viewModel: DetailViewModel = hiltViewModel(),
 ) {
-    val viewModel = ViewModelFactory.create(DetailViewModel::class.java)
     viewModel.fetchData(busNumber, busStop)
 
     val toSchool = when (busStop) {

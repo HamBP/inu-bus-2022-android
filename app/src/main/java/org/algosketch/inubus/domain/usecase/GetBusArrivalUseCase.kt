@@ -5,8 +5,9 @@ import kotlinx.coroutines.withContext
 import org.algosketch.inubus.common.mapper.BusArrivalInfoMapper
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
+import javax.inject.Inject
 
-class GetBusArrivalUseCase(private val infoRepository: BusArrivalInfoRepository) {
+class GetBusArrivalUseCase @Inject constructor(private val infoRepository: BusArrivalInfoRepository) {
     suspend operator fun invoke(busNumber: String, busStop: String): BusArrivalInfo {
         val busArrivals = when(busStop) {
             "인천대입구" -> fetchINU()

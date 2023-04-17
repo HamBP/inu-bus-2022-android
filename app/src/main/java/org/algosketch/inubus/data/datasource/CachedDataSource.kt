@@ -3,8 +3,11 @@ package org.algosketch.inubus.data.datasource
 import android.util.Log
 import org.algosketch.inubus.data.model.BusArrivalResponse
 import java.time.LocalDateTime
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CachedDataSource : DataSource {
+@Singleton
+class CachedDataSource @Inject constructor() : DataSource {
     val expiredAt: MutableMap<String, LocalDateTime> = HashMap()
     private val cachedBusArrivalResponse: MutableMap<String, BusArrivalResponse> = HashMap()
 
