@@ -3,9 +3,7 @@ package org.algosketch.inubus.data.datasource
 import org.algosketch.inubus.data.model.BusArrivalResponse
 import org.algosketch.inubus.data.api.BusArrivalService
 import org.algosketch.inubus.di.factory.RetrofitServiceFactory
-import org.algosketch.inubus.global.TempDI
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import javax.inject.Inject
 import javax.inject.Singleton
 

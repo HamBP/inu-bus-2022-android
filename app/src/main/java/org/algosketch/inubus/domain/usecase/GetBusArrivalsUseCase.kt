@@ -6,7 +6,9 @@ import org.algosketch.inubus.common.mapper.BusArrivalInfoMapper
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GetBusArrivalsUseCase @Inject constructor(
     private val infoRepository: BusArrivalInfoRepository,
 ) {

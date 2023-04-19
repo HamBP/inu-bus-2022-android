@@ -9,9 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.algosketch.inubus.presentation.main.BusTabView
-import org.algosketch.inubus.presentation.main.ViewModelFactory
 import org.algosketch.inubus.presentation.ui.leaveschool.LeaveSchool
-import org.algosketch.inubus.presentation.ui.leaveschool.LeaveSchoolViewModel
 import org.algosketch.inubus.presentation.ui.toschool.ToSchool
 
 @Composable
@@ -27,14 +25,6 @@ fun TabNavHost(
     val currentTab =
         destinations.find { it.route == currentDestination?.route } ?: destinations.first()
 
-    val leaveSchoolViewModelFromGate: LeaveSchoolViewModel =
-        ViewModelFactory.create(LeaveSchoolViewModel::class.java)
-    val leaveSchoolViewModelFromCOE: LeaveSchoolViewModel =
-        ViewModelFactory.create(LeaveSchoolViewModel::class.java)
-    val leaveSchoolViewModels = listOf(leaveSchoolViewModelFromGate, leaveSchoolViewModelFromCOE)
-
-    if(!isToSchool) leaveSchoolViewModels.first().updateBusList(currentTab.route)
-
     Column {
         BusTabView(toSchoolScreens = destinations, onSelected = { MainDestination ->
             tabNavController.navigate(MainDestination.route)
@@ -42,7 +32,7 @@ fun TabNavHost(
         NavHost(
             navController = tabNavController, startDestination = destinations.first().route, modifier = modifier
         ) {
-            destinations.forEachIndexed { index, destination ->
+            destinations.forEach { destination ->
                 composable(route = destination.route) {
                     if(isToSchool) {
                         ToSchool(
@@ -51,7 +41,6 @@ fun TabNavHost(
                         )
                     } else {
                         LeaveSchool(
-                            viewModel = leaveSchoolViewModels[index],
                             startBusStop = destination.route,
                             toDetail = toDetail
                         )

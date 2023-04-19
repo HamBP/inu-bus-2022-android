@@ -19,10 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import kotlinx.coroutines.flow.collectLatest
+import androidx.hilt.navigation.compose.hiltViewModel
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
@@ -31,12 +28,15 @@ import org.algosketch.inubus.presentation.ui.common.Chip
 import org.algosketch.inubus.presentation.ui.common.RefreshIndicator
 import org.algosketch.inubus.presentation.ui.extension.color
 import org.algosketch.inubus.presentation.ui.extension.toRestTimeFormat
-import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.theme.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun LeaveSchool(viewModel: LeaveSchoolViewModel, startBusStop: String, toDetail: (String, String) -> Unit) {
+fun LeaveSchool(
+    viewModel: LeaveSchoolViewModel = hiltViewModel(),
+    startBusStop: String,
+    toDetail: (String, String) -> Unit
+) {
     val busList = viewModel.busList.collectAsState()
     val updatedTime by viewModel.currentTime.collectAsState()
     val filter by viewModel.filter.collectAsState()
@@ -99,9 +99,11 @@ fun LeaveSchool(viewModel: LeaveSchoolViewModel, startBusStop: String, toDetail:
 }
 
 @Composable
-private fun BusInfo(modifier: Modifier = Modifier,
-                    busArrivalInfo: BusArrivalInfo,
-                    toDetail: (String, String) -> Unit,) {
+private fun BusInfo(
+    modifier: Modifier = Modifier,
+    busArrivalInfo: BusArrivalInfo,
+    toDetail: (String, String) -> Unit,
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.clickable {

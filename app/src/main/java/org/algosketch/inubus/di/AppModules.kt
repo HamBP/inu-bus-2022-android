@@ -10,7 +10,6 @@ import org.algosketch.inubus.data.datasource.RemoteDataSource
 import org.algosketch.inubus.data.repository.BusArrivalInfoRepositoryImpl
 import org.algosketch.inubus.di.factory.RetrofitServiceFactory
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
-import org.algosketch.inubus.global.TempDI
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -1,28 +1,29 @@
 package org.algosketch.inubus.presentation.ui.leaveschool
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.usecase.GetBusArrivalsUseCase
-import org.algosketch.inubus.global.TempDI
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
-class LeaveSchoolViewModel : ViewModel() {
+@HiltViewModel
+class LeaveSchoolViewModel @Inject constructor(
+    private val getBusArrivalsUseCase: GetBusArrivalsUseCase,
+) : ViewModel() {
     val currentTime = MutableStateFlow("")
     val busList = MutableStateFlow<List<BusArrivalInfo>>(listOf())
     val eventFlow = MutableSharedFlow<Event>()
+
     // todo : 하교용 필터 적용
     val filter = MutableStateFlow("전체")
     val sort = MutableStateFlow("최신순")
-
-    private val getBusArrivalsUseCase: GetBusArrivalsUseCase = TempDI.getBusArrivalsUseCase
 
     private fun refreshTime() {
         currentTime.value = getCurrentDateTime()
@@ -47,7 +48,7 @@ class LeaveSchoolViewModel : ViewModel() {
 
         viewModelScope.launch(coroutineExceptionHandler) {
             busList.value = getBusArrivalsUseCase(where).filter { busInfo ->
-                (filter.value == "전체") || busInfo.stopStations.contains (filter.value)
+                (filter.value == "전체") || busInfo.stopStations.contains(filter.value)
             }.sortedList()
             refreshTime()
         }
