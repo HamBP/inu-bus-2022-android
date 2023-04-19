@@ -6,12 +6,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import kotlinx.coroutines.launch
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
@@ -42,6 +45,8 @@ fun DetailScreen(
     }
     val busStops = if(toSchool) BusStops.toSchool[busNumber] ?: listOf() else BusStops.toHome[busNumber] ?: listOf()
     val busArrival: BusArrivalInfo by viewModel.busArrivalInfo.collectAsState()
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
 
     Column {
         Box(
@@ -81,10 +86,17 @@ fun DetailScreen(
             }
         }
         Divider(color = grayDivider)
-        LazyColumn(modifier = Modifier.background(Color.White)) {
+        LazyColumn(modifier = Modifier.background(Color.White), state = listState) {
             items(items = busStops) { text ->
                 BusStop(text = text, text == busArrival.lastStop)
                 Divider(color = grayDivider)
+            }
+        }
+
+        // move scroll position
+        busStops.forEachIndexed { index, it ->
+            if(it == busArrival.lastStop) coroutineScope.launch {
+                listState.animateScrollToItem(index = index)
             }
         }
     }
