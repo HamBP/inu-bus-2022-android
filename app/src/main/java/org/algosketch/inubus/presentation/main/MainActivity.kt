@@ -17,7 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import org.algosketch.inubus.presentation.ui.detail.DetailScreen
-import org.algosketch.inubus.presentation.ui.home.Home
+import org.algosketch.inubus.presentation.ui.home.HomeScreen
 import org.algosketch.inubus.presentation.ui.theme.BasicsCodelabTheme
 
 @AndroidEntryPoint
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "HOME") {
             composable(route = "HOME") {
-                Home(
+                HomeScreen(
                     toDetail = { busNumber: String, busStop: String -> navController.navigate("DETAIL/$busNumber/$busStop") }
                 )
             }

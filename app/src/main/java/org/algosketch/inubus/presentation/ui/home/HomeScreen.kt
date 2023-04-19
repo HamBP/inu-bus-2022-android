@@ -5,16 +5,13 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.presentation.main.BusBottomNavigation
 import org.algosketch.inubus.presentation.navigation.*
 
 @Composable
-fun Home(
+fun HomeScreen(
     toDetail: (String, String) -> Unit,
 ) {
     val bottomNavController = rememberNavController()
