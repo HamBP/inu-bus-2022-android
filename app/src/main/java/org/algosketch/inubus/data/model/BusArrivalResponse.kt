@@ -13,12 +13,19 @@ data class BusArrivalResponse(
     @Element val msgBody: MsgBody?
 ) {
     fun toBusArrivals(): List<BusArrivalInfo> {
-        return msgBody!!.itemList!!.map {
+        val itemList = msgBody?.itemList ?: return arrayListOf()
+
+        return itemList
+            .filter { Bus.getRouteIdsByBusStop(itemList[0].BSTOPID).contains(it.ROUTEID) }
+            .map {
+            val busNumber = Bus.busNumbers[it.ROUTEID] ?: "?"
             BusArrivalInfo(
-                busNumber = Bus.busNumbers[it.ROUTEID] ?: "?",
-                busColor = "blue",
+                busNumber = busNumber,
+                busColor = Bus.getBusColorByBusNumber(busNumber),
                 restTime = it.ARRIVALESTIMATETIME,
                 lastStop = it.LATEST_STOP_NAME,
+                where = Bus.getBusStopName(it.BSTOPID),
+                exit = Bus.getExit(it.BSTOPID),
             )
         }
     }

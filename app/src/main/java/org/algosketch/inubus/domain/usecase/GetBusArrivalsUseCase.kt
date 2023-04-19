@@ -2,7 +2,6 @@ package org.algosketch.inubus.domain.usecase
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.algosketch.inubus.common.mapper.BusArrivalInfoMapper
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 import javax.inject.Inject
@@ -52,8 +51,7 @@ class GetBusArrivalsUseCase @Inject constructor(
 
     private suspend fun request(bstop: String): List<BusArrivalInfo> {
         return withContext(Dispatchers.IO) {
-            BusArrivalInfoMapper.toBusArrival(infoRepository.getBusArrival(bstop))
+            infoRepository.getBusArrival(bstop).toBusArrivals()
         }
     }
-
 }
