@@ -8,8 +8,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RemoteDataSource @Inject constructor() : DataSource, KoinComponent {
-    val service: BusArrivalService = RetrofitServiceFactory.create<BusArrivalService>()
+class RemoteDataSource @Inject constructor(
+    private val service: BusArrivalService
+) : DataSource, KoinComponent {
 
     override suspend fun getArrivalBusTime(bstopId: String): BusArrivalResponse {
         val result = service.getBusArrivalTime(bstopId = bstopId)
