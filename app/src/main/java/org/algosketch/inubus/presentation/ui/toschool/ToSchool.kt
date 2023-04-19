@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
@@ -33,7 +34,7 @@ import org.algosketch.inubus.presentation.ui.theme.grayDivider
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ToSchool(
-    viewModel: ToSchoolViewModel,
+    viewModel: ToSchoolViewModel = hiltViewModel(),
     startBusStop: String,
     toDetail: (String, String) -> Unit,
 ) {

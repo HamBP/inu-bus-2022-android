@@ -2,13 +2,10 @@ package org.algosketch.inubus.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.algosketch.inubus.R
-import org.algosketch.inubus.presentation.main.ViewModelFactory
-import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 
 @Composable
 fun BottomNavHost(

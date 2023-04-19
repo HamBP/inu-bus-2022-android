@@ -4,15 +4,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.algosketch.inubus.presentation.main.BusTabView
 import org.algosketch.inubus.presentation.main.ViewModelFactory
-import org.algosketch.inubus.presentation.ui.toschool.ToSchoolViewModel
 import org.algosketch.inubus.presentation.ui.leaveschool.LeaveSchool
 import org.algosketch.inubus.presentation.ui.leaveschool.LeaveSchoolViewModel
 import org.algosketch.inubus.presentation.ui.toschool.ToSchool
@@ -30,20 +27,13 @@ fun TabNavHost(
     val currentTab =
         destinations.find { it.route == currentDestination?.route } ?: destinations.first()
 
-    val toSchoolViewModelFromInu: ToSchoolViewModel =
-        ViewModelFactory.create(ToSchoolViewModel::class.java)
-    val toSchoolViewModelFromBit: ToSchoolViewModel =
-        ViewModelFactory.create(ToSchoolViewModel::class.java)
-    val toSchoolViewModels = listOf(toSchoolViewModelFromInu, toSchoolViewModelFromBit)
-
     val leaveSchoolViewModelFromGate: LeaveSchoolViewModel =
         ViewModelFactory.create(LeaveSchoolViewModel::class.java)
     val leaveSchoolViewModelFromCOE: LeaveSchoolViewModel =
         ViewModelFactory.create(LeaveSchoolViewModel::class.java)
     val leaveSchoolViewModels = listOf(leaveSchoolViewModelFromGate, leaveSchoolViewModelFromCOE)
 
-    if(isToSchool) toSchoolViewModels.first().updateBusList(currentTab.route)
-    else leaveSchoolViewModels.first().updateBusList(currentTab.route)
+    if(!isToSchool) leaveSchoolViewModels.first().updateBusList(currentTab.route)
 
     Column {
         BusTabView(toSchoolScreens = destinations, onSelected = { MainDestination ->
@@ -56,7 +46,6 @@ fun TabNavHost(
                 composable(route = destination.route) {
                     if(isToSchool) {
                         ToSchool(
-                            viewModel = toSchoolViewModels[index],
                             startBusStop = destination.route,
                             toDetail = toDetail,
                         )
