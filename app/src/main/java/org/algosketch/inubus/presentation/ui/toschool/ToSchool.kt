@@ -47,6 +47,7 @@ fun ToSchool(
     var isRefreshing by remember {
         mutableStateOf(false)
     }
+    val state by viewModel.state.collectAsState()
 
     val pullRefreshState = rememberPullRefreshState(
         refreshing = isRefreshing,
@@ -61,6 +62,21 @@ fun ToSchool(
     }
 
     RefreshIndicator(state = pullRefreshState, refreshing = isRefreshing)
+    when(state) {
+        is ToSchoolViewModel.State.Success -> BusList(
+            state = state as ToSchoolViewModel.State.Success,
+            onFilterItemClicked = onFilterItemClicked,
+            pullRefreshModifier = pullRefreshModifier,
+            toDetail = toDetail,
+        )
+        is ToSchoolViewModel.State.Loading -> Box {}
+        is ToSchoolViewModel.State.Empty -> EmptyBusList("현재 운행중인 버스 정보가 없습니다")
+        else -> EmptyBusList(message = "데이터를 불러올 수 없습니다")
+    }
+}
+
+@Composable
+private fun BusList(state: ToSchoolViewModel.State.Success, onFilterItemClicked: (String) -> Unit, pullRefreshModifier: Modifier, toDetail: (String, String) -> Unit) {
 
     Column {
         Row(
@@ -69,12 +85,12 @@ fun ToSchool(
                 .padding(top = 20.dp, bottom = 2.dp)
         ) {
             BusStopFilter(
-                filterText = filter,
+                filterText = state.filter,
                 options = listOf("전체", "정문", "자연대", "공과대", "송도캠"),
                 onFilterItemClicked = onFilterItemClicked,
             )
             Spacer(modifier = Modifier.weight(1f, true))
-            Text(text = "${updatedTime}기준")
+            Text(text = "${state.time}기준")
         }
         Divider(color = grayDivider)
         LazyColumn(
@@ -82,7 +98,7 @@ fun ToSchool(
                 .fillMaxHeight()
                 .fillMaxWidth()
         ) {
-            items(items = busList) { busArrivalInfo ->
+            items(items = state.list) { busArrivalInfo ->
                 Box(
                     modifier = Modifier.padding(
                         start = 20.dp,
@@ -94,6 +110,27 @@ fun ToSchool(
                 }
                 Divider(color = grayDivider)
             }
+        }
+    }
+}
+
+@Composable
+private fun EmptyBusList(message: String) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(),
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(painter = painterResource(id = R.drawable.runner), contentDescription = "알림",
+                Modifier
+                    .width(71.dp)
+                    .height(109.dp)
+                    .padding(bottom = 32.dp))
+            Text(message)
         }
     }
 }

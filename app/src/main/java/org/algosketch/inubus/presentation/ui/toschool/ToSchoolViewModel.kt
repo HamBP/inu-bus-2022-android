@@ -17,15 +17,22 @@ import javax.inject.Inject
 class ToSchoolViewModel @Inject constructor(
     private val getBusArrivalsUseCase: GetBusArrivalsUseCase
 ) : ViewModel() {
+    sealed class State {
+        object Empty : State()
+        object Loading : State()
+        data class Success(
+            val time: String,
+            val list: List<BusArrivalInfo>,
+            val filter: String,
+        ) : State()
+        data class Error(val message: String) : State()
+    }
+
     val currentTime = MutableStateFlow("")
     val busList = MutableStateFlow<List<BusArrivalInfo>>(listOf())
-    val eventFlow = MutableSharedFlow<Event>()
     val filter = MutableStateFlow("전체")
     val sort = MutableStateFlow("최신순")
-
-    private fun refreshTime() {
-        currentTime.value = getCurrentDateTime()
-    }
+    val state: MutableStateFlow<State> = MutableStateFlow(State.Loading)
 
     private fun getCurrentDateTime(): String {
         val dateTime = LocalDateTime.now()
@@ -35,10 +42,11 @@ class ToSchoolViewModel @Inject constructor(
     }
 
     fun updateBusList(where: String) { // 1 : 인천대입구, 2 : 지식정보단지, 3 : 정문, 4 : 공과대
+        state.value = State.Loading
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
 
             viewModelScope.launch {
-                eventFlow.emit(Event.Timeout)
+                state.value = State.Error("Network Error!")
             }
 
             throwable.printStackTrace()
@@ -48,12 +56,15 @@ class ToSchoolViewModel @Inject constructor(
             busList.value = getBusArrivalsUseCase(where).filter { busInfo ->
                 (filter.value == "전체") || busInfo.stopStations.contains (filter.value)
             }.sortedList()
-            refreshTime()
-        }
-    }
+            currentTime.value = getCurrentDateTime()
 
-    sealed class Event {
-        object Timeout : Event()
+            state.value = if(busList.value.isEmpty()) State.Empty
+            else State.Success(
+                time = currentTime.value,
+                list = busList.value,
+                filter = filter.value,
+            )
+        }
     }
 
     private fun List<BusArrivalInfo>.sortedList(): List<BusArrivalInfo> {
