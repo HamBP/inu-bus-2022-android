@@ -4,9 +4,8 @@ import android.util.Log
 import org.algosketch.inubus.data.model.BusArrivalResponse
 import org.algosketch.inubus.data.model.ItemList
 import org.algosketch.inubus.data.model.MsgBody
-import org.koin.core.component.KoinComponent
 
-class DummyDataSource : DataSource, KoinComponent {
+class DummyDataSource : DataSource {
     private val dummyData = hashMapOf(
         "164000396" to BusArrivalResponse(
             msgBody = MsgBody(
