@@ -7,8 +7,7 @@ import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class BusArrivalInfoRepositoryImpl @Inject constructor(
+class BusArrivalInfoRepositoryImpl constructor(
     private val cachedDataSource: CachedDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : BusArrivalInfoRepository {
