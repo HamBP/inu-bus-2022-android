@@ -7,6 +7,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Refresh
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.PullRefreshState
 import androidx.compose.material.pullrefresh.pullRefreshIndicatorTransform
 import androidx.compose.runtime.Composable
@@ -28,27 +29,6 @@ fun RefreshIndicator(
             .fillMaxWidth(),
         contentAlignment = Alignment.Center,
     ) {
-        if (refreshing) {
-            val transition = rememberInfiniteTransition()
-            val degree by transition.animateFloat(
-                initialValue = 0f, targetValue = 360f, animationSpec = infiniteRepeatable(
-                    animation = tween(
-                        durationMillis = 1000,
-                        easing = LinearEasing
-                    )
-                )
-            )
-            Icon(
-                modifier = Modifier.rotate(degree),
-                imageVector = Icons.Rounded.Refresh,
-                contentDescription = "refresh"
-            )
-        } else {
-            Icon(
-                modifier = Modifier.rotate(state.progress * 180),
-                imageVector = Icons.Rounded.Refresh,
-                contentDescription = "refresh"
-            )
-        }
+        PullRefreshIndicator(refreshing = refreshing, state = state)
     }
 }

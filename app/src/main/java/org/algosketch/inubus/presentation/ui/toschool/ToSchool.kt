@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
@@ -38,45 +39,48 @@ fun ToSchool(
     startBusStop: String,
     toDetail: (String, String) -> Unit,
 ) {
-    val busList by viewModel.busList.collectAsState()
-    val updatedTime by viewModel.currentTime.collectAsState()
-    val filter by viewModel.filter.collectAsState()
     val onFilterItemClicked = { filterItem: String ->
         viewModel.filter.value = filterItem
     }
-    var isRefreshing by remember {
-        mutableStateOf(false)
-    }
     val state by viewModel.state.collectAsState()
 
-    val pullRefreshState = rememberPullRefreshState(
-        refreshing = isRefreshing,
-        onRefresh = {
-            isRefreshing = true
-        })
-    val pullRefreshModifier = Modifier.pullRefresh(pullRefreshState)
-
-    LaunchedEffect(isRefreshing, filter) {
+    LaunchedEffect(key1 = Unit) {
         viewModel.updateBusList(startBusStop)
-        isRefreshing = false
+
+        viewModel.eventsFlow.collectLatest {
+            when(it) {
+                is ToSchoolViewModel.Event.Refresh -> {
+                    viewModel.updateBusList(startBusStop)
+                }
+                else -> {}
+            }
+        }
     }
 
-    RefreshIndicator(state = pullRefreshState, refreshing = isRefreshing)
-    when(state) {
-        is ToSchoolViewModel.State.Success -> BusList(
-            state = state as ToSchoolViewModel.State.Success,
-            onFilterItemClicked = onFilterItemClicked,
-            pullRefreshModifier = pullRefreshModifier,
-            toDetail = toDetail,
-        )
-        is ToSchoolViewModel.State.Loading -> Box {}
-        is ToSchoolViewModel.State.Empty -> EmptyBusList("현재 운행중인 버스 정보가 없습니다")
-        else -> EmptyBusList(message = "데이터를 불러올 수 없습니다")
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = state is ToSchoolViewModel.State.Loading,
+        onRefresh = {
+            viewModel.sendEvent(ToSchoolViewModel.Event.Refresh)
+        })
+
+    Box(modifier = Modifier.pullRefresh(pullRefreshState)
+    ) {
+        RefreshIndicator(state = pullRefreshState, refreshing = state is ToSchoolViewModel.State.Loading)
+        when(state) {
+            is ToSchoolViewModel.State.Success -> BusList(
+                state = state as ToSchoolViewModel.State.Success,
+                onFilterItemClicked = onFilterItemClicked,
+                toDetail = toDetail,
+            )
+            is ToSchoolViewModel.State.Loading -> Box {}
+            is ToSchoolViewModel.State.Empty -> EmptyBusList("현재 운행중인 버스 정보가 없습니다")
+            else -> EmptyBusList(message = "데이터를 불러올 수 없습니다")
+        }
     }
 }
 
 @Composable
-private fun BusList(state: ToSchoolViewModel.State.Success, onFilterItemClicked: (String) -> Unit, pullRefreshModifier: Modifier, toDetail: (String, String) -> Unit) {
+private fun BusList(state: ToSchoolViewModel.State.Success, onFilterItemClicked: (String) -> Unit, toDetail: (String, String) -> Unit) {
 
     Column {
         Row(
@@ -93,11 +97,7 @@ private fun BusList(state: ToSchoolViewModel.State.Success, onFilterItemClicked:
             Text(text = "${state.time}기준")
         }
         Divider(color = grayDivider)
-        LazyColumn(
-            modifier = pullRefreshModifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-        ) {
+        LazyColumn {
             items(items = state.list) { busArrivalInfo ->
                 Box(
                     modifier = Modifier.padding(
