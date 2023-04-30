@@ -40,7 +40,7 @@ fun ToSchool(
     toDetail: (String, String) -> Unit,
 ) {
     val onFilterItemClicked = { filterItem: String ->
-        viewModel.filter.value = filterItem
+        viewModel.updateFilter(filterItem)
     }
     val state by viewModel.state.collectAsState()
 

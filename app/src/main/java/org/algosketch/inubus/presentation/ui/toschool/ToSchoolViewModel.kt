@@ -24,9 +24,9 @@ class ToSchoolViewModel @Inject constructor(
         object Empty : State()
         object Loading : State()
         data class Success(
-            val time: String,
-            val list: List<BusArrivalInfo>,
-            val filter: String,
+            val time: String = "-",
+            val list: List<BusArrivalInfo> = listOf(),
+            val filter: String = "전체",
             val sort: String = "최신순"
         ) : State()
         data class Error(val message: String) : State()
@@ -36,7 +36,7 @@ class ToSchoolViewModel @Inject constructor(
         object Refresh : Event()
     }
 
-    val filter = MutableStateFlow("전체")
+    private var _storedState: State.Success = State.Success()
     private val _state: MutableStateFlow<State> = MutableStateFlow(State.Loading)
     val state = _state.asStateFlow()
 
@@ -69,7 +69,7 @@ class ToSchoolViewModel @Inject constructor(
 
         viewModelScope.launch(coroutineExceptionHandler) {
             val busList = getBusArrivalsUseCase(where).filter { busInfo ->
-                (filter.value == "전체") || busInfo.stopStations.contains (filter.value)
+                (_storedState.filter == "전체") || busInfo.stopStations.contains (_storedState.filter)
             }.sortedList()
 
             // FIXME : loading 값이 false(원래 값) -> true(새로고침) -> false(결과) 가 너무 빠르게 발생하면 true일 때 리컴포지션이 동작하지 않는 버그가 있습니다.
@@ -78,12 +78,21 @@ class ToSchoolViewModel @Inject constructor(
             delay(100)
 
             _state.value = if(busList.isEmpty()) State.Empty
-            else State.Success(
-                time = getCurrentDateTime(),
-                list = busList,
-                filter = filter.value,
-            )
+            else {
+                _storedState = _storedState.copy(
+                    time = getCurrentDateTime(),
+                    list = busList,
+                )
+                _storedState
+            }
         }
+    }
+
+    fun updateFilter(filter: String) {
+        _storedState = _storedState.copy(filter = filter)
+        _state.value = _storedState.copy(list = _storedState.list.filter { busInfo ->
+            (_storedState.filter == "전체") || busInfo.stopStations.contains (_storedState.filter)
+        })
     }
 
     private fun List<BusArrivalInfo>.sortedList(): List<BusArrivalInfo> {
