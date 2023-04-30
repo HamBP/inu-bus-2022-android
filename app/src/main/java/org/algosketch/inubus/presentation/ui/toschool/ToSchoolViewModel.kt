@@ -33,8 +33,6 @@ class ToSchoolViewModel @Inject constructor(
         object Refresh : Event()
     }
 
-    val currentTime = MutableStateFlow("")
-    val busList = MutableStateFlow<List<BusArrivalInfo>>(listOf())
     val filter = MutableStateFlow("전체")
     val sort = MutableStateFlow("최신순")
     val state: MutableStateFlow<State> = MutableStateFlow(State.Loading)
@@ -65,20 +63,19 @@ class ToSchoolViewModel @Inject constructor(
         }
 
         viewModelScope.launch(coroutineExceptionHandler) {
-            busList.value = getBusArrivalsUseCase(where).filter { busInfo ->
+            val busList = getBusArrivalsUseCase(where).filter { busInfo ->
                 (filter.value == "전체") || busInfo.stopStations.contains (filter.value)
             }.sortedList()
-            currentTime.value = getCurrentDateTime()
 
             // FIXME : loading 값이 false(원래 값) -> true(새로고침) -> false(결과) 가 너무 빠르게 발생하면 true일 때 리컴포지션이 동작하지 않는 버그가 있습니다.
             // FIXME : true가 생략되면 PullRefreshState.kt 80라인 state.setRefreshing(refreshing) 코드가 호출되지 않으면서 refresh 아이콘 잔상이 생깁니다.
             // FIXME : 이 현상을 해결하기 위해 임의로 delay를 주었으나 올바른 해결 방법이 아닙니다.
             delay(100)
 
-            state.value = if(busList.value.isEmpty()) State.Empty
+            state.value = if(busList.isEmpty()) State.Empty
             else State.Success(
-                time = currentTime.value,
-                list = busList.value,
+                time = getCurrentDateTime(),
+                list = busList,
                 filter = filter.value,
             )
         }
