@@ -7,6 +7,8 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.usecase.GetBusArrivalsUseCase
@@ -25,6 +27,7 @@ class ToSchoolViewModel @Inject constructor(
             val time: String,
             val list: List<BusArrivalInfo>,
             val filter: String,
+            val sort: String = "최신순"
         ) : State()
         data class Error(val message: String) : State()
     }
@@ -34,13 +37,15 @@ class ToSchoolViewModel @Inject constructor(
     }
 
     val filter = MutableStateFlow("전체")
-    val sort = MutableStateFlow("최신순")
-    val state: MutableStateFlow<State> = MutableStateFlow(State.Loading)
-    val eventsFlow = MutableSharedFlow<Event>()
+    private val _state: MutableStateFlow<State> = MutableStateFlow(State.Loading)
+    val state = _state.asStateFlow()
+
+    private val _eventsFlow = MutableSharedFlow<Event>()
+    val eventsFlow = _eventsFlow.asSharedFlow()
 
     fun sendEvent(event: Event) {
         viewModelScope.launch {
-            eventsFlow.emit(event)
+            _eventsFlow.emit(event)
         }
     }
 
@@ -52,11 +57,11 @@ class ToSchoolViewModel @Inject constructor(
     }
 
     fun updateBusList(where: String) { // 1 : 인천대입구, 2 : 지식정보단지, 3 : 정문, 4 : 공과대
-        state.value = State.Loading
+        _state.value = State.Loading
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
 
             viewModelScope.launch {
-                state.value = State.Error("Network Error!")
+                _state.value = State.Error("Network Error!")
             }
 
             throwable.printStackTrace()
@@ -72,7 +77,7 @@ class ToSchoolViewModel @Inject constructor(
             // FIXME : 이 현상을 해결하기 위해 임의로 delay를 주었으나 올바른 해결 방법이 아닙니다.
             delay(100)
 
-            state.value = if(busList.isEmpty()) State.Empty
+            _state.value = if(busList.isEmpty()) State.Empty
             else State.Success(
                 time = getCurrentDateTime(),
                 list = busList,
