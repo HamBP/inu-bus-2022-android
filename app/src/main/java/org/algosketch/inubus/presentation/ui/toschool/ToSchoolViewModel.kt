@@ -10,10 +10,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.algosketch.inubus.common.util.Time
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.usecase.GetBusArrivalsUseCase
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,13 +48,6 @@ class ToSchoolViewModel @Inject constructor(
         }
     }
 
-    private fun getCurrentDateTime(): String {
-        val dateTime = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("HH:mm")
-
-        return dateTime.format(formatter)
-    }
-
     fun updateBusList(where: String) { // 1 : 인천대입구, 2 : 지식정보단지, 3 : 정문, 4 : 공과대
         _state.value = State.Loading
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -80,7 +72,7 @@ class ToSchoolViewModel @Inject constructor(
             _state.value = if(busList.isEmpty()) State.Empty
             else {
                 _storedState = _storedState.copy(
-                    time = getCurrentDateTime(),
+                    time = Time.currentTime,
                     list = busList,
                 )
                 _storedState
