@@ -51,7 +51,7 @@ class ToSchoolViewModel @Inject constructor(
         return dateTime.format(formatter)
     }
 
-    suspend fun updateBusList(where: String) { // 1 : 인천대입구, 2 : 지식정보단지, 3 : 정문, 4 : 공과대
+    fun updateBusList(where: String) { // 1 : 인천대입구, 2 : 지식정보단지, 3 : 정문, 4 : 공과대
         state.value = State.Loading
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
 
