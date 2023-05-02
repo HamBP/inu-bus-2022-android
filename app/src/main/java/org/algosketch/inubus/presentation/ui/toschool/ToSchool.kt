@@ -115,27 +115,6 @@ private fun BusList(state: ToSchoolViewModel.State.Success, onFilterItemClicked:
 }
 
 @Composable
-private fun EmptyBusList(message: String) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(),
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(painter = painterResource(id = R.drawable.runner), contentDescription = "알림",
-                Modifier
-                    .width(71.dp)
-                    .height(109.dp)
-                    .padding(bottom = 32.dp))
-            Text(message)
-        }
-    }
-}
-
-@Composable
 private fun BusInfo(
     modifier: Modifier = Modifier,
     busArrivalInfo: BusArrivalInfo,
