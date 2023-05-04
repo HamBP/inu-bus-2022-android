@@ -63,8 +63,7 @@ fun ToSchool(
             viewModel.sendEvent(ToSchoolViewModel.Event.Refresh)
         })
 
-    Box(modifier = Modifier.pullRefresh(pullRefreshState)
-    ) {
+    Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
         RefreshIndicator(state = pullRefreshState, refreshing = state is ToSchoolViewModel.State.Loading)
         when(state) {
             is ToSchoolViewModel.State.Success -> BusList(
@@ -97,7 +96,7 @@ private fun BusList(state: ToSchoolViewModel.State.Success, onFilterItemClicked:
             Text(text = "${state.time}기준")
         }
         Divider(color = grayDivider)
-        LazyColumn {
+        LazyColumn(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
             items(items = state.list) { busArrivalInfo ->
                 Box(
                     modifier = Modifier.padding(

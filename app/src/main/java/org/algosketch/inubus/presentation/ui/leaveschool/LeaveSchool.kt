@@ -20,11 +20,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import org.algosketch.inubus.R
 import org.algosketch.inubus.common.util.Bus
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.presentation.ui.common.BusStopFilter
 import org.algosketch.inubus.presentation.ui.common.Chip
+import org.algosketch.inubus.presentation.ui.common.EmptyBusList
 import org.algosketch.inubus.presentation.ui.common.RefreshIndicator
 import org.algosketch.inubus.presentation.ui.extension.color
 import org.algosketch.inubus.presentation.ui.extension.toRestTimeFormat
@@ -37,30 +39,49 @@ fun LeaveSchool(
     startBusStop: String,
     toDetail: (String, String) -> Unit
 ) {
-    val busList = viewModel.busList.collectAsState()
-    val updatedTime by viewModel.currentTime.collectAsState()
-    val filter by viewModel.filter.collectAsState()
     val onFilterItemClicked = { filterItem: String ->
-        viewModel.filter.value = filterItem
+        viewModel.updateFilter(filterItem)
     }
+    val state by viewModel.state.collectAsState()
 
-    var isRefreshing by remember {
-        mutableStateOf(false)
+    LaunchedEffect(key1 = Unit) {
+        viewModel.updateBusList(startBusStop)
+
+        viewModel.eventsFlow.collectLatest {
+            when(it) {
+                is LeaveSchoolViewModel.Event.Refresh -> {
+                    viewModel.updateBusList(startBusStop)
+                }
+                else -> {}
+            }
+        }
     }
 
     val pullRefreshState = rememberPullRefreshState(
-        refreshing = isRefreshing,
+        refreshing = state is LeaveSchoolViewModel.State.Loading,
         onRefresh = {
-            isRefreshing = true
-        })
-    val pullRefreshModifier = Modifier.pullRefresh(pullRefreshState)
+            viewModel.sendEvent(LeaveSchoolViewModel.Event.Refresh)
+        }
+    )
 
-    LaunchedEffect(isRefreshing, filter) {
-        viewModel.updateBusList(startBusStop)
-        isRefreshing = false
+    Box(modifier = Modifier.pullRefresh(pullRefreshState)
+    ) {
+        RefreshIndicator(state = pullRefreshState, refreshing = state is LeaveSchoolViewModel.State.Loading)
+        when(state) {
+            is LeaveSchoolViewModel.State.Success -> BusList(
+                state = state as LeaveSchoolViewModel.State.Success,
+                onFilterItemClicked = onFilterItemClicked,
+                toDetail = toDetail,
+            )
+            is LeaveSchoolViewModel.State.Loading -> Box {}
+            is LeaveSchoolViewModel.State.Empty -> EmptyBusList("현재 운행중인 버스 정보가 없습니다")
+            else -> EmptyBusList(message = "데이터를 불러올 수 없습니다")
+        }
     }
+}
 
-    RefreshIndicator(state = pullRefreshState, refreshing = isRefreshing)
+@Composable
+private fun BusList(state: LeaveSchoolViewModel.State.Success, onFilterItemClicked: (String) -> Unit, toDetail: (String, String) -> Unit) {
 
     Column {
         Row(
@@ -69,20 +90,16 @@ fun LeaveSchool(
                 .padding(top = 20.dp, bottom = 2.dp)
         ) {
             BusStopFilter(
-                filterText = filter,
-                options = listOf("전체", "인천대입구", "지식정보단지"),
+                filterText = state.filter,
+                options = listOf("전체", "정문", "자연대", "공과대", "송도캠"),
                 onFilterItemClicked = onFilterItemClicked,
             )
             Spacer(modifier = Modifier.weight(1f, true))
-            Text(text = "${updatedTime}기준")
+            Text(text = "${state.time}기준")
         }
         Divider(color = grayDivider)
-        LazyColumn(
-            modifier = pullRefreshModifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-        ) {
-            items(items = busList.value) { busArrivalInfo ->
+        LazyColumn(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
+            items(items = state.list) { busArrivalInfo ->
                 Box(
                     modifier = Modifier.padding(
                         start = 20.dp,
@@ -90,7 +107,10 @@ fun LeaveSchool(
                         bottom = 20.dp
                     )
                 ) {
-                    BusInfo(busArrivalInfo = busArrivalInfo, toDetail = toDetail)
+                    BusInfo(
+                        busArrivalInfo = busArrivalInfo,
+                        toDetail = toDetail
+                    )
                 }
                 Divider(color = grayDivider)
             }
