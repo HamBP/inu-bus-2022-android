@@ -91,7 +91,7 @@ private fun BusList(state: LeaveSchoolViewModel.State.Success, onFilterItemClick
         ) {
             BusStopFilter(
                 filterText = state.filter,
-                options = listOf("전체", "정문", "자연대", "공과대", "송도캠"),
+                options = listOf("전체", "인천대입구", "지식정보단지"),
                 onFilterItemClicked = onFilterItemClicked,
             )
             Spacer(modifier = Modifier.weight(1f, true))

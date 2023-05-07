@@ -50,11 +50,6 @@ class LeaveSchoolViewModel @Inject constructor(
         }
     }
 
-    val currentTime = MutableStateFlow("")
-    val busList = MutableStateFlow<List<BusArrivalInfo>>(listOf())
-    val eventFlow = MutableSharedFlow<Event>()
-
-
     fun updateBusList(where: String) { // 1 : 인천대입구, 2 : 지식정보단지, 3 : 정문, 4 : 공과대
         _state.value = State.Loading
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
