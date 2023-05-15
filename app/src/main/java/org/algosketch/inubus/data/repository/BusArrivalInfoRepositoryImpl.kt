@@ -4,19 +4,30 @@ import org.algosketch.inubus.data.datasource.CachedDataSource
 import org.algosketch.inubus.data.datasource.RemoteDataSource
 import org.algosketch.inubus.data.model.BusArrivalResponse
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
-import javax.inject.Inject
-import javax.inject.Singleton
+import org.algosketch.inubus.domain.repository.BusStop
 
 class BusArrivalInfoRepositoryImpl constructor(
     private val cachedDataSource: CachedDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : BusArrivalInfoRepository {
-    override suspend fun getBusArrival(bstopId: String): BusArrivalResponse {
-        if (cachedDataSource.isCached(bstopId))
-            return cachedDataSource.getArrivalBusTime(bstopId)
 
-        val result = remoteDataSource.getArrivalBusTime(bstopId)
-        cachedDataSource.storeData(bstopId, result)
+    private val busStopToBusStopIdMap: Map<BusStop, String> = mapOf(
+        BusStop.INU_STATION_EXIT_1 to "164000396",
+        BusStop.INU_STATION_EXIT_2 to "164000395",
+        BusStop.BIT_3 to "164000403",
+        BusStop.BIT_4 to "164000380",
+        BusStop.MAIN_GATE_OF_INU to "164000385",
+        BusStop.COLLEGE_OF_ENGINEERING to "164000377",
+    )
+
+    override suspend fun getBusArrival(busStop: BusStop): BusArrivalResponse {
+        val busStopId = busStopToBusStopIdMap[busStop]!!
+
+        if (cachedDataSource.isCached(busStopId))
+            return cachedDataSource.getArrivalBusTime(busStopId)
+
+        val result = remoteDataSource.getArrivalBusTime(busStopId)
+        cachedDataSource.storeData(busStopId, result)
         return result
     }
 }

@@ -4,6 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
+import org.algosketch.inubus.domain.repository.BusStop
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,35 +24,35 @@ class GetBusArrivalsUseCase @Inject constructor(
 
     private suspend fun fetchINU() : List<BusArrivalInfo> {
         return withContext(Dispatchers.Default) {
-            val list1 = request("164000395")
-            val list2 = request("164000396")
+            val list1 = request(BusStop.INU_STATION_EXIT_1)
+            val list2 = request(BusStop.INU_STATION_EXIT_2)
             list1 + list2
         }
     }
 
     private suspend fun fetchBIT() : List<BusArrivalInfo> {
         return withContext(Dispatchers.Default) {
-            val list1 = request("164000403")
-            val list2 = request("164000380")
+            val list1 = request(BusStop.BIT_3)
+            val list2 = request(BusStop.BIT_4)
             list1 + list2
         }
     }
 
     private suspend fun fetchGate(): List<BusArrivalInfo> {
         return withContext(Dispatchers.Default) {
-            request("164000385")
+            request(BusStop.MAIN_GATE_OF_INU)
         }
     }
 
     private suspend fun fetchCOE(): List<BusArrivalInfo> {
         return withContext(Dispatchers.Default) {
-            request("164000387")
+            request(BusStop.COLLEGE_OF_ENGINEERING)
         }
     }
 
-    private suspend fun request(bstop: String): List<BusArrivalInfo> {
+    private suspend fun request(busStop: BusStop): List<BusArrivalInfo> {
         return withContext(Dispatchers.IO) {
-            infoRepository.getBusArrival(bstop).toBusArrivals()
+            infoRepository.getBusArrival(busStop).toBusArrivals()
         }
     }
 }
