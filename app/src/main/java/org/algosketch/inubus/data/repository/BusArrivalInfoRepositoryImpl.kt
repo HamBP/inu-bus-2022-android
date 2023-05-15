@@ -11,17 +11,8 @@ class BusArrivalInfoRepositoryImpl constructor(
     private val remoteDataSource: RemoteDataSource
 ) : BusArrivalInfoRepository {
 
-    private val busStopToBusStopIdMap: Map<BusStop, String> = mapOf(
-        BusStop.INU_STATION_EXIT_1 to "164000396",
-        BusStop.INU_STATION_EXIT_2 to "164000395",
-        BusStop.BIT_3 to "164000403",
-        BusStop.BIT_4 to "164000380",
-        BusStop.MAIN_GATE_OF_INU to "164000385",
-        BusStop.COLLEGE_OF_ENGINEERING to "164000377",
-    )
-
     override suspend fun getBusArrival(busStop: BusStop): BusArrivalResponse {
-        val busStopId = busStopToBusStopIdMap[busStop]!!
+        val busStopId = busStop.toBusId()
 
         if (cachedDataSource.isCached(busStopId))
             return cachedDataSource.getArrivalBusTime(busStopId)
