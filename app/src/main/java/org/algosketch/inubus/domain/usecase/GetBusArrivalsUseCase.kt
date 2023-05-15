@@ -2,6 +2,7 @@ package org.algosketch.inubus.domain.usecase
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.algosketch.inubus.data.repository.TargetBusListRepository
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 import org.algosketch.inubus.domain.repository.BusStop
@@ -11,6 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class GetBusArrivalsUseCase @Inject constructor(
     private val infoRepository: BusArrivalInfoRepository,
+    private val targetBusListRepository: TargetBusListRepository,
 ) {
     suspend operator fun invoke(busStop: String): List<BusArrivalInfo> {
         return when(busStop) {
@@ -52,7 +54,10 @@ class GetBusArrivalsUseCase @Inject constructor(
 
     private suspend fun request(busStop: BusStop): List<BusArrivalInfo> {
         return withContext(Dispatchers.IO) {
-            infoRepository.getBusArrival(busStop).toBusArrivals()
+            val targetBusList = targetBusListRepository.getBusNumbers(busStop)
+            infoRepository.getBusArrival(busStop).toBusArrivals().filter {
+                targetBusList.contains(it.busNumber)
+            }
         }
     }
 }

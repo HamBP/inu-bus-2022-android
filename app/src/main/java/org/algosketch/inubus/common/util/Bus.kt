@@ -14,17 +14,6 @@ object Bus {
         "161000008" to "99"
     )
 
-    fun getRouteIdsByBusStop(busStop: String) : List<String> {
-        return when(busStop) {
-            "164000396" -> listOf() // 인입 1번 출구
-            "164000395" -> listOf("165000012", "165000514", "161000008", "165000020") // 인입 2번 출구
-            "164000403" -> listOf("165000008")
-            "164000380" -> listOf("161000008")
-            "164000385" -> listOf("161000008", "165000020", "165000012") // 정문 -> 인입
-            "164000377" -> listOf("165000012", "165000514", "165000515", "165000516", "165000012", "165000008") // 공대 -> 인입, 지정단
-            else -> throw Exception("no bus stop id")
-        }
-    }
 
     fun getBusColorByBusNumber(busNumber: String) : String {
         return when(busNumber) {

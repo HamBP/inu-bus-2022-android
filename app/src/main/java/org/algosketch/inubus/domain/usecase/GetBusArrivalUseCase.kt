@@ -2,12 +2,16 @@ package org.algosketch.inubus.domain.usecase
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.algosketch.inubus.data.repository.TargetBusListRepository
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 import org.algosketch.inubus.domain.repository.BusStop
 import javax.inject.Inject
 
-class GetBusArrivalUseCase @Inject constructor(private val infoRepository: BusArrivalInfoRepository) {
+class GetBusArrivalUseCase @Inject constructor(
+    private val infoRepository: BusArrivalInfoRepository,
+    private val targetBusListRepository: TargetBusListRepository,
+) {
     suspend operator fun invoke(busNumber: String, busStop: String): BusArrivalInfo {
         val busArrivals = when(busStop) {
             "인천대입구" -> fetchINU()
@@ -51,8 +55,11 @@ class GetBusArrivalUseCase @Inject constructor(private val infoRepository: BusAr
     }
 
     private suspend fun request(busStop: BusStop): List<BusArrivalInfo> {
+        val targetBusList = targetBusListRepository.getBusNumbers(busStop)
         return withContext(Dispatchers.IO) {
-            infoRepository.getBusArrival(busStop).toBusArrivals()
+            infoRepository.getBusArrival(busStop).toBusArrivals().filter {
+                targetBusList.contains(it.busNumber)
+            }
         }
     }
 }

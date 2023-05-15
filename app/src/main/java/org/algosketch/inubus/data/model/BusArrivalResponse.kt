@@ -16,7 +16,6 @@ data class BusArrivalResponse(
         val itemList = msgBody?.itemList ?: return arrayListOf()
 
         return itemList
-            .filter { Bus.getRouteIdsByBusStop(itemList[0].BSTOPID).contains(it.ROUTEID) }
             .map {
             val busNumber = Bus.busNumbers[it.ROUTEID] ?: "?"
             BusArrivalInfo(
