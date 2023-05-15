@@ -2,6 +2,7 @@ package org.algosketch.inubus.common.util
 
 object Bus {
     val busNumbers = mapOf(
+        "165000514" to "41",
         "165000515" to "42",
         "165000516" to "43",
         "165000012" to "8",
@@ -15,8 +16,8 @@ object Bus {
 
     fun getRouteIdsByBusStop(busStop: String) : List<String> {
         return when(busStop) {
-            "164000396" -> listOf("165000515", "165000516")
-            "164000395" -> listOf("165000012", "164000001", "161000008", "165000020")
+            "164000396" -> listOf() // 인입 1번 출구
+            "164000395" -> listOf("165000012", "165000514", "161000008", "165000020") // 인입 2번 출구
             "164000403" -> listOf("165000008")
             "164000380" -> listOf("161000008")
             "164000385" -> listOf("161000008", "165000020", "165000012") // 정문 -> 인입
@@ -50,7 +51,8 @@ object Bus {
                 "8" -> listOf("정문", "자연대", "공과대")
                 "98" -> listOf("정문", "자연대", "공과대", "송도캠")
                 "16", "99" -> listOf("정문")
-                "41", "42", "43", "6", "6-1" -> listOf("자연대", "공과대")
+                "6", "6-1" -> listOf("자연대", "공과대")
+                "41" -> listOf("북문", "송도캠")
                 else -> throw Exception("UNKNOWN BUS NUMBER")
             }
         }
