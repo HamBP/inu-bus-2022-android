@@ -13,7 +13,10 @@
 /captures
 .externalNativeBuild
 .cxx
+# 추가된 부분
 local.properties
 key.properties
+app/google-services.json
+bus_key.jks
 
 gradle
