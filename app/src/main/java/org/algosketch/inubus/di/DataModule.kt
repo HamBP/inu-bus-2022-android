@@ -15,7 +15,7 @@ import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModules {
+class DataModule {
 
     @Provides
     fun provideBusArrivalInfoRepository(
