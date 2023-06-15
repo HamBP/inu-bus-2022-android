@@ -3,13 +3,14 @@ package org.algosketch.inubus.domain.usecase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.algosketch.inubus.data.repository.TargetBusListRepository
+import org.algosketch.inubus.di.BusArrivalInfoRemoteRepository
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
 import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 import org.algosketch.inubus.domain.repository.BusStop
 import javax.inject.Inject
 
 class GetBusArrivalUseCase @Inject constructor(
-    private val infoRepository: BusArrivalInfoRepository,
+    @BusArrivalInfoRemoteRepository private val infoRepository: BusArrivalInfoRepository,
     private val targetBusListRepository: TargetBusListRepository,
 ) {
     suspend operator fun invoke(busNumber: String, busStop: String): BusArrivalInfo {

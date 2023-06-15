@@ -17,21 +17,20 @@ import org.algosketch.inubus.domain.repository.BusArrivalInfoRepository
 @InstallIn(SingletonComponent::class)
 class DataModule {
 
+    @BusArrivalInfoRemoteRepository
     @Provides
-    fun provideBusArrivalInfoRepository(
+    fun provideBusArrivalInfoRepository1(
         cachedDataSource: CachedDataSource,
         remoteDataSource: RemoteDataSource,
-    ): BusArrivalInfoRepository {
-        // Mock 데이터를 얻으려면 false로 변경하세요.
-        val isProduct = true
+    ): BusArrivalInfoRepository = BusArrivalInfoRepositoryImpl(
+        cachedDataSource = cachedDataSource,
+        remoteDataSource = remoteDataSource,
+    )
 
-        return if(isProduct) BusArrivalInfoRepositoryImpl(
-            cachedDataSource = cachedDataSource,
-            remoteDataSource = remoteDataSource,
-        ) else BusArrivalDummyInfoRepository(
-            dummyDataSource = DummyDataSource(),
-        )
-    }
+    @BusArrivalInfoDummyRepository
+    @Provides
+    fun provideBusArrivalInfoDummyRepository(dummyDataSource: DummyDataSource): BusArrivalInfoRepository =
+        BusArrivalDummyInfoRepository(dummyDataSource)
 
     @Provides
     fun provideBusArrivalService(): BusArrivalService = RetrofitServiceFactory.create()
