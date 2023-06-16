@@ -1,2 +1,3 @@
 rootProject.name = "INU bus"
 include ':app'
+include ':data'
