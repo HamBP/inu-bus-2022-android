@@ -1,9 +1,7 @@
 package org.algosketch.inubus.domain.usecase
 
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
 import org.algosketch.inubus.data.repository.TargetBusListRepository
 import org.algosketch.inubus.di.BusArrivalInfoRemoteRepository
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
@@ -18,7 +16,7 @@ class GetBusArrivalsUseCase @Inject constructor(
     private val targetBusListRepository: TargetBusListRepository,
 ) {
     suspend operator fun invoke(busStop: String): List<BusArrivalInfo> {
-        return when(busStop) {
+        return when (busStop) {
             "인천대입구" -> fetchINU()
             "지식정보단지" -> fetchBIT()
             "정문" -> fetchGate()
@@ -27,7 +25,7 @@ class GetBusArrivalsUseCase @Inject constructor(
         }
     }
 
-    private suspend fun fetchINU() : List<BusArrivalInfo> {
+    private suspend fun fetchINU(): List<BusArrivalInfo> {
         return coroutineScope {
             val list1 = async { request(BusStop.INU_STATION_EXIT_1) }
             val list2 = async { request(BusStop.INU_STATION_EXIT_2) }
@@ -35,7 +33,7 @@ class GetBusArrivalsUseCase @Inject constructor(
         }
     }
 
-    private suspend fun fetchBIT() : List<BusArrivalInfo> {
+    private suspend fun fetchBIT(): List<BusArrivalInfo> {
         return coroutineScope {
             val list1 = async { request(BusStop.BIT_3) }
             val list2 = async { request(BusStop.BIT_4) }
@@ -47,11 +45,9 @@ class GetBusArrivalsUseCase @Inject constructor(
     private suspend fun fetchCOE(): List<BusArrivalInfo> = request(BusStop.COLLEGE_OF_ENGINEERING)
 
     private suspend fun request(busStop: BusStop): List<BusArrivalInfo> {
-        return withContext(Dispatchers.IO) {
-            val targetBusList = targetBusListRepository.getBusNumbers(busStop)
-            infoRepository.getBusArrival(busStop).toBusArrivals().filter {
-                targetBusList.contains(it.busNumber)
-            }
+        val targetBusList = targetBusListRepository.getBusNumbers(busStop)
+        return infoRepository.getBusArrival(busStop).toBusArrivals().filter {
+            targetBusList.contains(it.busNumber)
         }
     }
 }

@@ -14,11 +14,9 @@ import javax.inject.Singleton
 @Singleton
 class TargetBusListRepository @Inject constructor() {
 
-    suspend fun getBusNumbers(targetBusStop: BusStop): List<String> {
-        return withContext(Dispatchers.IO) {
-            val busStopId = targetBusStop.toBusId()
-            getRouteIdsByBusStop(busStopId)
-        }
+    fun getBusNumbers(targetBusStop: BusStop): List<String> {
+        val busStopId = targetBusStop.toBusId()
+        return getRouteIdsByBusStop(busStopId)
     }
 
     private fun getRouteIdsByBusStop(busStop: String) : List<String> {

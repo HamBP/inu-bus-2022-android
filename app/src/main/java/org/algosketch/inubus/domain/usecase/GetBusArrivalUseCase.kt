@@ -1,9 +1,7 @@
 package org.algosketch.inubus.domain.usecase
 
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
 import org.algosketch.inubus.data.repository.TargetBusListRepository
 import org.algosketch.inubus.di.BusArrivalInfoRemoteRepository
 import org.algosketch.inubus.domain.entity.BusArrivalInfo
@@ -16,7 +14,7 @@ class GetBusArrivalUseCase @Inject constructor(
     private val targetBusListRepository: TargetBusListRepository,
 ) {
     suspend operator fun invoke(busNumber: String, busStop: String): BusArrivalInfo {
-        val busArrivals = when(busStop) {
+        val busArrivals = when (busStop) {
             "인천대입구" -> fetchINU()
             "지식정보단지" -> fetchBIT()
             "정문" -> fetchGate()
@@ -29,7 +27,7 @@ class GetBusArrivalUseCase @Inject constructor(
         } ?: BusArrivalInfo()
     }
 
-    private suspend fun fetchINU() : List<BusArrivalInfo> {
+    private suspend fun fetchINU(): List<BusArrivalInfo> {
         return coroutineScope {
             val list1 = async { request(BusStop.INU_STATION_EXIT_1) }
             val list2 = async { request(BusStop.INU_STATION_EXIT_2) }
@@ -37,7 +35,7 @@ class GetBusArrivalUseCase @Inject constructor(
         }
     }
 
-    private suspend fun fetchBIT() : List<BusArrivalInfo> {
+    private suspend fun fetchBIT(): List<BusArrivalInfo> {
         return coroutineScope {
             val list1 = async { request(BusStop.BIT_3) }
             val list2 = async { request(BusStop.BIT_4) }
@@ -50,10 +48,8 @@ class GetBusArrivalUseCase @Inject constructor(
 
     private suspend fun request(busStop: BusStop): List<BusArrivalInfo> {
         val targetBusList = targetBusListRepository.getBusNumbers(busStop)
-        return withContext(Dispatchers.IO) {
-            infoRepository.getBusArrival(busStop).toBusArrivals().filter {
-                targetBusList.contains(it.busNumber)
-            }
+        return infoRepository.getBusArrival(busStop).toBusArrivals().filter {
+            targetBusList.contains(it.busNumber)
         }
     }
 }
