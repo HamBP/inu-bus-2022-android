@@ -1,6 +1,8 @@
 package org.algosketch.inubus.domain.usecase
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import org.algosketch.inubus.data.repository.TargetBusListRepository
 import org.algosketch.inubus.di.BusArrivalInfoRemoteRepository
@@ -28,32 +30,23 @@ class GetBusArrivalUseCase @Inject constructor(
     }
 
     private suspend fun fetchINU() : List<BusArrivalInfo> {
-        return withContext(Dispatchers.Default) {
-            val list1 = request(BusStop.INU_STATION_EXIT_1)
-            val list2 = request(BusStop.INU_STATION_EXIT_2)
-            list1 + list2
+        return coroutineScope {
+            val list1 = async { request(BusStop.INU_STATION_EXIT_1) }
+            val list2 = async { request(BusStop.INU_STATION_EXIT_2) }
+            list1.await() + list2.await()
         }
     }
 
     private suspend fun fetchBIT() : List<BusArrivalInfo> {
-        return withContext(Dispatchers.Default) {
-            val list1 = request(BusStop.BIT_3)
-            val list2 = request(BusStop.BIT_4)
-            list1 + list2
+        return coroutineScope {
+            val list1 = async { request(BusStop.BIT_3) }
+            val list2 = async { request(BusStop.BIT_4) }
+            list1.await() + list2.await()
         }
     }
 
-    private suspend fun fetchGate(): List<BusArrivalInfo> {
-        return withContext(Dispatchers.Default) {
-            request(BusStop.MAIN_GATE_OF_INU)
-        }
-    }
-
-    private suspend fun fetchCOE(): List<BusArrivalInfo> {
-        return withContext(Dispatchers.Default) {
-            request(BusStop.COLLEGE_OF_ENGINEERING)
-        }
-    }
+    private suspend fun fetchGate(): List<BusArrivalInfo> = request(BusStop.MAIN_GATE_OF_INU)
+    private suspend fun fetchCOE(): List<BusArrivalInfo> = request(BusStop.COLLEGE_OF_ENGINEERING)
 
     private suspend fun request(busStop: BusStop): List<BusArrivalInfo> {
         val targetBusList = targetBusListRepository.getBusNumbers(busStop)
